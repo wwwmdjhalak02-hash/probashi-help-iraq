@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Probashi Help Iraq</title>
+    <style>
+        body { font-family: sans-serif; background: #0f172a; color: white; padding: 20px; display: flex; justify-content: center; }
+        .card { background: #1e293b; padding: 25px; border-radius: 12px; max-width: 450px; width: 100%; border: 1px solid #334155; }
+        h2 { text-align: center; color: #38bdf8; margin-top: 0; }
+        input, select, textarea { width: 100%; padding: 10px; margin: 8px 0; border-radius: 6px; border: 1px solid #475569; background: #0f172a; color: white; box-sizing: border-box; }
+        button { width: 100%; padding: 12px; background: #ef4444; color: white; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h2>PROBASHI HELP IRAQ</h2>
+        <form id="helpForm">
+            <input type="text" id="name" placeholder="আপনার নাম *" required>
+            <input type="text" id="phone" placeholder="ফোন নম্বর *" required>
+            <input type="text" id="whatsapp" placeholder="হোয়াটসঅ্যাপ/ইমো নম্বর">
+            <input type="text" id="location" placeholder="ইরাকে আপনার অবস্থান (যেমন: বাগদাদ)">
+            <select id="issue_type">
+                <option value="পাসপোর্ট সমস্যা">পাসপোর্ট সমস্যা</option>
+                <option value="আকামা/ভিসা সমস্যা">আকামা/ভিসা সমস্যা</option>
+                <option value="কাজের সমস্যা">কাজের সমস্যা</option>
+                <option value="মেডিকেল সাহায্য">মেডিকেল সাহায্য</option>
+            </select>
+            <select id="urgency">
+                <option value="সাধারণ">সাধারণ</option>
+                <option value="খুবই জরুরি">খুবই জরুরি</option>
+            </select>
+            <textarea id="issue" rows="3" placeholder="সমস্যার বিবরণ লিখুন *" required></textarea>
+            <button type="submit">অনুরোধ জমা দিন</button>
+        </form>
+    </div>
+    <script>
+        document.getElementById('helpForm').addEventListener('submit', async (e) => {
+            e.e.preventDefault ? e.preventDefault() : e.returnValue = false;
+            const data = {
+                name: document.getElementById('name').value,
+                phone: document.getElementById('phone').value,
+                whatsapp: document.getElementById('whatsapp').value,
+                location: document.getElementById('location').value,
+                issue_type: document.getElementById('issue_type').value,
+                urgency: document.getElementById('urgency').value,
+                issue: document.getElementById('issue').value
+            };
+            const res = await fetch('/api/requests', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+            const result = await res.json();
+            alert(result.message || result.error);
+            if (res.ok) location.reload();
+        });
+    </script>
+</body>
+</html>

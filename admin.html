@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+    <style>
+        body { font-family: sans-serif; background: #0f172a; color: white; padding: 20px; }
+        .pin-box { max-width: 300px; margin: 100px auto; text-align: center; background: #1e293b; padding: 20px; border-radius: 8px; }
+        input { padding: 10px; width: 80%; margin-bottom: 10px; border-radius: 4px; border: 1px solid #475569; }
+        button { padding: 10px 20px; background: #38bdf8; border: none; border-radius: 4px; color: black; font-weight: bold; cursor: pointer; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; background: #1e293b; }
+        th, td { padding: 12px; border: 1px solid #334155; text-align: left; }
+        th { background: #334155; }
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+    <div id="loginBox" class="pin-box">
+        <h3>অ্যাডমিন পিন দিন</h3>
+        <input type="password" id="pinInput" placeholder="PIN (1234)">
+        <button onclick="checkPin()">প্রবেশ করুন</button>
+    </div>
+    <div id="adminContent" class="hidden">
+        <h2>সহায়তা আবেদনের তালিকা</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>নাম</th>
+                    <th>ফোন / হোয়াটসঅ্যাপ</th>
+                    <th>অবস্থান</th>
+                    <th>সমস্যার ধরণ</th>
+                    <th>বিবরণ</th>
+                </tr>
+            </thead>
+            <tbody id="reqTable"></tbody>
+        </table>
+    </div>
+    <script>
+        function checkPin() {
+            if (document.getElementById('pinInput').value === '1234') {
+                document.getElementById('loginBox').classList.add('hidden');
+                document.getElementById('adminContent').classList.remove('hidden');
+                loadData();
+            } else { alert('ভুল পিন!'); }
+        }
+        async function loadData() {
+            const res = await fetch('/api/requests');
+            const data = await res.json();
+            document.getElementById('reqTable').innerHTML = data.map(r => `
+                <tr>
+                    <td><b>${r.name}</b></td>
+                    <td>${r.phone}<br><a href="https://wa.me/${r.whatsapp ? r.whatsapp.replace(/[^0-9]/g,'') : ''}" target="_blank" style="color:#38bdf8">WhatsApp</a></td>
+                    <td>${r.location || '-'}</td>
+                    <td>${r.issue_type} (${r.urgency})</td>
+                    <td>${r.issue}</td>
+                </tr>
+            `).join('');
+        }
+    </script>
+</body>
+</html>
