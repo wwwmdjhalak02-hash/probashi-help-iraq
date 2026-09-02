@@ -15,13 +15,16 @@
         .card { background: #1e293b; padding: 15px; border-radius: 12px; margin-bottom: 15px; border: 1px solid #334155; }
         .hero { text-align: center; padding: 20px 10px; background: linear-gradient(135deg, #1e293b, #0f172a); border-radius: 12px; border: 1px solid #38bdf8; margin-bottom: 15px; }
         .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-        .service-box { background: #334155; padding: 15px; border-radius: 8px; text-align: center; font-weight: bold; font-size: 14px; cursor: pointer; }
-        input, select, textarea { width: 100%; padding: 12px; margin: 8px 0; border-radius: 6px; border: 1px solid #475569; background: #0f172a; color: white; }
-        .btn-submit { width: 100%; padding: 12px; background: #ef4444; color: white; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; margin-top: 10px; }
+        .service-box { background: #334155; padding: 15px; border-radius: 8px; text-align: center; font-weight: bold; font-size: 14px; cursor: pointer; border: 1px solid #475569; }
+        .service-box:hover { background: #0284c7; }
+        input, select, textarea { width: 100%; padding: 12px; margin: 8px 0; border-radius: 6px; border: 1px solid #475569; background: #0f172a; color: white; font-size: 14px; }
+        .btn-submit { width: 100%; padding: 14px; background: #ef4444; color: white; border: none; border-radius: 6px; font-weight: bold; font-size: 16px; cursor: pointer; margin-top: 10px; }
         .btn-call { display: block; width: 100%; text-align: center; padding: 12px; background: #22c55e; color: white; text-decoration: none; border-radius: 6px; font-weight: bold; margin-top: 8px; }
         .nav-bar { position: fixed; bottom: 0; width: 100%; background: #1e293b; display: flex; justify-content: space-around; padding: 10px 0; border-top: 1px solid #334155; }
         .nav-item { color: #94a3b8; text-decoration: none; font-size: 12px; text-align: center; cursor: pointer; }
         .nav-item.active-nav { color: #38bdf8; font-weight: bold; }
+        .status-badge { display: inline-block; padding: 3px 8px; border-radius: 4px; font-size: 12px; background: #f59e0b; color: black; font-weight: bold; }
+        .msg-box { background: #22c55e; color: white; padding: 12px; border-radius: 6px; text-align: center; margin-bottom: 12px; display: none; }
     </style>
 </head>
 <body>
@@ -31,25 +34,33 @@
     </div>
 
     <div class="container">
+        <!-- Success Alert Message -->
+        <div id="alertMsg" class="msg-box">অনুরোধ সফলভাবে জমা হয়েছে!</div>
+
         <!-- Home Page -->
         <div id="homePage" class="page active">
             <div class="hero">
-                <h2>প্রবাসীদের সাহায্যে, সার্বক্ষণিক</h2>
-                <p style="font-size: 13px; color: #94a3b8; margin-top: 5px;">ইরাকে যেকোনো আইনি, ভিসা বা জরুরি সমস্যায় যোগাযোগ করুন</p>
+                <h2>প্রবাসীদের সাহায্য কেন্দ্র</h2>
+                <p style="font-size: 13px; color: #94a3b8; margin-top: 5px;">ইরাকে আপনার যেকোনো প্রয়োজনে আমাদের জানান</p>
             </div>
-            <h3 style="margin-bottom: 10px; color: #38bdf8;">আমাদের সেবাসমূহ</h3>
+            
+            <h3 style="margin-bottom: 10px; color: #38bdf8;">সেবা নির্বাচন করুন</h3>
             <div class="grid">
-                <div class="service-box" onclick="showPage('formPage')">⚖️ আইনি সহায়তা</div>
-                <div class="service-box" onclick="showPage('formPage')">📄 আকামা / ভিসা</div>
-                <div class="service-box" onclick="showPage('formPage')">💼 কাজের সমস্যা</div>
-                <div class="service-box" onclick="showPage('formPage')">🏥 মেডিকেল সেবা</div>
+                <div class="service-box" onclick="showPage('formPage', 'পাসপোর্ট সমস্যা')">⚖️ আইনি সহায়তা</div>
+                <div class="service-box" onclick="showPage('formPage', 'আকামা/ভিসা সমস্যা')">📄 আকামা / ভিসা</div>
+                <div class="service-box" onclick="showPage('formPage', 'কাজের সমস্যা')">💼 কাজের সমস্যা</div>
+                <div class="service-box" onclick="showPage('formPage', 'মেডিকেল সাহায্য')">🏥 মেডিকেল সেবা</div>
             </div>
+
+            <!-- Dashboard/My Requests Section -->
+            <h3 style="margin: 20px 0 10px 0; color: #38bdf8;">সাম্প্রতিক সাহায্যের আবেদনসমূহ</h3>
+            <div id="recentRequests">গাড়ির তথ্য লোড হচ্ছে...</div>
         </div>
 
         <!-- Help Form Page -->
         <div id="formPage" class="page">
             <div class="card">
-                <h3 style="color: #ef4444; margin-bottom: 10px; text-align: center;">সাহায্যের আবেদন</h3>
+                <h3 style="color: #ef4444; margin-bottom: 10px; text-align: center;">সাহায্যের আবেদন ফর্ম</h3>
                 <form id="helpForm">
                     <input type="text" id="name" placeholder="আপনার নাম *" required>
                     <input type="text" id="phone" placeholder="ফোন নম্বর *" required>
@@ -85,16 +96,50 @@
 
     <!-- Bottom Navigation -->
     <div class="nav-bar">
-        <div class="nav-item active-nav" onclick="showPage('homePage')">🏠<br>হোম</div>
-        <div class="nav-item" onclick="showPage('formPage')">📝<br>আবেদন</div>
-        <div class="nav-item" onclick="showPage('hotlinePage')">📞<br>জরুরি কল</div>
+        <div class="nav-item active-nav" id="navHome" onclick="showPage('homePage')">🏠<br>হোম</div>
+        <div class="nav-item" id="navForm" onclick="showPage('formPage')">📝<br>আবেদন</div>
+        <div class="nav-item" id="navCall" onclick="showPage('hotlinePage')">📞<br>জরুরি কল</div>
         <a href="/admin" class="nav-item" style="color: #94a3b8; text-decoration: none;">🔑<br>অ্যাডমিন</a>
     </div>
 
     <script>
-        function showPage(pageId) {
+        function showPage(pageId, category = '') {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active-nav'));
+            
             document.getElementById(pageId).classList.add('active');
+
+            if (pageId === 'homePage') document.getElementById('navHome').classList.add('active-nav');
+            if (pageId === 'formPage') {
+                document.getElementById('navForm').classList.add('active-nav');
+                if(category) document.getElementById('issue_type').value = category;
+            }
+            if (pageId === 'hotlinePage') document.getElementById('navCall').classList.add('active-nav');
+
+            if(pageId === 'homePage') loadUserRequests();
+        }
+
+        async function loadUserRequests() {
+            try {
+                const res = await fetch('/api/requests');
+                const data = await res.json();
+                if(data.length === 0) {
+                    document.getElementById('recentRequests').innerHTML = '<div class="card" style="text-align:center; color:#94a3b8;">এখনো কোনো আবেদন জমা হয়নি।</div>';
+                    return;
+                }
+                document.getElementById('recentRequests').innerHTML = data.slice(0, 5).map(r => `
+                    <div class="card">
+                        <div style="display:flex; justify-size:space-between; justify-content:space-between; align-items:center;">
+                            <strong>${r.name} (${r.location || 'ইরাক'})</strong>
+                            <span class="status-badge">${r.status || 'Pending'}</span>
+                        </div>
+                        <p style="font-size: 13px; color: #38bdf8; margin: 5px 0;">বিষয়: ${r.issue_type}</p>
+                        <p style="font-size: 13px; color: #cbd5e1;">"${r.issue}"</p>
+                    </div>
+                `).join('');
+            } catch(e) {
+                document.getElementById('recentRequests').innerHTML = '<div class="card">ডাটা লোড করা যায়নি।</div>';
+            }
         }
 
         document.getElementById('helpForm').addEventListener('submit', async (e) => {
@@ -108,18 +153,26 @@
                 urgency: document.getElementById('urgency').value,
                 issue: document.getElementById('issue').value
             };
+
             const res = await fetch('/api/requests', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(data)
             });
-            const result = await res.json();
-            alert(result.message || result.error);
+
             if (res.ok) {
+                const msg = document.getElementById('alertMsg');
+                msg.style.display = 'block';
+                setTimeout(() => { msg.style.display = 'none'; }, 3000);
                 document.getElementById('helpForm').reset();
                 showPage('homePage');
+            } else {
+                alert('আবেদন জমা দিতে সমস্যা হয়েছে, আবার চেষ্টা করুন।');
             }
         });
+
+        // Initial Load
+        loadUserRequests();
     </script>
 </body>
 </html>
