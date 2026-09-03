@@ -60,3 +60,45 @@
     </script>
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>অ্যাডমিন প্যানেল - Probashi Help Iraq</title>
+    <style>
+        body { font-family: sans-serif; background-color: #0f172a; color: #fff; margin: 0; padding: 16px; }
+        h2 { color: #38bdf8; text-align: center; }
+        .req-card { background: #1e293b; padding: 16px; border-radius: 10px; margin-bottom: 12px; border: 1px solid #334155; }
+        .user-name { font-weight: bold; color: #f8fafc; font-size: 16px; }
+        .req-type { color: #38bdf8; font-size: 13px; margin: 4px 0; }
+        .req-desc { color: #cbd5e1; font-size: 14px; margin-bottom: 12px; }
+        .actions { display: flex; gap: 8px; }
+        .btn { flex: 1; padding: 10px; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; color: #fff; }
+        .btn-accept { background-color: #22c55e; }
+        .btn-reject { background-color: #ef4444; }
+        .status-badge { display: inline-block; padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <h2>আবেদন ম্যানেজমেন্ট</h2>
+
+    <div class="req-card" id="req-1">
+        <div class="user-name">মোহাম্মদ রহিম</div>
+        <div class="req-type">📌 সেবা: জরুরি আকামা সাহায্য</div>
+        <div class="req-desc">মেয়াদ শেষ হয়ে গেছে, আইনি সহায়তার আবেদন করা হয়েছে।</div>
+        <div class="actions">
+            <button class="btn btn-accept" onclick="updateStatus('req-1', 'Accepted')">Accept</button>
+            <button class="btn btn-reject" onclick="updateStatus('req-1', 'Rejected')">Reject</button>
+        </div>
+    </div>
+
+    <script>
+        function updateStatus(id, status) {
+            const card = document.getElementById(id);
+            const color = status === 'Accepted' ? '#22c55e' : '#ef4444';
+            card.querySelector('.actions').innerHTML = `<span class="status-badge" style="background:${color}">${status}</span>`;
+        }
+    </script>
+</body>
+</html>
