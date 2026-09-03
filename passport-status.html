@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>পাসপোর্ট স্ট্যাটাস - প্রবাসী সাহায্য</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-slate-900 text-white min-h-screen p-4 flex items-center justify-center">
+    <div class="bg-slate-800 border border-slate-700 p-6 rounded-2xl w-full max-w-md">
+        <div class="flex justify-between items-center mb-6">
+            <a href="home.html" class="text-slate-400 hover:text-white"><i class="fas fa-arrow-left"></i></a>
+            <h1 class="text-lg font-bold text-amber-500">পাসপোর্ট ট্র্যাকিং</h1>
+            <div class="w-4"></div>
+        </div>
+
+        <div class="space-y-4">
+            <div>
+                <label class="block text-xs text-slate-300 mb-1">আবেদন বা পাসপোর্ট নম্বর</label>
+                <input type="text" placeholder="যেমন: E12345678" class="w-full bg-slate-900 border border-slate-700 p-3 rounded-xl text-sm">
+            </div>
+            <button onclick="checkStatus()" class="w-full bg-amber-500 text-slate-900 font-bold py-3 rounded-xl">স্ট্যাটাস চেক করুন</button>
+
+            <div id="statusResult" class="hidden mt-4 p-4 bg-slate-900 rounded-xl border border-slate-700 text-center">
+                <i class="fas fa-spinner fa-spin text-amber-500 text-2xl mb-2"></i>
+                <p class="text-sm font-semibold text-slate-200">প্রসেসিং চলছে...</p>
+                <p class="text-xs text-slate-400 mt-1">আবেদনটির তথ্য যাচাই করা হচ্ছে</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function checkStatus() {
+            document.getElementById('statusResult').classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
