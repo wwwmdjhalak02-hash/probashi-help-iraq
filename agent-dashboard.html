@@ -1,0 +1,1205 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Agent Dashboard | Probashi Help</title>
+
+<style>
+:root{
+  --bg:#07111f;
+  --surface:#0d1b2a;
+  --surface2:#11243a;
+  --border:rgba(255,255,255,.09);
+  --text:#f5f7fa;
+  --muted:#94a3b8;
+  --primary:#19c3a3;
+  --blue:#4f8cff;
+  --orange:#f59e0b;
+  --red:#ef4444;
+  --green:#22c55e;
+  --shadow:0 20px 50px rgba(0,0,0,.25);
+}
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  font-family:
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    "Noto Sans Bengali",
+    sans-serif;
+  background:
+    radial-gradient(
+      circle at top right,
+      rgba(25,195,163,.08),
+      transparent 30%
+    ),
+    linear-gradient(
+      135deg,
+      #06101d,
+      #091827 55%,
+      #07111f
+    );
+  color:var(--text);
+  min-height:100vh;
+}
+
+button{
+  font:inherit;
+}
+
+.app{
+  display:flex;
+  min-height:100vh;
+}
+
+/* =========================
+   SIDEBAR
+========================= */
+
+.sidebar{
+  width:260px;
+  background:rgba(7,17,31,.97);
+  border-right:1px solid var(--border);
+  padding:24px 16px;
+  position:fixed;
+  inset:0 auto 0 0;
+  z-index:100;
+  transition:.3s ease;
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:8px 10px 26px;
+  border-bottom:1px solid var(--border);
+  margin-bottom:20px;
+}
+
+.brand-logo{
+  width:44px;
+  height:44px;
+  border-radius:13px;
+  display:grid;
+  place-items:center;
+  background:
+    linear-gradient(
+      135deg,
+      var(--primary),
+      var(--blue)
+    );
+  font-size:21px;
+  font-weight:800;
+  box-shadow:
+    0 10px 25px rgba(25,195,163,.2);
+}
+
+.brand h2{
+  font-size:16px;
+}
+
+.brand span{
+  display:block;
+  color:var(--muted);
+  font-size:11px;
+  margin-top:3px;
+}
+
+.nav-title{
+  color:#64748b;
+  font-size:10px;
+  letter-spacing:1.4px;
+  text-transform:uppercase;
+  margin:18px 10px 9px;
+}
+
+.nav-item{
+  width:100%;
+  border:0;
+  background:transparent;
+  color:#b8c4d4;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:12px 13px;
+  margin-bottom:5px;
+  border-radius:11px;
+  cursor:pointer;
+  text-align:left;
+  transition:.2s;
+}
+
+.nav-item:hover{
+  background:rgba(255,255,255,.05);
+  color:white;
+}
+
+.nav-item.active{
+  background:
+    linear-gradient(
+      90deg,
+      rgba(25,195,163,.16),
+      rgba(25,195,163,.04)
+    );
+  color:#5eead4;
+  border-left:3px solid var(--primary);
+}
+
+.nav-icon{
+  width:22px;
+  text-align:center;
+  font-size:17px;
+}
+
+.badge{
+  margin-left:auto;
+  background:var(--red);
+  color:white;
+  font-size:10px;
+  min-width:20px;
+  height:20px;
+  padding:0 6px;
+  border-radius:10px;
+  display:grid;
+  place-items:center;
+}
+
+/* =========================
+   MAIN
+========================= */
+
+.main{
+  margin-left:260px;
+  width:calc(100% - 260px);
+  padding:24px;
+}
+
+.topbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:28px;
+  gap:20px;
+}
+
+.mobile-menu{
+  display:none;
+}
+
+.welcome h1{
+  font-size:clamp(22px,3vw,31px);
+  margin-bottom:6px;
+}
+
+.welcome p{
+  color:var(--muted);
+  font-size:14px;
+}
+
+.top-actions{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.icon-btn{
+  width:42px;
+  height:42px;
+  border:1px solid var(--border);
+  background:var(--surface);
+  color:white;
+  border-radius:12px;
+  cursor:pointer;
+  position:relative;
+}
+
+.notification-dot{
+  position:absolute;
+  width:8px;
+  height:8px;
+  background:var(--red);
+  border-radius:50%;
+  right:9px;
+  top:8px;
+  border:2px solid var(--surface);
+}
+
+.profile{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:5px 9px 5px 5px;
+  border:1px solid var(--border);
+  background:var(--surface);
+  border-radius:13px;
+}
+
+.avatar{
+  width:34px;
+  height:34px;
+  display:grid;
+  place-items:center;
+  border-radius:10px;
+  background:
+    linear-gradient(
+      135deg,
+      var(--blue),
+      var(--primary)
+    );
+  font-weight:700;
+}
+
+.profile small{
+  color:var(--muted);
+  display:block;
+  font-size:10px;
+}
+
+/* =========================
+   STATISTICS
+========================= */
+
+.stats{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:15px;
+  margin-bottom:20px;
+}
+
+.stat-card{
+  background:rgba(13,27,42,.88);
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:20px;
+  box-shadow:var(--shadow);
+}
+
+.stat-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:17px;
+}
+
+.stat-icon{
+  width:43px;
+  height:43px;
+  display:grid;
+  place-items:center;
+  border-radius:12px;
+  background:rgba(79,140,255,.12);
+  font-size:19px;
+}
+
+.stat-card:nth-child(2) .stat-icon{
+  background:rgba(25,195,163,.12);
+}
+
+.stat-card:nth-child(3) .stat-icon{
+  background:rgba(245,158,11,.12);
+}
+
+.stat-card:nth-child(4) .stat-icon{
+  background:rgba(239,68,68,.12);
+}
+
+.stat-label{
+  color:var(--muted);
+  font-size:12px;
+}
+
+.stat-value{
+  font-size:27px;
+  font-weight:750;
+  margin-bottom:5px;
+}
+
+.stat-change{
+  color:var(--green);
+  font-size:11px;
+}
+
+/* =========================
+   DASHBOARD GRID
+========================= */
+
+.dashboard-grid{
+  display:grid;
+  grid-template-columns:1.5fr 1fr;
+  gap:20px;
+}
+
+.card{
+  background:rgba(13,27,42,.88);
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:20px;
+  box-shadow:var(--shadow);
+}
+
+.card-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  margin-bottom:18px;
+}
+
+.card-title{
+  font-size:16px;
+  font-weight:700;
+}
+
+.card-subtitle{
+  color:var(--muted);
+  font-size:11px;
+  margin-top:3px;
+}
+
+.view-all{
+  color:#5eead4;
+  border:0;
+  background:transparent;
+  cursor:pointer;
+  font-size:12px;
+}
+
+/* =========================
+   REQUESTS
+========================= */
+
+.request{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:13px 0;
+  border-bottom:1px solid var(--border);
+}
+
+.request:last-child{
+  border-bottom:0;
+}
+
+.request-avatar{
+  width:39px;
+  height:39px;
+  border-radius:11px;
+  background:#172b40;
+  display:grid;
+  place-items:center;
+  flex-shrink:0;
+}
+
+.request-info{
+  flex:1;
+  min-width:0;
+}
+
+.request-info strong{
+  display:block;
+  font-size:13px;
+}
+
+.request-info span{
+  color:var(--muted);
+  font-size:11px;
+}
+
+.status{
+  padding:5px 9px;
+  border-radius:20px;
+  font-size:10px;
+  white-space:nowrap;
+}
+
+.status.pending{
+  background:rgba(245,158,11,.12);
+  color:#fbbf24;
+}
+
+.status.active{
+  background:rgba(34,197,94,.12);
+  color:#4ade80;
+}
+
+.status.closed{
+  background:rgba(148,163,184,.12);
+  color:#94a3b8;
+}
+
+/* =========================
+   QUICK ACTIONS
+========================= */
+
+.quick-actions{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+}
+
+.quick-btn{
+  background:#0a1828;
+  border:1px solid var(--border);
+  color:#dbe5ef;
+  padding:17px 12px;
+  border-radius:13px;
+  cursor:pointer;
+  text-align:left;
+  transition:.2s;
+}
+
+.quick-btn:hover{
+  border-color:rgba(25,195,163,.4);
+  transform:translateY(-2px);
+}
+
+.quick-btn b{
+  display:block;
+  margin-top:8px;
+  font-size:12px;
+}
+
+.quick-btn span{
+  color:var(--muted);
+  font-size:10px;
+}
+
+/* =========================
+   ACTIVITY
+========================= */
+
+.activity{
+  margin-top:20px;
+}
+
+.activity-item{
+  display:flex;
+  gap:12px;
+  padding:13px 0;
+  border-bottom:1px solid var(--border);
+}
+
+.activity-dot{
+  width:9px;
+  height:9px;
+  margin-top:5px;
+  border-radius:50%;
+  background:var(--primary);
+  flex-shrink:0;
+}
+
+.activity-item p{
+  font-size:12px;
+  line-height:1.5;
+}
+
+.activity-item small{
+  color:var(--muted);
+  font-size:10px;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:1050px){
+
+  .stats{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .dashboard-grid{
+    grid-template-columns:1fr;
+  }
+}
+
+@media(max-width:760px){
+
+  .sidebar{
+    transform:translateX(-100%);
+  }
+
+  .sidebar.open{
+    transform:translateX(0);
+  }
+
+  .main{
+    margin-left:0;
+    width:100%;
+    padding:16px;
+  }
+
+  .mobile-menu{
+    display:grid;
+    place-items:center;
+    width:40px;
+    height:40px;
+    border:1px solid var(--border);
+    background:var(--surface);
+    color:white;
+    border-radius:11px;
+    cursor:pointer;
+  }
+
+  .topbar{
+    align-items:flex-start;
+  }
+
+  .welcome{
+    flex:1;
+  }
+
+  .welcome h1{
+    font-size:20px;
+  }
+
+  .profile{
+    display:none;
+  }
+
+  .stats{
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+  }
+
+  .stat-card{
+    padding:15px;
+  }
+
+  .stat-value{
+    font-size:22px;
+  }
+
+  .stat-icon{
+    width:37px;
+    height:37px;
+  }
+}
+
+@media(max-width:430px){
+
+  .card{
+    padding:15px;
+  }
+
+  .request{
+    align-items:flex-start;
+  }
+
+  .status{
+    font-size:9px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<!-- SIDEBAR -->
+
+<aside class="sidebar" id="sidebar">
+
+  <div class="brand">
+
+    <div class="brand-logo">
+      PH
+    </div>
+
+    <div>
+      <h2>Probashi Help</h2>
+      <span>Iraq • Agent Portal</span>
+    </div>
+
+  </div>
+
+  <div class="nav-title">
+    Dashboard
+  </div>
+
+  <button class="nav-item active">
+    <span class="nav-icon">⌂</span>
+    Overview
+  </button>
+
+  <button class="nav-item">
+    <span class="nav-icon">👥</span>
+    My Users
+    <span class="badge">12</span>
+  </button>
+
+  <button class="nav-item">
+    <span class="nav-icon">💬</span>
+    Messages
+    <span class="badge">4</span>
+  </button>
+
+  <button class="nav-item">
+    <span class="nav-icon">📋</span>
+    Service Requests
+  </button>
+
+  <div class="nav-title">
+    Management
+  </div>
+
+  <button class="nav-item">
+    <span class="nav-icon">📢</span>
+    Notices
+  </button>
+
+  <button class="nav-item">
+    <span class="nav-icon">💼</span>
+    Jobs
+  </button>
+
+  <button class="nav-item">
+    <span class="nav-icon">🖼️</span>
+    Gallery
+  </button>
+
+  <div class="nav-title">
+    Account
+  </div>
+
+  <button class="nav-item">
+    <span class="nav-icon">⚙️</span>
+    Settings
+  </button>
+
+  <button class="nav-item" onclick="logout()">
+    <span class="nav-icon">↪</span>
+    Logout
+  </button>
+
+</aside>
+
+
+<!-- MAIN CONTENT -->
+
+<main class="main">
+
+<header class="topbar">
+
+  <button
+    class="mobile-menu"
+    onclick="toggleSidebar()">
+    ☰
+  </button>
+
+  <div class="welcome">
+
+    <h1>
+      স্বাগতম, Agent 👋
+    </h1>
+
+    <p>
+      আপনার Probashi Help Agent Dashboard থেকে সবকিছু পরিচালনা করুন।
+    </p>
+
+  </div>
+
+  <div class="top-actions">
+
+    <button class="icon-btn">
+      🔔
+      <span class="notification-dot"></span>
+    </button>
+
+    <div class="profile">
+
+      <div class="avatar">
+        A
+      </div>
+
+      <div>
+
+        <strong>
+          Agent
+        </strong>
+
+        <small>
+          Verified Agent
+        </small>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</header>
+
+
+<!-- STATISTICS -->
+
+<section class="stats">
+
+  <div class="stat-card">
+
+    <div class="stat-top">
+
+      <div>
+        <div class="stat-label">
+          Total Users
+        </div>
+      </div>
+
+      <div class="stat-icon">
+        👥
+      </div>
+
+    </div>
+
+    <div class="stat-value">
+      248
+    </div>
+
+    <div class="stat-change">
+      ↑ 12% this month
+    </div>
+
+  </div>
+
+
+  <div class="stat-card">
+
+    <div class="stat-top">
+
+      <div>
+        <div class="stat-label">
+          Active Requests
+        </div>
+      </div>
+
+      <div class="stat-icon">
+        ✓
+      </div>
+
+    </div>
+
+    <div class="stat-value">
+      36
+    </div>
+
+    <div class="stat-change">
+      ↑ 8 new today
+    </div>
+
+  </div>
+
+
+  <div class="stat-card">
+
+    <div class="stat-top">
+
+      <div>
+        <div class="stat-label">
+          Pending
+        </div>
+      </div>
+
+      <div class="stat-icon">
+        ⏳
+      </div>
+
+    </div>
+
+    <div class="stat-value">
+      14
+    </div>
+
+    <div class="stat-change">
+      Need attention
+    </div>
+
+  </div>
+
+
+  <div class="stat-card">
+
+    <div class="stat-top">
+
+      <div>
+        <div class="stat-label">
+          Messages
+        </div>
+      </div>
+
+      <div class="stat-icon">
+        💬
+      </div>
+
+    </div>
+
+    <div class="stat-value">
+      27
+    </div>
+
+    <div class="stat-change">
+      4 unread
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- DASHBOARD CONTENT -->
+
+<section class="dashboard-grid">
+
+
+<!-- SERVICE REQUESTS -->
+
+<div class="card">
+
+  <div class="card-header">
+
+    <div>
+
+      <div class="card-title">
+        সাম্প্রতিক Service Requests
+      </div>
+
+      <div class="card-subtitle">
+        আপনার assigned requests
+      </div>
+
+    </div>
+
+    <button class="view-all">
+      সব দেখুন →
+    </button>
+
+  </div>
+
+
+  <div class="request">
+
+    <div class="request-avatar">
+      👤
+    </div>
+
+    <div class="request-info">
+
+      <strong>
+        রাকিব হাসান
+      </strong>
+
+      <span>
+        Passport Assistance • 8 min ago
+      </span>
+
+    </div>
+
+    <span class="status pending">
+      Pending
+    </span>
+
+  </div>
+
+
+  <div class="request">
+
+    <div class="request-avatar">
+      👤
+    </div>
+
+    <div class="request-info">
+
+      <strong>
+        মোঃ সোহেল
+      </strong>
+
+      <span>
+        Job Assistance • 21 min ago
+      </span>
+
+    </div>
+
+    <span class="status active">
+      Active
+    </span>
+
+  </div>
+
+
+  <div class="request">
+
+    <div class="request-avatar">
+      👤
+    </div>
+
+    <div class="request-info">
+
+      <strong>
+        আব্দুল্লাহ
+      </strong>
+
+      <span>
+        Document Help • 1 hour ago
+      </span>
+
+    </div>
+
+    <span class="status pending">
+      Pending
+    </span>
+
+  </div>
+
+
+  <div class="request">
+
+    <div class="request-avatar">
+      👤
+    </div>
+
+    <div class="request-info">
+
+      <strong>
+        শামীম আহমেদ
+      </strong>
+
+      <span>
+        General Support • 2 hours ago
+      </span>
+
+    </div>
+
+    <span class="status closed">
+      Closed
+    </span>
+
+  </div>
+
+</div>
+
+
+<!-- QUICK ACTIONS -->
+
+<div class="card">
+
+  <div class="card-header">
+
+    <div>
+
+      <div class="card-title">
+        Quick Actions
+      </div>
+
+      <div class="card-subtitle">
+        দ্রুত কাজ শুরু করুন
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div class="quick-actions">
+
+    <button class="quick-btn">
+
+      👥
+
+      <b>
+        Users
+      </b>
+
+      <span>
+        ব্যবহারকারী দেখুন
+      </span>
+
+    </button>
+
+
+    <button class="quick-btn">
+
+      💬
+
+      <b>
+        Messages
+      </b>
+
+      <span>
+        মেসেজের উত্তর দিন
+      </span>
+
+    </button>
+
+
+    <button class="quick-btn">
+
+      📋
+
+      <b>
+        Requests
+      </b>
+
+      <span>
+        নতুন request দেখুন
+      </span>
+
+    </button>
+
+
+    <button class="quick-btn">
+
+      📢
+
+      <b>
+        Notice
+      </b>
+
+      <span>
+        নোটিশ প্রকাশ করুন
+      </span>
+
+    </button>
+
+  </div>
+
+</div>
+
+</section>
+
+
+<!-- RECENT ACTIVITY -->
+
+<section class="card activity">
+
+  <div class="card-header">
+
+    <div>
+
+      <div class="card-title">
+        Recent Activity
+      </div>
+
+      <div class="card-subtitle">
+        সর্বশেষ কার্যক্রম
+      </div>
+
+    </div>
+
+    <button class="view-all">
+      View all →
+    </button>
+
+  </div>
+
+
+  <div class="activity-item">
+
+    <span class="activity-dot"></span>
+
+    <div>
+
+      <p>
+        <strong>
+          রাকিব হাসান
+        </strong>
+
+        একটি নতুন service request পাঠিয়েছেন।
+      </p>
+
+      <small>
+        8 minutes ago
+      </small>
+
+    </div>
+
+  </div>
+
+
+  <div class="activity-item">
+
+    <span class="activity-dot"></span>
+
+    <div>
+
+      <p>
+        <strong>
+          সোহেল
+        </strong>
+
+        আপনার message-এর উত্তর পেয়েছেন।
+      </p>
+
+      <small>
+        21 minutes ago
+      </small>
+
+    </div>
+
+  </div>
+
+
+  <div class="activity-item">
+
+    <span class="activity-dot"></span>
+
+    <div>
+
+      <p>
+        একটি নতুন user account তৈরি হয়েছে।
+      </p>
+
+      <small>
+        1 hour ago
+      </small>
+
+    </div>
+
+  </div>
+
+</section>
+
+</main>
+
+</div>
+
+
+<script>
+
+function toggleSidebar(){
+
+  document
+    .getElementById("sidebar")
+    .classList
+    .toggle("open");
+
+}
+
+
+function logout(){
+
+  const confirmed =
+    confirm("আপনি কি Logout করতে চান?");
+
+  if(confirmed){
+
+    alert(
+      "Existing authentication system-এর logout function এখানে যুক্ত হবে।"
+    );
+
+  }
+
+}
+
+</script>
+
+</body>
+</html>
