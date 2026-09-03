@@ -3,72 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Panel</title>
-    <style>
-        body { font-family: sans-serif; background: #0f172a; color: white; padding: 20px; }
-        .pin-box { max-width: 300px; margin: 100px auto; text-align: center; background: #1e293b; padding: 20px; border-radius: 8px; }
-        input { padding: 10px; width: 80%; margin-bottom: 10px; border-radius: 4px; border: 1px solid #475569; }
-        button { padding: 10px 20px; background: #38bdf8; border: none; border-radius: 4px; color: black; font-weight: bold; cursor: pointer; }
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; background: #1e293b; }
-        th, td { padding: 12px; border: 1px solid #334155; text-align: left; }
-        th { background: #334155; }
-        .hidden { display: none; }
-    </style>
-</head>
-<body>
-    <div id="loginBox" class="pin-box">
-        <h3>অ্যাডমিন পিন দিন</h3>
-        <input type="password" id="pinInput" placeholder="PIN (1234)">
-        <button onclick="checkPin()">প্রবেশ করুন</button>
-    </div>
-    <div id="adminContent" class="hidden">
-        <h2>সহায়তা আবেদনের তালিকা</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>নাম</th>
-                    <th>ফোন / হোয়াটসঅ্যাপ</th>
-                    <th>অবস্থান</th>
-                    <th>সমস্যার ধরণ</th>
-                    <th>বিবরণ</th>
-                </tr>
-            </thead>
-            <tbody id="reqTable"></tbody>
-        </table>
-    </div>
-    <script>
-        function checkPin() {
-            if (document.getElementById('pinInput').value === '1234') {
-                document.getElementById('loginBox').classList.add('hidden');
-                document.getElementById('adminContent').classList.remove('hidden');
-                loadData();
-            } else { alert('ভুল পিন!'); }
-        }
-        async function loadData() {
-            const res = await fetch('/api/requests');
-            const data = await res.json();
-            document.getElementById('reqTable').innerHTML = data.map(r => `
-                <tr>
-                    <td><b>${r.name}</b></td>
-                    <td>${r.phone}<br><a href="https://wa.me/${r.whatsapp ? r.whatsapp.replace(/[^0-9]/g,'') : ''}" target="_blank" style="color:#38bdf8">WhatsApp</a></td>
-                    <td>${r.location || '-'}</td>
-                    <td>${r.issue_type} (${r.urgency})</td>
-                    <td>${r.issue}</td>
-                </tr>
-            `).join('');
-        }
-    </script>
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="bn">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>অ্যাডমিন প্যানেল - Probashi Help Iraq</title>
     <style>
         body { font-family: sans-serif; background-color: #0f172a; color: #fff; margin: 0; padding: 16px; }
-        h2 { color: #38bdf8; text-align: center; }
+        h2, h3 { color: #38bdf8; text-align: center; }
+        .pin-box { max-width: 320px; margin: 60px auto; background: #1e293b; padding: 24px; border-radius: 12px; border: 1px solid #334155; text-align: center; }
+        .pin-box input { width: 80%; padding: 10px; margin: 12px 0; border-radius: 6px; border: 1px solid #475569; background: #0f172a; color: #fff; text-align: center; font-size: 18px; }
+        .pin-box button { width: 85%; padding: 10px; background: #2563eb; color: #fff; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; }
+        .hidden { display: none; }
         .req-card { background: #1e293b; padding: 16px; border-radius: 10px; margin-bottom: 12px; border: 1px solid #334155; }
         .user-name { font-weight: bold; color: #f8fafc; font-size: 16px; }
         .req-type { color: #38bdf8; font-size: 13px; margin: 4px 0; }
@@ -77,23 +19,44 @@
         .btn { flex: 1; padding: 10px; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; color: #fff; }
         .btn-accept { background-color: #22c55e; }
         .btn-reject { background-color: #ef4444; }
-        .status-badge { display: inline-block; padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: bold; }
+        .status-badge { display: inline-block; padding: 6px 12px; border-radius: 4px; font-size: 13px; font-weight: bold; width: 100%; text-align: center; }
     </style>
 </head>
 <body>
-    <h2>আবেদন ম্যানেজমেন্ট</h2>
 
-    <div class="req-card" id="req-1">
-        <div class="user-name">মোহাম্মদ রহিম</div>
-        <div class="req-type">📌 সেবা: জরুরি আকামা সাহায্য</div>
-        <div class="req-desc">মেয়াদ শেষ হয়ে গেছে, আইনি সহায়তার আবেদন করা হয়েছে।</div>
-        <div class="actions">
-            <button class="btn btn-accept" onclick="updateStatus('req-1', 'Accepted')">Accept</button>
-            <button class="btn btn-reject" onclick="updateStatus('req-1', 'Rejected')">Reject</button>
+    <!-- সিকিউরিটি পিন লক -->
+    <div id="loginBox" class="pin-box">
+        <h3>অ্যাডমিন পিন দিন</h3>
+        <input type="password" id="pinInput" placeholder="****">
+        <button onclick="checkPin()">প্রবেশ করুন</button>
+    </div>
+
+    <!-- মূল ড্যাশবোর্ড -->
+    <div id="adminContent" class="hidden">
+        <h2>আবেদন ম্যানেজমেন্ট প্যানেল</h2>
+
+        <div class="req-card" id="req-1">
+            <div class="user-name">মোহাম্মদ রহিম</div>
+            <div class="req-type">📌 সেবা: জরুরি আকামা সাহায্য</div>
+            <div class="req-desc">মেয়াদ শেষ হয়ে গেছে, আইনি সহায়তার আবেদন করা হয়েছে।</div>
+            <div class="actions">
+                <button class="btn btn-accept" onclick="updateStatus('req-1', 'Accepted')">Accept</button>
+                <button class="btn btn-reject" onclick="updateStatus('req-1', 'Rejected')">Reject</button>
+            </div>
         </div>
     </div>
 
     <script>
+        function checkPin() {
+            const pin = document.getElementById('pinInput').value;
+            if (pin === '1234') { // ডিফল্ট পিন: 1234
+                document.getElementById('loginBox').classList.add('hidden');
+                document.getElementById('adminContent').classList.remove('hidden');
+            } else {
+                alert('ভুল পিন নম্বর!');
+            }
+        }
+
         function updateStatus(id, status) {
             const card = document.getElementById(id);
             const color = status === 'Accepted' ? '#22c55e' : '#ef4444';
