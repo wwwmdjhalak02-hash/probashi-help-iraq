@@ -3,94 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>প্রবাসী সাহায্য - হোম</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
+    <title>Probashi Help Iraq</title>
+    <style>
+        body { font-family: sans-serif; background-color: #0f172a; color: #fff; margin: 0; padding: 16px; text-align: center; }
+        .header { margin-bottom: 24px; }
+        .header h1 { color: #38bdf8; font-size: 22px; margin-bottom: 4px; }
+        .header p { color: #94a3b8; font-size: 13px; margin: 0; }
+        .grid-menu { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 16px; }
+        .menu-btn { background: #1e293b; color: #f8fafc; text-decoration: none; padding: 18px 10px; border-radius: 12px; border: 1px solid #334155; font-size: 14px; font-weight: bold; display: flex; flex-direction: column; align-items: center; gap: 8px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3); }
+        .menu-btn span { font-size: 22px; }
+        .primary-btn { background: #2563eb; border-color: #3b82f6; grid-column: span 2; padding: 14px; font-size: 16px; }
+    </style>
 </head>
-<body class="bg-slate-900 text-white min-h-screen pb-20">
-    <div class="max-w-md mx-auto">
-        <!-- Top App Bar -->
-        <div class="bg-slate-800/90 backdrop-blur sticky top-0 z-50 p-4 border-b border-slate-700 flex justify-between items-center">
-            <div class="flex items-center gap-2">
-                <div class="w-8 h-8 rounded-lg bg-amber-500 flex items-center justify-center text-slate-900 font-extrabold text-sm">P</div>
-                <h1 class="font-bold text-amber-500 text-lg">PROBASHI HELP</h1>
-            </div>
-            <a href="profile.html" class="w-9 h-9 bg-slate-700 rounded-full flex items-center justify-center text-amber-400 border border-slate-600">
-                <i class="fas fa-user"></i>
-            </a>
-        </div>
+<body>
 
-        <!-- Banner / Hero Section -->
-        <div class="p-4">
-            <div class="app-card p-5 bg-gradient-to-r from-amber-600 via-amber-500 to-amber-600 text-slate-900 relative overflow-hidden">
-                <p class="text-xs font-bold uppercase tracking-wider opacity-80">প্রবাসী সাহায্য</p>
-                <h2 class="text-2xl font-extrabold mt-1">সবসময় আপনার পাশে</h2>
-                <p class="text-xs mt-1 text-slate-800 font-medium">২৪/৭ অনলাইন ভিসা, পাসপোর্ট ও জরুরি সহায়তা সার্ভিস</p>
-            </div>
-        </div>
-
-        <!-- Main Features Grid (Matching Reference Screenshot) -->
-        <div class="px-4">
-            <h2 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">প্রধান সেবাসমূহ</h2>
-            <div class="grid grid-cols-4 gap-3 text-center">
-                <a href="services.html" class="app-card p-3 flex flex-col items-center hover:border-amber-500 transition">
-                    <div class="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center mb-1 text-lg"><i class="fas fa-passport"></i></div>
-                    <span class="text-[11px] text-slate-300 font-semibold">পাসপোর্ট</span>
-                </a>
-                <a href="jobs.html" class="app-card p-3 flex flex-col items-center hover:border-amber-500 transition">
-                    <div class="w-10 h-10 rounded-xl bg-blue-500/10 text-blue-400 flex items-center justify-center mb-1 text-lg"><i class="fas fa-briefcase"></i></div>
-                    <span class="text-[11px] text-slate-300 font-semibold">চাকরি</span>
-                </a>
-                <a href="emergency.html" class="app-card p-3 flex flex-col items-center hover:border-amber-500 transition">
-                    <div class="w-10 h-10 rounded-xl bg-red-500/10 text-red-400 flex items-center justify-center mb-1 text-lg"><i class="fas fa-ambulance"></i></div>
-                    <span class="text-[11px] text-slate-300 font-semibold">জরুরি</span>
-                </a>
-                <a href="passport-status.html" class="app-card p-3 flex flex-col items-center hover:border-amber-500 transition">
-                    <div class="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center mb-1 text-lg"><i class="fas fa-search"></i></div>
-                    <span class="text-[11px] text-slate-300 font-semibold">ট্র্যাকিং</span>
-                </a>
-                <a href="gallery.html" class="app-card p-3 flex flex-col items-center hover:border-amber-500 transition">
-                    <div class="w-10 h-10 rounded-xl bg-purple-500/10 text-purple-400 flex items-center justify-center mb-1 text-lg"><i class="fas fa-images"></i></div>
-                    <span class="text-[11px] text-slate-300 font-semibold">গ্যালারি</span>
-                </a>
-                <a href="notice.html" class="app-card p-3 flex flex-col items-center hover:border-amber-500 transition">
-                    <div class="w-10 h-10 rounded-xl bg-yellow-500/10 text-yellow-400 flex items-center justify-center mb-1 text-lg"><i class="fas fa-bullhorn"></i></div>
-                    <span class="text-[11px] text-slate-300 font-semibold">নোটিশ</span>
-                </a>
-                <a href="contact-support.html" class="app-card p-3 flex flex-col items-center hover:border-amber-500 transition">
-                    <div class="w-10 h-10 rounded-xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center mb-1 text-lg"><i class="fas fa-headset"></i></div>
-                    <span class="text-[11px] text-slate-300 font-semibold">হেল্পলাইন</span>
-                </a>
-                <a href="chat-support.html" class="app-card p-3 flex flex-col items-center hover:border-amber-500 transition">
-                    <div class="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center mb-1 text-lg"><i class="fas fa-comments"></i></div>
-                    <span class="text-[11px] text-slate-300 font-semibold">চ্যাট</span>
-                </a>
-            </div>
-        </div>
-
-        <!-- Quick Admin Links -->
-        <div class="p-4 space-y-2">
-            <h2 class="text-xs font-bold text-slate-400 uppercase tracking-wider">ড্যাশবোর্ড এক্সেস</h2>
-            <div class="grid grid-cols-2 gap-3">
-                <a href="super-admin.html" class="app-card p-3 flex items-center gap-2 border-amber-500/30">
-                    <i class="fas fa-user-shield text-amber-500"></i>
-                    <span class="text-xs font-bold text-slate-200">এডমিন প্যানেল</span>
-                </a>
-                <a href="agent-dashboard.html" class="app-card p-3 flex items-center gap-2 border-blue-500/30">
-                    <i class="fas fa-users text-blue-400"></i>
-                    <span class="text-xs font-bold text-slate-200">এজেন্ট প্যানেল</span>
-                </a>
-            </div>
-        </div>
-
-        <!-- Bottom Navigation Bar -->
-        <div class="fixed bottom-0 left-0 right-0 bg-slate-800/90 backdrop-blur border-t border-slate-700 p-2 flex justify-around max-w-md mx-auto z-50">
-            <a href="home.html" class="flex flex-col items-center text-amber-500"><i class="fas fa-home"></i><span class="text-[10px]">হোম</span></a>
-            <a href="services.html" class="flex flex-col items-center text-slate-400 hover:text-white"><i class="fas fa-th-large"></i><span class="text-[10px]">সেবা</span></a>
-            <a href="emergency.html" class="flex flex-col items-center text-slate-400 hover:text-white"><i class="fas fa-phone-alt"></i><span class="text-[10px]">জরুরি</span></a>
-            <a href="profile.html" class="flex flex-col items-center text-slate-400 hover:text-white"><i class="fas fa-user"></i><span class="text-[10px]">প্রোফাইল</span></a>
-        </div>
+    <div class="header">
+        <h1>Probashi Help Iraq</h1>
+        <p>ইরাকে অবস্থানরত প্রবাসী বাংলাদেশীদের সহায়তায়</p>
     </div>
+
+    <a href="index.html" class="menu-btn primary-btn">
+        <span>🆘</span> সেবা বা সাহায়্যের আবেদন করুন
+    </a>
+
+    <div class="grid-menu">
+        <a href="notice.html" class="menu-btn">
+            <span>📢</span> নোটিশ বোর্ড
+        </a>
+        <a href="jobs.html" class="menu-btn">
+            <span>💼</span> চাকরির বিজ্ঞপ্তি
+        </a>
+        <a href="gallery.html" class="menu-btn">
+            <span>🖼️</span> ফটো গ্যালারি
+        </a>
+        <a href="chat-support.html" class="menu-btn">
+            <span>📞</span> যোগাযোগ ও সাপোর্ট
+        </a>
+    </div>
+
 </body>
 </html>
