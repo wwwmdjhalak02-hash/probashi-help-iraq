@@ -174,5 +174,43 @@
         // Initial Load
         loadUserRequests();
     </script>
-</body>
+</body><!-- Firebase SDKs -->
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+
+<script>
+  // Database Configuration
+  const firebaseConfig = {
+    databaseURL: "https://probashi-help-iraq-default-rtdb.firebaseio.com/"
+  };
+  firebase.initializeApp(firebaseConfig);
+  const database = firebase.database();
+
+  // Handle Form Submission
+  const form = document.querySelector('form');
+  if (form) {
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const newRequestRef = database.ref('requests').push();
+      newRequestRef.set({
+        name: document.querySelectorAll('input')[0]?.value || '',
+        phone: document.querySelectorAll('input')[1]?.value || '',
+        whatsapp: document.querySelectorAll('input')[2]?.value || '',
+        location: document.querySelectorAll('input')[3]?.value || '',
+        serviceType: document.querySelector('select')?.value || '',
+        description: document.querySelector('textarea')?.value || '',
+        timestamp: new Date().toISOString()
+      }, function(error) {
+        if (error) {
+          alert("তথ্য সেভ করতে সমস্যা হয়েছে: " + error.message);
+        } else {
+          alert("ধন্যবাদ! আপনার আবেদনটি সফলভাবে জমা হয়েছে।");
+          form.reset();
+        }
+      });
+    });
+  }
+</script>
+
 </html>
