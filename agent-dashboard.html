@@ -1203,3 +1203,40 @@ function logout(){
 
 </body>
 </html>
+<!-- Firebase SDKs -->
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+
+<script>
+  const firebaseConfig = {
+    databaseURL: "https://probashi-help-iraq-default-rtdb.firebaseio.com/"
+  };
+  firebase.initializeApp(firebaseConfig);
+  const database = firebase.database();
+
+  // Realtime Data Listener
+  database.ref('requests').on('value', (snapshot) => {
+    const data = snapshot.val();
+    console.log("রিয়েল-টাইম ডাটা প্রাপ্ত হয়েছে:", data);
+    
+    // UI Table Updates Automatically
+    const tableBody = document.querySelector('tbody') || document.getElementById('data-list');
+    if (tableBody && data) {
+      tableBody.innerHTML = '';
+      Object.keys(data).forEach((key) => {
+        const item = data[key];
+        const row = `
+          <tr>
+            <td>${item.name}</td>
+            <td>${item.phone}</td>
+            <td>${item.serviceType}</td>
+            <td>${item.location}</td>
+            <td>${new Date(item.timestamp).toLocaleDateString()}</td>
+          </tr>
+        `;
+        tableBody.innerHTML += row;
+      });
+    }
+  });
+</script>
+
