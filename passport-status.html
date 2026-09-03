@@ -3,37 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>পাসপোর্ট স্ট্যাটাস - প্রবাসী সাহায্য</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>চাকরির বিজ্ঞপ্তি - Probashi Help Iraq</title>
+    <style>
+        body { font-family: sans-serif; background-color: #0f172a; color: #fff; margin: 0; padding: 16px; }
+        h2 { color: #38bdf8; text-align: center; margin-bottom: 20px; }
+        .job-card { background: #1e293b; padding: 16px; border-radius: 10px; margin-bottom: 12px; border: 1px solid #334155; }
+        .job-title { font-size: 16px; font-weight: bold; color: #f59e0b; margin-bottom: 6px; }
+        .job-info { font-size: 13px; color: #cbd5e1; margin-bottom: 4px; }
+        .apply-btn { display: inline-block; background: #2563eb; color: #fff; text-decoration: none; padding: 8px 12px; border-radius: 6px; font-size: 12px; font-weight: bold; margin-top: 8px; }
+    </style>
 </head>
-<body class="bg-slate-900 text-white min-h-screen p-4 flex items-center justify-center">
-    <div class="bg-slate-800 border border-slate-700 p-6 rounded-2xl w-full max-w-md">
-        <div class="flex justify-between items-center mb-6">
-            <a href="home.html" class="text-slate-400 hover:text-white"><i class="fas fa-arrow-left"></i></a>
-            <h1 class="text-lg font-bold text-amber-500">পাসপোর্ট ট্র্যাকিং</h1>
-            <div class="w-4"></div>
-        </div>
+<body>
+    <h2>জরুরি চাকরির বিজ্ঞপ্তি</h2>
 
-        <div class="space-y-4">
-            <div>
-                <label class="block text-xs text-slate-300 mb-1">আবেদন বা পাসপোর্ট নম্বর</label>
-                <input type="text" placeholder="যেমন: E12345678" class="w-full bg-slate-900 border border-slate-700 p-3 rounded-xl text-sm">
-            </div>
-            <button onclick="checkStatus()" class="w-full bg-amber-500 text-slate-900 font-bold py-3 rounded-xl">স্ট্যাটাস চেক করুন</button>
-
-            <div id="statusResult" class="hidden mt-4 p-4 bg-slate-900 rounded-xl border border-slate-700 text-center">
-                <i class="fas fa-spinner fa-spin text-amber-500 text-2xl mb-2"></i>
-                <p class="text-sm font-semibold text-slate-200">প্রসেসিং চলছে...</p>
-                <p class="text-xs text-slate-400 mt-1">আবেদনটির তথ্য যাচাই করা হচ্ছে</p>
-            </div>
-        </div>
+    <div class="job-card">
+        <div class="job-title">কনস্ট্রাকশন সাইট সুপারভাইজার</div>
+        <div class="job-info">📍 স্থান: এরবিল, ইরাক</div>
+        <div class="job-info">💰 বেতন: আলোচনা সাপেক্ষে</div>
+        <div class="job-info">📅 প্রকাশের তারিখ: ০৩ সেপ্টেম্বর, ২০২৬</div>
+        <a href="index.html" class="apply-btn">আবেদন করতে চাপ দিন</a>
     </div>
 
-    <script>
-        function checkStatus() {
-            document.getElementById('statusResult').classList.remove('hidden');
-        }
-    </script>
+    <div class="job-card">
+        <div class="job-title">রেস্তোরাঁ শেফ / কুক</div>
+        <div class="job-info">📍 স্থান: বাগদাদ, ইরাক</div>
+        <div class="job-info">💰 বেতন: ৬০০$ - ৮০০$</div>
+        <div class="job-info">📅 প্রকাশের তারিখ: ০১ সেপ্টেম্বর, ২০২৬</div>
+        <a href="index.html" class="apply-btn">আবেদন করতে চাপ দিন</a>
+    </div>
 </body>
 </html>
