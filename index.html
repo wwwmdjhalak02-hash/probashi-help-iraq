@@ -87,3 +87,103 @@
 
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>সাহায্যের আবেদন - Probashi Help Iraq</title>
+    <style>
+        body { font-family: sans-serif; background-color: #0f172a; color: #fff; margin: 0; padding: 16px; }
+        .container { max-width: 450px; margin: 0 auto; background: #1e293b; padding: 20px; border-radius: 12px; border: 1px solid #334155; }
+        h2 { color: #38bdf8; text-align: center; margin-top: 0; }
+        label { font-size: 14px; color: #cbd5e1; display: block; margin-top: 10px; }
+        input, select, textarea { width: 100%; padding: 10px; margin-top: 5px; border-radius: 6px; border: 1px solid #475569; background: #0f172a; color: #fff; box-sizing: border-box; }
+        button { width: 100%; padding: 12px; background: #2563eb; color: #fff; border: none; border-radius: 6px; font-weight: bold; margin-top: 16px; cursor: pointer; font-size: 16px; }
+        .success-box { background: #065f46; border: 1px solid #10b981; padding: 16px; border-radius: 8px; margin-top: 15px; text-align: center; }
+        .track-link { display: inline-block; margin-top: 10px; color: #38bdf8; font-weight: bold; text-decoration: none; }
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>সেবা বা সাহায্যের আবেদন</h2>
+    <form id="helpForm">
+        <label>আপনার নাম:</label>
+        <input type="text" id="name" required placeholder="পূর্ণ নাম লিখুন">
+
+        <label>ফোন / হোয়াটসঅ্যাপ নম্বর:</label>
+        <input type="tel" id="phone" required placeholder="+964...">
+
+        <label>ইরাকে আপনার বর্তমান স্থান/শহর:</label>
+        <input type="text" id="location" required placeholder="যেমন: বাগদাদ, এরবিল">
+
+        <label>সমস্যার ধরন:</label>
+        <select id="issueType">
+            <option value="জরুরি আকামা সাহায্য">জরুরি আকামা সাহায্য</option>
+            <option value="আইনি সহায়তা">আইনি সহায়তা</option>
+            <option value="পাসপোর্ট নবায়ন">পাসপোর্ট নবায়ন</option>
+            <option value="জরুরি চিকিৎসা">জরুরি চিকিৎসা</option>
+            <option value="অন্যান্য">অন্যান্য</option>
+        </select>
+
+        <label>সমস্যার বিস্তারিত বিবরণ:</label>
+        <textarea id="issueDesc" rows="4" required placeholder="আপনার সমস্যার বিস্তারিত লিখুন..."></textarea>
+
+        <button type="submit" id="submitBtn">আবেদন জমা দিন</button>
+    </form>
+
+    <div id="successBox" class="success-box hidden">
+        <h3>আপনার আবেদন জমা হয়েছে!</h3>
+        <p>আপনার ট্র্যাকিং আইডি:</p>
+        <h2 id="trackIdDisplay" style="color:#10b981; letter-spacing:2px; font-size: 24px;"></h2>
+        <p style="font-size:12px; color:#cbd5e1;">এই আইডি দিয়ে পরবর্তীতে আপনার আবেদনের অবস্থা যাচাই করতে পারবেন।</p>
+        <a href="track.html" class="track-link">আবেদনের স্ট্যাটাস দেখুন ➔</a>
+    </div>
+</div>
+
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getDatabase, ref, push } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+
+    const firebaseConfig = {
+        databaseURL: "https://probashi-help-iraq-default-rtdb.firebaseio.com"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+
+    document.getElementById('helpForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.innerText = "পাঠানো হচ্ছে...";
+        submitBtn.disabled = true;
+
+        const generatedTrackId = 'PHI-' + Math.floor(100000 + Math.random() * 900000);
+
+        const newRequest = {
+            trackId: generatedTrackId,
+            name: document.getElementById('name').value,
+            phone: document.getElementById('phone').value,
+            location: document.getElementById('location').value,
+            issueType: document.getElementById('issueType').value,
+            issueDesc: document.getElementById('issueDesc').value,
+            status: 'Pending',
+            timestamp: Date.now()
+        };
+
+        push(ref(db, 'requests'), newRequest).then(() => {
+            document.getElementById('helpForm').classList.add('hidden');
+            document.getElementById('trackIdDisplay').innerText = generatedTrackId;
+            document.getElementById('successBox').classList.remove('hidden');
+        }).catch((err) => {
+            alert('সমস্যা হয়েছে: ' + err.message);
+            submitBtn.innerText = "আবেদন জমা দিন";
+            submitBtn.disabled = false;
+        });
+    });
+</script>
+
+</body>
+</html>
