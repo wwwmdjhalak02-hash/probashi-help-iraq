@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>আবেদনের স্ট্যাটাস ট্র্যাকিং - Probashi Help Iraq</title>
+    <style>
+        body { font-family: sans-serif; background-color: #0f172a; color: #fff; margin: 0; padding: 16px; }
+        .container { max-width: 450px; margin: 40px auto; background: #1e293b; padding: 20px; border-radius: 12px; border: 1px solid #334155; text-align: center; }
+        h2 { color: #38bdf8; margin-top: 0; }
+        input { width: 100%; padding: 12px; margin: 12px 0; border-radius: 6px; border: 1px solid #475569; background: #0f172a; color: #fff; text-align: center; font-size: 16px; box-sizing: border-box; }
+        button { width: 100%; padding: 12px; background: #2563eb; color: #fff; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 16px; }
+        .result-box { margin-top: 20px; padding: 16px; border-radius: 8px; background: #0f172a; border: 1px solid #334155; text-align: left; }
+        .status-badge { display: inline-block; padding: 6px 12px; border-radius: 4px; font-weight: bold; font-size: 14px; margin-top: 8px; }
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>আবেদনের স্ট্যাটাস পরীক্ষা</h2>
+    <p style="font-size: 13px; color: #cbd5e1;">আপনার ট্র্যাকিং আইডি (যেমন: PHI-123456) নিচে লিখুন:</p>
+    
+    <input type="text" id="trackInput" placeholder="PHI-XXXXXX">
+    <button id="searchBtn">খুঁজুন</button>
+
+    <div id="resultBox" class="result-box hidden">
+        <h3 id="resName" style="margin: 0; color: #fff;"></h3>
+        <p style="font-size: 13px; color: #94a3b8; margin: 4px 0;" id="resType"></p>
+        <p style="font-size: 13px; color: #cbd5e1;" id="resDesc"></p>
+        <hr style="border-color: #334155;">
+        <div>অবস্থা: <span id="resStatus" class="status-badge"></span></div>
+    </div>
+</div>
+
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+
+    const firebaseConfig = {
+        databaseURL: "https://probashi-help-iraq-default-rtdb.firebaseio.com"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+
+    document.getElementById('searchBtn').addEventListener('click', () => {
+        const trackId = document.getElementById('trackInput').value.trim();
+        if (!trackId) {
+            alert('অনুগ্রহ করে ট্র্যাকিং আইডি দিন');
+            return;
+        }
+
+        get(ref(db, 'requests')).then((snapshot) => {
+            const data = snapshot.val();
+            let found = false;
+
+            if (data) {
+                Object.values(data).forEach(req => {
+                    if (req.trackId === trackId) {
+                        found = true;
+                        document.getElementById('resName').innerText = req.name;
+                        document.getElementById('resType').innerText = "সেবা: " + req.issueType;
+                        document.getElementById('resDesc').innerText = req.issueDesc;
+
+                        const statusEl = document.getElementById('resStatus');
+                        statusEl.innerText = req.status;
+
+                        if (req.status === 'Accepted') {
+                            statusEl.style.background = '#22c55e';
+                            statusEl.style.color = '#fff';
+                        } else if (req.status === 'Rejected') {
+                            statusEl.style.background = '#ef4444';
+                            statusEl.style.color = '#fff';
+                        } else {
+                            statusEl.style.background = '#eab308';
+                            statusEl.style.color = '#000';
+                        }
+
+                        document.getElementById('resultBox').classList.remove('hidden');
+                    }
+                });
+            }
+
+            if (!found) {
+                alert('এই ট্র্যাকিং আইডির কোনো আবেদন পাওয়া যায়নি!');
+                document.getElementById('resultBox').classList.add('hidden');
+            }
+        });
+    });
+</script>
+
+</body>
+</html>
