@@ -4,33 +4,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>আবেদনের স্ট্যাটাস ট্র্যাকিং - Probashi Help Iraq</title>
-    <style>
-        body { font-family: sans-serif; background-color: #0f172a; color: #fff; margin: 0; padding: 16px; }
-        .container { max-width: 450px; margin: 40px auto; background: #1e293b; padding: 20px; border-radius: 12px; border: 1px solid #334155; text-align: center; }
-        h2 { color: #38bdf8; margin-top: 0; }
-        input { width: 100%; padding: 12px; margin: 12px 0; border-radius: 6px; border: 1px solid #475569; background: #0f172a; color: #fff; text-align: center; font-size: 16px; box-sizing: border-box; }
-        button { width: 100%; padding: 12px; background: #2563eb; color: #fff; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 16px; }
-        .result-box { margin-top: 20px; padding: 16px; border-radius: 8px; background: #0f172a; border: 1px solid #334155; text-align: left; }
-        .status-badge { display: inline-block; padding: 6px 12px; border-radius: 4px; font-weight: bold; font-size: 14px; margin-top: 8px; }
-        .hidden { display: none; }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div class="container">
-    <h2>আবেদনের স্ট্যাটাস পরীক্ষা</h2>
-    <p style="font-size: 13px; color: #cbd5e1;">আপনার ট্র্যাকিং আইডি (যেমন: PHI-123456) নিচে লিখুন:</p>
-    
-    <input type="text" id="trackInput" placeholder="PHI-XXXXXX">
-    <button id="searchBtn">খুঁজুন</button>
+<div class="app-container">
+  <div style="height:18px"></div>
+  <div class="form-card app-card">
+    <h2 style="margin:0 0 6px 0;color:var(--text);font-size:20px;">আবেদনের স্ট্যাটাস পরীক্ষা</h2>
+    <p style="margin:0;color:var(--muted);font-size:13px">আপনার ট্র্যাকিং আইডি (যেমন: PHI-123456) নিচে লিখুন:</p>
 
-    <div id="resultBox" class="result-box hidden">
-        <h3 id="resName" style="margin: 0; color: #fff;"></h3>
-        <p style="font-size: 13px; color: #94a3b8; margin: 4px 0;" id="resType"></p>
-        <p style="font-size: 13px; color: #cbd5e1;" id="resDesc"></p>
-        <hr style="border-color: #334155;">
+    <div style="margin-top:12px">
+      <input class="input" type="text" id="trackInput" placeholder="PHI-XXXXXX" />
+      <button id="searchBtn" class="glow-button" style="width:100%;margin-top:12px">খুঁজুন</button>
+    </div>
+
+    <div id="resultBox" class="app-card hidden" style="margin-top:14px;padding:14px;border-radius:12px">
+        <h3 id="resName" style="margin:0;color:var(--text);"></h3>
+        <p style="font-size:13px;color:var(--muted);margin:6px 0 0 0" id="resType"></p>
+        <p style="font-size:13px;color:var(--text);margin:8px 0 0 0" id="resDesc"></p>
+        <hr style="border-color: rgba(255,255,255,0.04);margin:12px 0">
         <div>অবস্থা: <span id="resStatus" class="status-badge"></span></div>
     </div>
+
+    <p id="notFound" class="hidden" style="margin-top:12px;color:var(--muted);font-size:13px">এই ট্র্যাকিং আইডির কোনো আবেদন পাওয়া যায়নি!</p>
+
+  </div>
+
+  <nav class="bottom-nav">
+    <a href="home.html">হোম</a>
+    <a href="index.html">আবেদন</a>
+    <a href="notice.html">নোটিশ</a>
+    <a href="chat-support.html">সহায়তা</a>
+  </nav>
 </div>
 
 <script type="module">
@@ -44,12 +50,23 @@
     const app = initializeApp(firebaseConfig);
     const db = getDatabase(app);
 
-    document.getElementById('searchBtn').addEventListener('click', () => {
-        const trackId = document.getElementById('trackInput').value.trim();
+    const searchBtn = document.getElementById('searchBtn');
+    const trackInput = document.getElementById('trackInput');
+    const resultBox = document.getElementById('resultBox');
+    const notFound = document.getElementById('notFound');
+
+    searchBtn.addEventListener('click', () => {
+        const trackId = trackInput.value.trim();
         if (!trackId) {
             alert('অনুগ্রহ করে ট্র্যাকিং আইডি দিন');
             return;
         }
+
+        // UI states
+        searchBtn.disabled = true;
+        searchBtn.innerText = 'অনুসন্ধান...';
+        resultBox.classList.add('hidden');
+        notFound.classList.add('hidden');
 
         get(ref(db, 'requests')).then((snapshot) => {
             const data = snapshot.val();
@@ -59,33 +76,38 @@
                 Object.values(data).forEach(req => {
                     if (req.trackId === trackId) {
                         found = true;
-                        document.getElementById('resName').innerText = req.name;
-                        document.getElementById('resType').innerText = "সেবা: " + req.issueType;
-                        document.getElementById('resDesc').innerText = req.issueDesc;
+                        document.getElementById('resName').innerText = req.name || 'Unknown';
+                        document.getElementById('resType').innerText = "সেবা: " + (req.issueType || 'N/A');
+                        document.getElementById('resDesc').innerText = req.issueDesc || '';
 
                         const statusEl = document.getElementById('resStatus');
-                        statusEl.innerText = req.status;
+                        statusEl.innerText = req.status || 'Pending';
 
+                        statusEl.className = 'status-badge';
                         if (req.status === 'Accepted') {
-                            statusEl.style.background = '#22c55e';
-                            statusEl.style.color = '#fff';
+                            statusEl.classList.add('status-accepted');
                         } else if (req.status === 'Rejected') {
-                            statusEl.style.background = '#ef4444';
-                            statusEl.style.color = '#fff';
+                            statusEl.classList.add('status-rejected');
                         } else {
-                            statusEl.style.background = '#eab308';
-                            statusEl.style.color = '#000';
+                            statusEl.classList.add('status-pending');
                         }
 
-                        document.getElementById('resultBox').classList.remove('hidden');
+                        resultBox.classList.remove('hidden');
+                        // scroll into view for small screens
+                        resultBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
                     }
                 });
             }
 
             if (!found) {
-                alert('এই ট্র্যাকিং আইডির কোনো আবেদন পাওয়া যায়নি!');
-                document.getElementById('resultBox').classList.add('hidden');
+                notFound.classList.remove('hidden');
             }
+
+        }).catch((err) => {
+            alert('ত্রুটি: ' + err.message);
+        }).finally(() => {
+            searchBtn.disabled = false;
+            searchBtn.innerText = 'খুঁজুন';
         });
     });
 </script>
