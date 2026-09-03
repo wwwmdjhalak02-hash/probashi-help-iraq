@@ -14,54 +14,93 @@
         .req-card { background: #1e293b; padding: 16px; border-radius: 10px; margin-bottom: 12px; border: 1px solid #334155; }
         .user-name { font-weight: bold; color: #f8fafc; font-size: 16px; }
         .req-type { color: #38bdf8; font-size: 13px; margin: 4px 0; }
-        .req-desc { color: #cbd5e1; font-size: 14px; margin-bottom: 12px; }
+        .req-info { color: #94a3b8; font-size: 12px; margin-bottom: 6px; }
+        .req-desc { color: #cbd5e1; font-size: 14px; margin-bottom: 12px; background: #0f172a; padding: 8px; border-radius: 6px; }
         .actions { display: flex; gap: 8px; }
         .btn { flex: 1; padding: 10px; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; color: #fff; }
         .btn-accept { background-color: #22c55e; }
         .btn-reject { background-color: #ef4444; }
-        .status-badge { display: inline-block; padding: 6px 12px; border-radius: 4px; font-size: 13px; font-weight: bold; width: 100%; text-align: center; }
+        .status-badge { display: inline-block; padding: 6px 12px; border-radius: 4px; font-size: 13px; font-weight: bold; width: 100%; text-align: center; box-sizing: border-box; }
+        .no-data { text-align: center; color: #94a3b8; margin-top: 20px; }
     </style>
 </head>
 <body>
 
-    <!-- সিকিউরিটি পিন লক -->
     <div id="loginBox" class="pin-box">
         <h3>অ্যাডমিন পিন দিন</h3>
         <input type="password" id="pinInput" placeholder="****">
-        <button onclick="checkPin()">প্রবেশ করুন</button>
+        <button id="loginBtn">প্রবেশ করুন</button>
     </div>
 
-    <!-- মূল ড্যাশবোর্ড -->
     <div id="adminContent" class="hidden">
         <h2>আবেদন ম্যানেজমেন্ট প্যানেল</h2>
-
-        <div class="req-card" id="req-1">
-            <div class="user-name">মোহাম্মদ রহিম</div>
-            <div class="req-type">📌 সেবা: জরুরি আকামা সাহায্য</div>
-            <div class="req-desc">মেয়াদ শেষ হয়ে গেছে, আইনি সহায়তার আবেদন করা হয়েছে।</div>
-            <div class="actions">
-                <button class="btn btn-accept" onclick="updateStatus('req-1', 'Accepted')">Accept</button>
-                <button class="btn btn-reject" onclick="updateStatus('req-1', 'Rejected')">Reject</button>
-            </div>
-        </div>
+        <div id="requestsList"><p class="no-data">ডাটা লোড হচ্ছে...</p></div>
     </div>
 
-    <script>
-        function checkPin() {
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getDatabase, ref, onValue, update } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+
+        const firebaseConfig = {
+            databaseURL: "https://probashi-help-iraq-default-rtdb.firebaseio.com"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+
+        document.getElementById('loginBtn').addEventListener('click', () => {
             const pin = document.getElementById('pinInput').value;
-            if (pin === '1234') { // ডিফল্ট পিন: 1234
+            if (pin === '1234') {
                 document.getElementById('loginBox').classList.add('hidden');
                 document.getElementById('adminContent').classList.remove('hidden');
+                loadRequests();
             } else {
                 alert('ভুল পিন নম্বর!');
             }
+        });
+
+        function loadRequests() {
+            const listDiv = document.getElementById('requestsList');
+            onValue(ref(db, 'requests'), (snapshot) => {
+                const data = snapshot.val();
+                if (!data) {
+                    listDiv.innerHTML = '<p class="no-data">কোনো নতুন আবেদন পাওয়া যায়নি</p>';
+                    return;
+                }
+
+                listDiv.innerHTML = '';
+                Object.keys(data).reverse().forEach(key => {
+                    const req = data[key];
+                    const card = document.createElement('div');
+                    card.className = 'req-card';
+
+                    let actionContent = '';
+                    if (req.status === 'Accepted') {
+                        actionContent = `<span class="status-badge" style="background:#22c55e">Accepted</span>`;
+                    } else if (req.status === 'Rejected') {
+                        actionContent = `<span class="status-badge" style="background:#ef4444">Rejected</span>`;
+                    } else {
+                        actionContent = `
+                            <button class="btn btn-accept" onclick="changeStatus('${key}', 'Accepted')">Accept</button>
+                            <button class="btn btn-reject" onclick="changeStatus('${key}', 'Rejected')">Reject</button>
+                        `;
+                    }
+
+                    card.innerHTML = `
+                        <div class="user-name">${req.name}</div>
+                        <div class="req-type">📌 ${req.issueType}</div>
+                        <div class="req-info">📞 ${req.phone} | 📍 ${req.location}</div>
+                        <div class="req-desc">${req.issueDesc}</div>
+                        <div class="actions">${actionContent}</div>
+                    `;
+                    listDiv.appendChild(card);
+                });
+            });
         }
 
-        function updateStatus(id, status) {
-            const card = document.getElementById(id);
-            const color = status === 'Accepted' ? '#22c55e' : '#ef4444';
-            card.querySelector('.actions').innerHTML = `<span class="status-badge" style="background:${color}">${status}</span>`;
-        }
+        window.changeStatus = function(key, status) {
+            update(ref(db, 'requests/' + key), { status: status });
+        };
     </script>
 </body>
 </html>
