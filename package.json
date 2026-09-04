@@ -17,7 +17,3 @@
     "sqlite3": "^6.0.1"
   }
 }
-"scripts": {
-  "fix": "node fix.js",
-  "format": "npx prettier --write \"**/*.{html,css,js,json}\""
-}
