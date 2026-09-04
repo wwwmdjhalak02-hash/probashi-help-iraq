@@ -12,7 +12,7 @@
         <!-- Chat Header -->
         <div class="flex items-center justify-between bg-slate-800 p-4 rounded-t-2xl border border-slate-700">
             <div class="flex items-center gap-3">
-                <a href="home.html" class="text-slate-400 hover:text-white"><i class="fas fa-arrow-left"></i></a>
+                <a href="index.html" class="text-slate-400 hover:text-white transition"><i class="fas fa-arrow-left"></i></a>
                 <div>
                     <h2 class="font-bold text-amber-500 text-sm">সাপোর্ট এজেন্ট (অনলাইন)</h2>
                     <p class="text-xs text-slate-400">প্রবাসী সাহায্য সহায়তা টিম</p>
@@ -25,14 +25,14 @@
         <div id="chatMessages" class="flex-1 bg-slate-900 border-x border-slate-700 p-4 space-y-3 overflow-y-auto min-h-[350px]">
             <div class="bg-slate-800 p-3 rounded-2xl rounded-tl-none text-xs max-w-[80%] border border-slate-700">
                 <p class="text-slate-200">আসসালামু আলাইকুম! "প্রবাসী সাহায্য"-এ আপনাকে স্বাগতম। কীভাবে সাহায্য করতে পারি?</p>
-                <span class="text-[10px] text-slate-500 mt-1 block">১০:৩০ AM</span>
+                <span class="text-[10px] text-slate-500 mt-1 block">এইমাত্র</span>
             </div>
         </div>
 
         <!-- Chat Input -->
         <form onsubmit="sendMessage(event)" class="flex gap-2 bg-slate-800 p-3 rounded-b-2xl border border-slate-700">
-            <input type="text" id="msgInput" placeholder="এখানে বার্তা লিখুন..." required class="flex-1 bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none">
-            <button type="submit" class="bg-amber-500 text-slate-900 px-4 py-2 rounded-xl text-xs font-bold"><i class="fas fa-paper-plane"></i></button>
+            <input type="text" id="msgInput" placeholder="এখানে বার্তা লিখুন..." autocomplete="off" class="flex-1 bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-500">
+            <button type="submit" class="bg-amber-500 hover:bg-amber-600 text-slate-900 px-4 py-2 rounded-xl text-xs font-bold transition"><i class="fas fa-paper-plane"></i></button>
         </form>
     </div>
 
@@ -42,16 +42,30 @@
             const input = document.getElementById('msgInput');
             const container = document.getElementById('chatMessages');
             
-            if (!input.value.trim()) return;
+            const messageText = input.value.trim();
+            if (!messageText) return;
 
+            // Append User Message
             container.innerHTML += `
                 <div class="bg-amber-500 text-slate-900 p-3 rounded-2xl rounded-tr-none text-xs max-w-[80%] ml-auto font-medium shadow-md">
-                    <p>${input.value}</p>
+                    <p>${messageText}</p>
                     <span class="text-[10px] text-slate-800 mt-1 block text-right">এখন</span>
                 </div>
             `;
+            
             input.value = '';
             container.scrollTop = container.scrollHeight;
+
+            // Simulated Auto-Reply for seamless experience
+            setTimeout(() => {
+                container.innerHTML += `
+                    <div class="bg-slate-800 p-3 rounded-2xl rounded-tl-none text-xs max-w-[80%] border border-slate-700">
+                        <p class="text-slate-200">আপনার বার্তাটি পৌঁছেছে। আমাদের প্রতিনিধি দ্রুত আপনার সাথে যুক্ত হচ্ছেন।</p>
+                        <span class="text-[10px] text-slate-500 mt-1 block">এখন</span>
+                    </div>
+                `;
+                container.scrollTop = container.scrollHeight;
+            }, 1000);
         }
     </script>
 </body>
