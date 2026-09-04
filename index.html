@@ -3,441 +3,200 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>কমিউনিটি হাব ও ইকোসিস্টেম - প্রবাসী হেল্প ইরাক</title>
+    <title>প্রবাসী হেল্প ইরাক - কমিউনিটি হাব</title>
     <style>
         :root {
             --bg-primary: #090d16;
             --bg-card: rgba(30, 41, 59, 0.75);
             --border-color: rgba(255, 255, 255, 0.08);
             --accent-gold: #f59e0b;
-            --accent-gold-hover: #fbbf24;
             --accent-blue: #38bdf8;
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
-            --danger: #ef4444;
-            --success: #10b981;
             --shadow-lg: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
-            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition: all 0.3s ease;
         }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
+        * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
-            font-family: 'Hind Siliguri', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Hind Siliguri', sans-serif;
             background-color: var(--bg-primary);
-            background-image: 
-                radial-gradient(at 0% 0%, rgba(245, 158, 11, 0.06) 0px, transparent 50%),
-                radial-gradient(at 100% 100%, rgba(56, 189, 248, 0.06) 0px, transparent 50%);
             color: var(--text-main);
             min-height: 100vh;
             padding: 20px;
-            overflow-x: hidden;
         }
-
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        /* Profile Stats */
-        .profile-card {
+        .container { max-width: 800px; margin: 0 auto; }
+        .profile-card, .card, .post-card {
             background: var(--bg-card);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
-            border: 1px solid var(--border-color);
-            border-radius: 1.25rem;
-            padding: 24px;
-            margin-bottom: 24px;
-            box-shadow: var(--shadow-lg);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 16px;
-        }
-
-        .user-info h3 {
-            font-size: 20px;
-            color: var(--accent-gold);
-            margin-bottom: 4px;
-        }
-
-        .user-info p {
-            font-size: 13px;
-            color: var(--text-muted);
-        }
-
-        .badges-wrapper {
-            display: flex;
-            gap: 12px;
-            align-items: center;
-        }
-
-        .badge {
-            background: rgba(15, 23, 42, 0.9);
-            border: 1px solid var(--border-color);
-            padding: 8px 14px;
-            border-radius: 0.75rem;
-            text-align: center;
-        }
-
-        .badge span {
-            display: block;
-            font-size: 11px;
-            color: var(--text-muted);
-            text-transform: uppercase;
-        }
-
-        .badge strong {
-            font-size: 16px;
-            color: var(--accent-blue);
-        }
-
-        /* Post Creation Box */
-        .card {
-            background: var(--bg-card);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid var(--border-color);
-            border-radius: 1.25rem;
-            padding: 24px;
-            margin-bottom: 24px;
-            box-shadow: var(--shadow-lg);
-        }
-
-        .card h3 {
-            font-size: 18px;
-            margin-bottom: 14px;
-            color: var(--text-main);
-        }
-
-        textarea {
-            width: 100%;
-            padding: 14px;
-            background: rgba(15, 23, 42, 0.85);
-            border: 1px solid var(--border-color);
-            border-radius: 0.75rem;
-            color: var(--text-main);
-            font-family: inherit;
-            font-size: 15px;
-            resize: vertical;
-            min-height: 100px;
-            outline: none;
-            transition: var(--transition);
-            margin-bottom: 12px;
-        }
-
-        textarea:focus {
-            border-color: var(--accent-gold);
-            box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.15);
-        }
-
-        .form-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 12px;
-        }
-
-        .file-input-label {
-            font-size: 13px;
-            color: var(--text-muted);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .btn-primary {
-            padding: 12px 24px;
-            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-            color: #090d16;
-            border: none;
-            border-radius: 0.75rem;
-            font-weight: 700;
-            font-size: 15px;
-            cursor: pointer;
-            transition: var(--transition);
-            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(245, 158, 11, 0.5);
-        }
-
-        /* Feed & Post Cards */
-        .post-card {
-            background: var(--bg-card);
-            backdrop-filter: blur(16px);
             border: 1px solid var(--border-color);
             border-radius: 1.25rem;
             padding: 20px;
-            margin-bottom: 16px;
+            margin-bottom: 20px;
             box-shadow: var(--shadow-lg);
         }
-
-        .post-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 12px;
-        }
-
-        .post-author {
-            font-weight: 600;
-            font-size: 15px;
-            color: var(--accent-gold);
-        }
-
-        .post-time {
-            font-size: 12px;
-            color: var(--text-muted);
-        }
-
-        .post-content {
-            font-size: 15px;
-            color: var(--text-main);
-            margin-bottom: 14px;
-            line-height: 1.5;
-        }
-
-        .post-actions {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-top: 1px solid var(--border-color);
-            padding-top: 12px;
-        }
-
-        .action-group {
-            display: flex;
-            gap: 12px;
-        }
-
-        .btn-action {
-            background: rgba(15, 23, 42, 0.8);
-            border: 1px solid var(--border-color);
-            color: var(--text-muted);
-            padding: 6px 14px;
-            border-radius: 0.5rem;
-            cursor: pointer;
-            font-size: 13px;
-            font-weight: 600;
+        .profile-card { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+        .user-info h3 { color: var(--accent-gold); font-size: 18px; }
+        .user-info p { font-size: 13px; color: var(--text-muted); }
+        .badges { display: flex; gap: 10px; }
+        .badge { background: #0f172a; border: 1px solid var(--border-color); padding: 8px 12px; border-radius: 0.5rem; text-align: center; }
+        .badge span { display: block; font-size: 10px; color: var(--text-muted); }
+        .badge strong { font-size: 14px; color: var(--accent-blue); }
+        textarea {
+            width: 100%; padding: 12px; background: #0f172a; border: 1px solid var(--border-color);
+            border-radius: 0.75rem; color: var(--text-main); font-size: 14px; resize: vertical; min-height: 90px; outline: none; margin-bottom: 10px;
             transition: var(--transition);
-            display: flex;
-            align-items: center;
-            gap: 6px;
         }
-
-        .btn-action:hover {
-            color: var(--text-main);
-            border-color: var(--accent-gold);
+        textarea:focus { border-color: var(--accent-gold); box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.15); }
+        .btn-primary {
+            padding: 10px 20px; background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            color: #090d16; border: none; border-radius: 0.75rem; font-weight: 700; cursor: pointer;
+            transition: var(--transition);
         }
-
-        .btn-share {
-            background: rgba(56, 189, 248, 0.1);
-            color: var(--accent-blue);
-            border-color: rgba(56, 189, 248, 0.3);
-        }
-
-        .security-alert {
-            background: rgba(239, 68, 68, 0.15);
-            border: 1px solid rgba(239, 68, 68, 0.4);
-            color: #fca5a5;
-            padding: 12px;
-            border-radius: 0.75rem;
-            font-size: 13px;
-            margin-bottom: 14px;
-            display: none;
-        }
+        .btn-primary:hover { transform: translateY(-2px); }
+        .security-alert { background: rgba(239, 68, 68, 0.15); border: 1px solid rgba(239, 68, 68, 0.4); color: #fca5a5; padding: 10px; border-radius: 0.5rem; font-size: 12px; margin-bottom: 10px; display: none; }
+        .post-header { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 14px; color: var(--accent-gold); }
+        .post-content { font-size: 14px; margin-bottom: 12px; line-height: 1.4; }
+        .post-actions { display: flex; justify-content: space-between; border-top: 1px solid var(--border-color); padding-top: 10px; }
+        .btn-action { background: #0f172a; border: 1px solid var(--border-color); color: var(--text-muted); padding: 6px 12px; border-radius: 0.4rem; cursor: pointer; font-size: 12px; transition: var(--transition); }
+        .btn-action:hover { color: var(--text-main); border-color: var(--accent-gold); }
+        .btn-share { color: var(--accent-blue); background: rgba(56, 189, 248, 0.1); }
+        .admin-link { text-align: center; margin-top: 20px; }
+        .admin-link a { color: var(--text-muted); font-size: 12px; text-decoration: none; transition: var(--transition); }
+        .admin-link a:hover { color: var(--accent-gold); }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <!-- ইউজার প্রোফাইল ও লেভেল ড্যাশবোর্ড -->
+    <!-- প্রফাইল ড্যাশবোর্ড -->
     <div class="profile-card">
         <div class="user-info">
-            <h3 id="userNameDisplay">প্রবাসী ভাই (Guest User)</h3>
-            <p>স্ট্যাটাস: <span id="starRatingDisplay">⭐ ১ স্টার (বেসিক মেম্বার)</span></p>
+            <h3 id="userNameDisplay">প্রবাসী ভাই (Active User)</h3>
+            <p>স্ট্যাটাস: <span id="starRatingDisplay">⭐ ১ স্টার</span></p>
         </div>
-        <div class="badges-wrapper">
-            <div class="badge">
-                <span>বর্তমান লেভেল</span>
-                <strong id="levelDisplay">লেভেল ১ / ১০০</strong>
-            </div>
-            <div class="badge">
-                <span>শেয়ার কাউন্ট</span>
-                <strong id="shareCountDisplay">০ টি</strong>
-            </div>
+        <div class="badges">
+            <div class="badge"><span>লেভেল</span><strong id="levelDisplay">১ / ১০০</strong></div>
+            <div class="badge"><span>শেয়ার</span><strong id="shareCountDisplay">০</strong></div>
         </div>
     </div>
 
     <!-- পোস্ট করার বক্স -->
     <div class="card">
-        <h3>নতুন পোস্ট বা অভিজ্ঞতা শেয়ার করুন</h3>
+        <h3>অভিজ্ঞতা বা তথ্য শেয়ার করুন</h3>
         <div id="securityAlert" class="security-alert"></div>
         <form id="postForm">
-            <textarea id="postText" placeholder="আপনার মনের কথা বা ইরাকের অভিজ্ঞতা লিখুন... (মোবাইল নম্বর, লিংক বা টাকার অংক সম্পূর্ণ নিষিদ্ধ)"></textarea>
-            
-            <div class="form-row">
-                <label class="file-input-label">
-                    📷 ছবি যুক্ত করুন (ঐচ্ছিক)
-                    <input type="file" id="postImage" accept="image/*" style="display: none;">
-                </label>
-                <button type="submit" class="btn-primary">পোস্ট প্রকাশ করুন</button>
-            </div>
+            <textarea id="postText" placeholder="আপনার মনের কথা লিখুন... (নম্বর, লিংক বা টাকার অংক সম্পূর্ণ নিষিদ্ধ)"></textarea>
+            <button type="submit" class="btn-primary">পোস্ট প্রকাশ করুন</button>
         </form>
     </div>
 
-    <!-- কমিউনিটি ফিড (কমেন্টস বা চ্যাট ছাড়া শুধু লাইক/আনলাইক) -->
-    <div id="communityFeed">
-        <p style="text-align: center; color: var(--text-muted);">ফিড লোড হচ্ছে...</p>
+    <!-- কমিউনিটি ফিড -->
+    <div id="communityFeed"></div>
+
+    <div class="admin-link">
+        <a href="admin.html" target="_blank">⚙️ অ্যাডমিন ভেরিফিকেশন প্যানেল (১৯/৯৯ লক ম্যানেজমেন্ট)</a>
     </div>
 </div>
 
 <script>
-    // ==========================================
-    // 🤖 PHI GUARDIAN SECURITY BOT (স্বয়ংক্রয় পাহারা ও ফিল্টার রোবট)
-    // ==========================================
+    // 🤖 PHI Guardian Bot (স্বয়ংক্রয় সিকিউরিটি ফিল্টার)
     const PHIGuardianBot = {
-        name: "PHI Guardian Bot v1.0",
-        
         scanContent: function(text) {
-            // ১. মোবাইল নম্বর চেক
-            const phoneRegex = /(\+?\d{3,4}[-.\s]?)?\d{10,}|01[3-9]\d{8}|\+964\d+/;
-            if (phoneRegex.test(text)) {
-                return {
-                    approved: false,
-                    reason: "🤖 রোবট সিকিউরিটি অ্যালার্ট: পোস্টে কোনো ধরনের মোবাইল বা হোয়াটসঅ্যাপ নম্বর দেওয়া নিষেধ!"
-                };
+            if (/(\+?\d{3,4}[-.\s]?)?\d{10,}|01[3-9]\d{8}|\+964\d+/.test(text)) {
+                return { approved: false, reason: "🤖 সিকিউরিটি অ্যালার্ট: মোবাইল বা হোয়াটসঅ্যাপ নম্বর দেওয়া নিষেধ!" };
             }
-
-            // ২. টাকার অংক বা কারেন্সি চেক
-            const currencyRegex = /(টাকা|টাকার|ডলার|ইউরো|দিরহাম|রিয়াল|دينار|دولار|USD|IQD|AED|\b\d+\s*(টাকা|ডলার|دينار))\b/i;
-            if (currencyRegex.test(text)) {
-                return {
-                    approved: false,
-                    reason: "🤖 রোবট সিকিউরিটি অ্যালার্ট: পোস্টে টাকার অংক বা আর্থিক লেনদেনের কথা লেখা সম্পূর্ণ নিষিদ্ধ!"
-                };
+            if (/(টাকা|টাকার|ডলার|ইউরো|দিরহাম|রিয়াল|دينار|دولار|USD|IQD|AED|\b\d+\s*(টাকা|টলার|دينار))\b/i.test(text)) {
+                return { approved: false, reason: "🤖 সিকিউরিটি অ্যালার্ট: টাকার অংক বা আর্থিক লেনদেন লেখা নিষিদ্ধ!" };
             }
-
-            // ৩. এক্সটার্নাল লিংক বা ওয়েবসাইট চেক
-            const urlRegex = /(https?:\/\/[^\s]+)|(www\.[^\s]+)|([a-zA-Z0-9-]+\.(com|net|org|ru|iq|xyz))/i;
-            if (urlRegex.test(text)) {
-                return {
-                    approved: false,
-                    reason: "🤖 রোবট সিকিউরিটি অ্যালার্ট: পোস্টে কোনো ধরনের এক্সটার্নাল লিংক শেয়ার করা যাবে না!"
-                };
+            if (/(https?:\/\/[^\s]+)|(www\.[^\s]+)|([a-zA-Z0-9-]+\.(com|net|org|ru|iq|xyz))/i.test(text)) {
+                return { approved: false, reason: "🤖 সিকিউরিটি অ্যালার্ট: এক্সটার্নাল লিংক শেয়ার করা নিষেধ!" };
             }
-
-            return { approved: true, reason: "নিরাপদ" };
+            return { approved: true };
         }
     };
 
-    // ইউজার স্টেট ম্যানেজমেন্ট
-    let userStats = JSON.parse(localStorage.getItem('phi_user_stats')) || {
-        level: 1,
-        shares: 0,
-        stars: 1
-    };
+    let userStats = JSON.parse(localStorage.getItem('phi_user_stats')) || { level: 1, shares: 0, stars: 1, isLocked: false };
 
-    function updateStatsDisplay() {
-        document.getElementById('levelDisplay').innerText = `লেভেল ${userStats.level} / ১০০`;
-        document.getElementById('shareCountDisplay').innerText = `${userStats.shares} টি`;
+    function updateDisplay() {
+        document.getElementById('levelDisplay').innerText = `${userStats.level} / ১০০`;
+        document.getElementById('shareCountDisplay').innerText = userStats.shares;
         
-        let starText = "⭐ ১ স্টার (বেসিক)";
-        if(userStats.level >= 80) starText = "⭐⭐⭐⭐⭐⭐⭐ ৭ স্টার (এলিট ভিআইপি)";
-        else if(userStats.level >= 60) starText = "⭐⭐⭐⭐⭐⭐ ৬ স্টার";
-        else if(userStats.level >= 40) starText = "⭐⭐⭐⭐⭐ ৫ স্টার";
-        else if(userStats.level >= 20) starText = "⭐⭐⭐⭐ ৪ স্টার";
-        else if(userStats.level >= 10) starText = "⭐⭐⭐ ৩ স্টার";
-        else if(userStats.level >= 5) starText = "⭐⭐ ২ স্টার";
-
-        document.getElementById('starRatingDisplay').innerText = starText;
+        let star = "⭐ ১ স্টার";
+        if(userStats.level >= 80) star = "⭐⭐⭐⭐⭐⭐⭐ ৭ স্টার";
+        else if(userStats.level >= 60) star = "⭐⭐⭐⭐⭐⭐ ৬ স্টার";
+        else if(userStats.level >= 40) star = "⭐⭐⭐⭐⭐ ৫ স্টার";
+        else if(userStats.level >= 20) star = "⭐⭐⭐⭐ ৪ স্টার";
+        else if(userStats.level >= 10) star = "⭐⭐⭐ ৩ স্টার";
+        else if(userStats.level >= 5) star = "⭐⭐ ২ স্টার";
+        
+        document.getElementById('starRatingDisplay').innerText = star;
     }
+    updateDisplay();
 
-    updateStatsDisplay();
-
-    // পোস্ট সাবমিশন এবং রোবট স্ক্যানিং লজিক
     document.getElementById('postForm').addEventListener('submit', function(e) {
         e.preventDefault();
         const text = document.getElementById('postText').value.trim();
         const alertBox = document.getElementById('securityAlert');
 
-        if (!text) {
-            alertBox.innerText = "দয়া করে কিছু লিখে পোস্ট করুন!";
-            alertBox.style.display = "block";
-            return;
+        if (!text) { 
+            alertBox.innerText = "দয়া করে কিছু লিখে পোস্ট করুন!"; 
+            alertBox.style.display = "block"; 
+            return; 
         }
 
-        // এখানে রোবট তার সিকিউরিটি স্ক্যান চালাচ্ছে
-        const botCheck = PHIGuardianBot.scanContent(text);
-        if (!botCheck.approved) {
-            alertBox.innerText = botCheck.reason;
-            alertBox.style.display = "block";
-            return;
+        const check = PHIGuardianBot.scanContent(text);
+        if (!check.approved) { 
+            alertBox.innerText = check.reason; 
+            alertBox.style.display = "block"; 
+            return; 
         }
-
         alertBox.style.display = "none";
 
-        // ৯৯ লেভেল সিকিউরিটি লক লজিক
-        if (userStats.level >= 99) {
-            alert('আপনার অ্যাকাউন্টটি ১০০ লেভেলে পৌঁছানোর সিকিউরিটি গেটওয়েতে (৯৯ লক) আটকে আছে। অনুগ্রহ করে অ্যাডমিনের সাথে যোগাযোগ করুন!');
+        // ১৯ বা ৯৯ লেভেলে পৌঁছালে লক করা
+        if (userStats.level === 19 || userStats.level === 99) {
+            userStats.isLocked = true;
+            localStorage.setItem('phi_user_stats', JSON.stringify(userStats));
+            alert('আপনার লেভেল সিকিউরিটি গেটওয়েতে লক হয়েছে। অ্যাডমিনের ভেরিফিকেশন প্রয়োজন!');
             return;
         }
 
-        // লেভেল এবং পয়েন্ট আপডেট
-        userStats.level += 1;
-        if(userStats.level % 15 === 0 && userStats.stars < 7) {
-            userStats.stars += 1;
+        if (userStats.isLocked) {
+            alert('অ্যাকাউন্টটি অ্যাডমিন অনুমোদনের অপেক্ষায় লক রয়েছে।');
+            return;
         }
-        localStorage.setItem('phi_user_stats', JSON.stringify(userStats));
-        updateStatsDisplay();
 
-        alert('অভিনন্দন! রোবট স্ক্যান সফল হয়েছে, আপনার পোস্ট প্রকাশিত হয়েছে এবং লেভেল আপডেট হয়েছে।');
+        userStats.level += 1;
+        if(userStats.level % 15 === 0 && userStats.stars < 7) userStats.stars += 1;
+        localStorage.setItem('phi_user_stats', JSON.stringify(userStats));
+        updateDisplay();
+
+        alert('পোস্ট সফল ও লেভেল আপডেট হয়েছে!');
         document.getElementById('postText').value = '';
     });
 
-    // স্যাম্পল ফিড (কমেন্ট ছাড়া শুধু লাইক/আনলাইক)
     function loadFeed() {
-        const feedDiv = document.getElementById('communityFeed');
-        feedDiv.innerHTML = `
+        document.getElementById('communityFeed').innerHTML = `
             <div class="post-card">
-                <div class="post-header">
-                    <span class="post-author">প্রবাসী রফিক ভাই ⭐⭐⭐</span>
-                    <span class="post-time">১০ মিনিট আগে</span>
-                </div>
-                <div class="post-content">
-                    ইরাকের কর্মক্ষেত্রে কাজের ফাঁকে সবাই সাবধানে থাকবেন এবং নিয়মতান্ত্রিকভাবে কাজ করুন।
-                </div>
+                <div class="post-header"><span>প্রবাসী রফিক ভাই ⭐⭐⭐</span><span>১০ মিনিট আগে</span></div>
+                <div class="post-content">ইরাকের কর্মক্ষেত্রে কাজের ফাঁকে সবাই সাবধানে থাকবেন।</div>
                 <div class="post-actions">
-                    <div class="action-group">
-                        <button class="btn-action">👍 লাইক (১২)</button>
+                    <div style="display: flex; gap: 8px;">
+                        <button class="btn-action">👍 লাইক</button>
                         <button class="btn-action">👎 আনলাইক</button>
                     </div>
-                    <button class="btn-action btn-share" onclick="handleShare()">🔗 সোশ্যাল মিডিয়া শেয়ার</button>
+                    <button class="btn-action btn-share" onclick="handleShare()">🔗 শেয়ার</button>
                 </div>
-            </div>
-        `;
+            </div>`;
     }
 
-    // সোশ্যাল মিডিয়া শেয়ার কাউন্ট লজিক
     window.handleShare = function() {
         userStats.shares += 1;
         localStorage.setItem('phi_user_stats', JSON.stringify(userStats));
-        updateStatsDisplay();
-        alert('পোস্টটি সফলভাবে শেয়ার করা হয়েছে! আপনার শেয়ার কাউন্ট আপডেট হয়েছে।');
+        updateDisplay();
+        alert('শেয়ার সফল হয়েছে! আপনার শেয়ার কাউন্ট আপডেট হয়েছে।');
     }
-
     loadFeed();
 </script>
-
 </body>
 </html>
