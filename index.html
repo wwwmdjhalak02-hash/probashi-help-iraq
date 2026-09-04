@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>সাহায্যের আবেদন - প্রবাসী হেল্প ইরাক</title>
+    <title>কমিউনিটি হাব ও ইকোসিস্টেম - প্রবাসী হেল্প ইরাক</title>
     <style>
         :root {
             --bg-primary: #090d16;
@@ -11,8 +11,11 @@
             --border-color: rgba(255, 255, 255, 0.08);
             --accent-gold: #f59e0b;
             --accent-gold-hover: #fbbf24;
+            --accent-blue: #38bdf8;
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
+            --danger: #ef4444;
+            --success: #10b981;
             --shadow-lg: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
             --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
@@ -27,330 +30,413 @@
             font-family: 'Hind Siliguri', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: var(--bg-primary);
             background-image: 
-                radial-gradient(at 0% 0%, rgba(245, 158, 11, 0.08) 0px, transparent 50%),
-                radial-gradient(at 100% 100%, rgba(59, 130, 246, 0.08) 0px, transparent 50%);
+                radial-gradient(at 0% 0%, rgba(245, 158, 11, 0.06) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(56, 189, 248, 0.06) 0px, transparent 50%);
             color: var(--text-main);
             min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             padding: 20px;
             overflow-x: hidden;
         }
 
-        .wrapper {
-            width: 100%;
-            max-width: 540px;
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
         }
 
+        /* Profile Stats */
+        .profile-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--border-color);
+            border-radius: 1.25rem;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: var(--shadow-lg);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .user-info h3 {
+            font-size: 20px;
+            color: var(--accent-gold);
+            margin-bottom: 4px;
+        }
+
+        .user-info p {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .badges-wrapper {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .badge {
+            background: rgba(15, 23, 42, 0.9);
+            border: 1px solid var(--border-color);
+            padding: 8px 14px;
+            border-radius: 0.75rem;
+            text-align: center;
+        }
+
+        .badge span {
+            display: block;
+            font-size: 11px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+
+        .badge strong {
+            font-size: 16px;
+            color: var(--accent-blue);
+        }
+
+        /* Post Creation Box */
         .card {
             background: var(--bg-card);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
             border: 1px solid var(--border-color);
             border-radius: 1.25rem;
-            padding: 36px;
+            padding: 24px;
+            margin-bottom: 24px;
             box-shadow: var(--shadow-lg);
-            transition: var(--transition);
         }
 
-        .header-title {
-            text-align: center;
-            margin-bottom: 28px;
+        .card h3 {
+            font-size: 18px;
+            margin-bottom: 14px;
+            color: var(--text-main);
         }
 
-        .header-title h2 {
-            font-size: 26px;
-            font-weight: 700;
-            background: linear-gradient(135deg, #f59e0b, #fbbf24);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 8px;
-        }
-
-        .header-title p {
-            font-size: 14px;
-            color: var(--text-muted);
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        label {
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--text-muted);
-            display: block;
-            margin-bottom: 8px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        input, select, textarea {
+        textarea {
             width: 100%;
-            padding: 14px 16px;
+            padding: 14px;
             background: rgba(15, 23, 42, 0.85);
             border: 1px solid var(--border-color);
             border-radius: 0.75rem;
             color: var(--text-main);
             font-family: inherit;
             font-size: 15px;
-            transition: var(--transition);
+            resize: vertical;
+            min-height: 100px;
             outline: none;
+            transition: var(--transition);
+            margin-bottom: 12px;
         }
 
-        input:focus, select:focus, textarea:focus {
+        textarea:focus {
             border-color: var(--accent-gold);
             box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.15);
         }
 
-        select {
+        .form-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .file-input-label {
+            font-size: 13px;
+            color: var(--text-muted);
             cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
 
-        select option {
-            background: #0f172a;
-            color: var(--text-main);
-        }
-
-        textarea {
-            resize: vertical;
-            min-height: 115px;
-        }
-
-        .btn-submit {
-            width: 100%;
-            padding: 15px;
+        .btn-primary {
+            padding: 12px 24px;
             background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
             color: #090d16;
             border: none;
             border-radius: 0.75rem;
             font-weight: 700;
-            font-size: 16px;
+            font-size: 15px;
             cursor: pointer;
             transition: var(--transition);
             box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
-            margin-top: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
         }
 
-        .btn-submit:hover {
-            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+        .btn-primary:hover {
             transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(245, 158, 11, 0.5);
         }
 
-        /* Master Loading State Spinner */
-        .btn-submit.is-loading {
-            opacity: 0.85;
-            pointer-events: none;
+        /* Feed & Post Cards */
+        .post-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--border-color);
+            border-radius: 1.25rem;
+            padding: 20px;
+            margin-bottom: 16px;
+            box-shadow: var(--shadow-lg);
         }
 
-        .btn-submit.is-loading span {
-            display: inline-flex;
+        .post-header {
+            display: flex;
+            justify-content: space-between;
             align-items: center;
-            gap: 10px;
-        }
-
-        .btn-submit.is-loading span::after {
-            content: "";
-            width: 18px;
-            height: 18px;
-            border: 2px solid #090d16;
-            border-top-color: transparent;
-            border-radius: 50%;
-            animation: spin 0.6s linear infinite;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        .success-box {
-            background: rgba(16, 185, 129, 0.15);
-            border: 1px solid rgba(16, 185, 129, 0.4);
-            padding: 28px;
-            border-radius: 1rem;
-            text-align: center;
-            backdrop-filter: blur(10px);
-        }
-
-        .success-box h3 {
-            color: #34d399;
-            font-size: 20px;
             margin-bottom: 12px;
         }
 
-        .success-box p {
+        .post-author {
+            font-weight: 600;
+            font-size: 15px;
+            color: var(--accent-gold);
+        }
+
+        .post-time {
+            font-size: 12px;
             color: var(--text-muted);
-            font-size: 14px;
         }
 
-        .track-id-badge {
+        .post-content {
+            font-size: 15px;
+            color: var(--text-main);
+            margin-bottom: 14px;
+            line-height: 1.5;
+        }
+
+        .post-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid var(--border-color);
+            padding-top: 12px;
+        }
+
+        .action-group {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn-action {
             background: rgba(15, 23, 42, 0.8);
-            border: 1px dashed #34d399;
-            padding: 12px;
-            border-radius: 0.75rem;
-            margin: 16px 0;
-            color: #34d399;
-            font-size: 22px;
-            font-weight: 800;
-            letter-spacing: 2px;
-        }
-
-        .track-link {
-            display: inline-flex;
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+            padding: 6px 14px;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            transition: var(--transition);
+            display: flex;
             align-items: center;
             gap: 6px;
-            margin-top: 14px;
-            color: var(--accent-gold);
-            font-weight: 600;
-            text-decoration: none;
-            transition: var(--transition);
         }
 
-        .track-link:hover {
-            color: var(--accent-gold-hover);
-            text-decoration: underline;
+        .btn-action:hover {
+            color: var(--text-main);
+            border-color: var(--accent-gold);
         }
 
-        .hidden {
-            display: none !important;
+        .btn-share {
+            background: rgba(56, 189, 248, 0.1);
+            color: var(--accent-blue);
+            border-color: rgba(56, 189, 248, 0.3);
         }
 
-        @media (max-width: 640px) {
-            .card {
-                padding: 24px;
-            }
+        .security-alert {
+            background: rgba(239, 68, 68, 0.15);
+            border: 1px solid rgba(239, 68, 68, 0.4);
+            color: #fca5a5;
+            padding: 12px;
+            border-radius: 0.75rem;
+            font-size: 13px;
+            margin-bottom: 14px;
+            display: none;
         }
     </style>
 </head>
 <body>
 
-<div class="wrapper">
+<div class="container">
+    <!-- ইউজার প্রোফাইল ও লেভেল ড্যাশবোর্ড -->
+    <div class="profile-card">
+        <div class="user-info">
+            <h3 id="userNameDisplay">প্রবাসী ভাই (Guest User)</h3>
+            <p>স্ট্যাটাস: <span id="starRatingDisplay">⭐ ১ স্টার (বেসিক মেম্বার)</span></p>
+        </div>
+        <div class="badges-wrapper">
+            <div class="badge">
+                <span>বর্তমান লেভেল</span>
+                <strong id="levelDisplay">লেভেল ১ / ১০০</strong>
+            </div>
+            <div class="badge">
+                <span>শেয়ার কাউন্ট</span>
+                <strong id="shareCountDisplay">০ টি</strong>
+            </div>
+        </div>
+    </div>
+
+    <!-- পোস্ট করার বক্স -->
     <div class="card">
-        <div class="header-title">
-            <h2>সেবা বা সাহায্যের আবেদন</h2>
-            <p>আপনার সঠিক তথ্য দিয়ে নিচের ফর্মটি পূরণ করুন</p>
-        </div>
-
-        <form id="helpForm">
-            <div class="form-group">
-                <label>আপনার নাম</label>
-                <input type="text" id="name" required placeholder="আপনার পূর্ণ নাম লিখুন">
+        <h3>নতুন পোস্ট বা অভিজ্ঞতা শেয়ার করুন</h3>
+        <div id="securityAlert" class="security-alert"></div>
+        <form id="postForm">
+            <textarea id="postText" placeholder="আপনার মনের কথা বা ইরাকের অভিজ্ঞতা লিখুন... (মোবাইল নম্বর, লিংক বা টাকার অংক সম্পূর্ণ নিষিদ্ধ)"></textarea>
+            
+            <div class="form-row">
+                <label class="file-input-label">
+                    📷 ছবি যুক্ত করুন (ঐচ্ছিক)
+                    <input type="file" id="postImage" accept="image/*" style="display: none;">
+                </label>
+                <button type="submit" class="btn-primary">পোস্ট প্রকাশ করুন</button>
             </div>
-
-            <div class="form-group">
-                <label>ফোন / হোয়াটসঅ্যাপ নম্বর</label>
-                <input type="tel" id="phone" required placeholder="যেমন: +964...">
-            </div>
-
-            <div class="form-group">
-                <label>হোয়াটসঅ্যাপ নম্বর (ঐচ্ছিক)</label>
-                <input type="tel" id="whatsapp" placeholder="হোয়াটসঅ্যাপ নম্বর থাকলে দিন">
-            </div>
-
-            <div class="form-group">
-                <label>ইরাকে আপনার বর্তমান স্থান/শহর</label>
-                <input type="text" id="location" required placeholder="যেমন: বাগদাদ, এরবিল">
-            </div>
-
-            <div class="form-group">
-                <label>সমস্যার ধরন</label>
-                <select id="issueType">
-                    <option value="জরুরি আকামা সাহায্য">জরুরি আকামা সাহায্য</option>
-                    <option value="আইনি সহায়তা">আইনি সহায়তা</option>
-                    <option value="পাসপোর্ট নবায়ন">পাসপোর্ট নবায়ন</option>
-                    <option value="জরুরি চিকিৎসা">জরুরি চিকিৎসা</option>
-                    <option value="অন্যান্য">অন্যান্য</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label>জরুরি অবস্থা</label>
-                <select id="urgency">
-                    <option value="Normal">সাধারণ (Normal)</option>
-                    <option value="Urgent">জরুরি (Urgent)</option>
-                    <option value="Critical">অত্যন্ত জরুরি (Critical)</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label>সমস্যার বিস্তারিত বিবরণ</label>
-                <textarea id="issue" rows="4" required placeholder="আপনার সমস্যার বিস্তারিত এখানে লিখুন..."></textarea>
-            </div>
-
-            <button type="submit" id="submitBtn" class="btn-submit">
-                <span id="btnText">আবেদন জমা দিন</span>
-            </button>
         </form>
+    </div>
 
-        <div id="successBox" class="success-box hidden">
-            <h3>অভিনন্দন! আপনার আবেদন সফল হয়েছে</h3>
-            <p>আপনার রেফারেন্স বা ট্র্যাকিং আইডি:</p>
-            <div class="track-id-badge" id="trackIdDisplay">PHI-VIP-2026</div>
-            <p>এই তথ্যটি সুরক্ষিত রাখুন।</p>
-            <a href="track.html" class="track-link">আবেদনের স্ট্যাটাস দেখুন ➔</a>
-        </div>
+    <!-- কমিউনিটি ফিড (কমেন্টস বা চ্যাট ছাড়া শুধু লাইক/আনলাইক) -->
+    <div id="communityFeed">
+        <p style="text-align: center; color: var(--text-muted);">ফিড লোড হচ্ছে...</p>
     </div>
 </div>
 
 <script>
-    document.getElementById('helpForm').addEventListener('submit', async function(e) {
+    // ==========================================
+    // 🤖 PHI GUARDIAN SECURITY BOT (স্বয়ংক্রয় পাহারা ও ফিল্টার রোবট)
+    // ==========================================
+    const PHIGuardianBot = {
+        name: "PHI Guardian Bot v1.0",
+        
+        scanContent: function(text) {
+            // ১. মোবাইল নম্বর চেক
+            const phoneRegex = /(\+?\d{3,4}[-.\s]?)?\d{10,}|01[3-9]\d{8}|\+964\d+/;
+            if (phoneRegex.test(text)) {
+                return {
+                    approved: false,
+                    reason: "🤖 রোবট সিকিউরিটি অ্যালার্ট: পোস্টে কোনো ধরনের মোবাইল বা হোয়াটসঅ্যাপ নম্বর দেওয়া নিষেধ!"
+                };
+            }
+
+            // ২. টাকার অংক বা কারেন্সি চেক
+            const currencyRegex = /(টাকা|টাকার|ডলার|ইউরো|দিরহাম|রিয়াল|دينار|دولار|USD|IQD|AED|\b\d+\s*(টাকা|ডলার|دينار))\b/i;
+            if (currencyRegex.test(text)) {
+                return {
+                    approved: false,
+                    reason: "🤖 রোবট সিকিউরিটি অ্যালার্ট: পোস্টে টাকার অংক বা আর্থিক লেনদেনের কথা লেখা সম্পূর্ণ নিষিদ্ধ!"
+                };
+            }
+
+            // ৩. এক্সটার্নাল লিংক বা ওয়েবসাইট চেক
+            const urlRegex = /(https?:\/\/[^\s]+)|(www\.[^\s]+)|([a-zA-Z0-9-]+\.(com|net|org|ru|iq|xyz))/i;
+            if (urlRegex.test(text)) {
+                return {
+                    approved: false,
+                    reason: "🤖 রোবট সিকিউরিটি অ্যালার্ট: পোস্টে কোনো ধরনের এক্সটার্নাল লিংক শেয়ার করা যাবে না!"
+                };
+            }
+
+            return { approved: true, reason: "নিরাপদ" };
+        }
+    };
+
+    // ইউজার স্টেট ম্যানেজমেন্ট
+    let userStats = JSON.parse(localStorage.getItem('phi_user_stats')) || {
+        level: 1,
+        shares: 0,
+        stars: 1
+    };
+
+    function updateStatsDisplay() {
+        document.getElementById('levelDisplay').innerText = `লেভেল ${userStats.level} / ১০০`;
+        document.getElementById('shareCountDisplay').innerText = `${userStats.shares} টি`;
+        
+        let starText = "⭐ ১ স্টার (বেসিক)";
+        if(userStats.level >= 80) starText = "⭐⭐⭐⭐⭐⭐⭐ ৭ স্টার (এলিট ভিআইপি)";
+        else if(userStats.level >= 60) starText = "⭐⭐⭐⭐⭐⭐ ৬ স্টার";
+        else if(userStats.level >= 40) starText = "⭐⭐⭐⭐⭐ ৫ স্টার";
+        else if(userStats.level >= 20) starText = "⭐⭐⭐⭐ ৪ স্টার";
+        else if(userStats.level >= 10) starText = "⭐⭐⭐ ৩ স্টার";
+        else if(userStats.level >= 5) starText = "⭐⭐ ২ স্টার";
+
+        document.getElementById('starRatingDisplay').innerText = starText;
+    }
+
+    updateStatsDisplay();
+
+    // পোস্ট সাবমিশন এবং রোবট স্ক্যানিং লজিক
+    document.getElementById('postForm').addEventListener('submit', function(e) {
         e.preventDefault();
+        const text = document.getElementById('postText').value.trim();
+        const alertBox = document.getElementById('securityAlert');
 
-        const name = document.getElementById('name').value.trim();
-        const phone = document.getElementById('phone').value.trim();
-        const whatsapp = document.getElementById('whatsapp').value.trim();
-        const location = document.getElementById('location').value.trim();
-        const issueType = document.getElementById('issueType').value;
-        const urgency = document.getElementById('urgency').value;
-        const issue = document.getElementById('issue').value.trim();
-
-        if (!name || !phone || !issue) {
-            alert('দয়া করে নাম, ফোন নম্বর এবং সমস্যার বিবরণ আবশ্যকভাবে পূরণ করুন!');
+        if (!text) {
+            alertBox.innerText = "দয়া করে কিছু লিখে পোস্ট করুন!";
+            alertBox.style.display = "block";
             return;
         }
 
-        const submitBtn = document.getElementById('submitBtn');
-        const btnText = document.getElementById('btnText');
-        
-        // Enable Master Loading State
-        submitBtn.classList.add('is-loading');
-        btnText.innerText = "প্রসেস হচ্ছে...";
-
-        try {
-            const response = await fetch('/api/requests', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ name, phone, whatsapp, location, issue_type: issueType, urgency, issue })
-            });
-
-            const result = await response.json();
-
-            if (response.ok) {
-                document.getElementById('helpForm').classList.add('hidden');
-                if (result.requestId) {
-                    document.getElementById('trackIdDisplay').innerText = 'PHI-' + result.requestId;
-                }
-                document.getElementById('successBox').classList.remove('hidden');
-            } else {
-                alert('ত্রুটি: ' + (result.message || 'আবেদন জমা দিতে সমস্যা হয়েছে।'));
-                submitBtn.classList.remove('is-loading');
-                btnText.innerText = "আবেদন জমা দিন";
-            }
-        } catch (error) {
-            alert('নেটওয়ার্ক বা সার্ভার ত্রুটি! দয়া করে আবার চেষ্টা করুন।');
-            submitBtn.classList.remove('is-loading');
-            btnText.innerText = "আবেদন জমা দিন";
+        // এখানে রোবট তার সিকিউরিটি স্ক্যান চালাচ্ছে
+        const botCheck = PHIGuardianBot.scanContent(text);
+        if (!botCheck.approved) {
+            alertBox.innerText = botCheck.reason;
+            alertBox.style.display = "block";
+            return;
         }
+
+        alertBox.style.display = "none";
+
+        // ৯৯ লেভেল সিকিউরিটি লক লজিক
+        if (userStats.level >= 99) {
+            alert('আপনার অ্যাকাউন্টটি ১০০ লেভেলে পৌঁছানোর সিকিউরিটি গেটওয়েতে (৯৯ লক) আটকে আছে। অনুগ্রহ করে অ্যাডমিনের সাথে যোগাযোগ করুন!');
+            return;
+        }
+
+        // লেভেল এবং পয়েন্ট আপডেট
+        userStats.level += 1;
+        if(userStats.level % 15 === 0 && userStats.stars < 7) {
+            userStats.stars += 1;
+        }
+        localStorage.setItem('phi_user_stats', JSON.stringify(userStats));
+        updateStatsDisplay();
+
+        alert('অভিনন্দন! রোবট স্ক্যান সফল হয়েছে, আপনার পোস্ট প্রকাশিত হয়েছে এবং লেভেল আপডেট হয়েছে।');
+        document.getElementById('postText').value = '';
     });
+
+    // স্যাম্পল ফিড (কমেন্ট ছাড়া শুধু লাইক/আনলাইক)
+    function loadFeed() {
+        const feedDiv = document.getElementById('communityFeed');
+        feedDiv.innerHTML = `
+            <div class="post-card">
+                <div class="post-header">
+                    <span class="post-author">প্রবাসী রফিক ভাই ⭐⭐⭐</span>
+                    <span class="post-time">১০ মিনিট আগে</span>
+                </div>
+                <div class="post-content">
+                    ইরাকের কর্মক্ষেত্রে কাজের ফাঁকে সবাই সাবধানে থাকবেন এবং নিয়মতান্ত্রিকভাবে কাজ করুন।
+                </div>
+                <div class="post-actions">
+                    <div class="action-group">
+                        <button class="btn-action">👍 লাইক (১২)</button>
+                        <button class="btn-action">👎 আনলাইক</button>
+                    </div>
+                    <button class="btn-action btn-share" onclick="handleShare()">🔗 সোশ্যাল মিডিয়া শেয়ার</button>
+                </div>
+            </div>
+        `;
+    }
+
+    // সোশ্যাল মিডিয়া শেয়ার কাউন্ট লজিক
+    window.handleShare = function() {
+        userStats.shares += 1;
+        localStorage.setItem('phi_user_stats', JSON.stringify(userStats));
+        updateStatsDisplay();
+        alert('পোস্টটি সফলভাবে শেয়ার করা হয়েছে! আপনার শেয়ার কাউন্ট আপডেট হয়েছে।');
+    }
+
+    loadFeed();
 </script>
 
 </body>
