@@ -3,114 +3,182 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>অ্যাডমিন প্যানেল - Probashi Help Iraq</title>
+    <title>অ্যাডমিন ও বস পারমিশন প্যানেল - Probashi Help Iraq</title>
     <style>
-        body { font-family: sans-serif; background-color: #0f172a; color: #fff; margin: 0; padding: 16px; }
-        h2, h3 { color: #38bdf8; text-align: center; }
-        .pin-box { max-width: 320px; margin: 60px auto; background: #1e293b; padding: 24px; border-radius: 12px; border: 1px solid #334155; text-align: center; }
-        .pin-box input { width: 80%; padding: 10px; margin: 12px 0; border-radius: 6px; border: 1px solid #475569; background: #0f172a; color: #fff; text-align: center; font-size: 18px; }
-        .pin-box button { width: 85%; padding: 10px; background: #2563eb; color: #fff; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; }
-        .hidden { display: none; }
-        .req-card { background: #1e293b; padding: 16px; border-radius: 10px; margin-bottom: 12px; border: 1px solid #334155; position: relative; }
-        .user-name { font-weight: bold; color: #f8fafc; font-size: 16px; }
-        .track-id { font-size: 11px; background: #334155; padding: 2px 6px; border-radius: 4px; color: #38bdf8; display: inline-block; margin-bottom: 6px; }
-        .req-type { color: #38bdf8; font-size: 13px; margin: 4px 0; }
-        .req-info { color: #94a3b8; font-size: 12px; margin-bottom: 6px; }
-        .req-desc { color: #cbd5e1; font-size: 14px; margin-bottom: 12px; background: #0f172a; padding: 8px; border-radius: 6px; }
-        .actions { display: flex; gap: 8px; }
-        .btn { flex: 1; padding: 10px; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; color: #fff; }
-        .btn-accept { background-color: #22c55e; }
-        .btn-reject { background-color: #ef4444; }
-        .btn-delete { background-color: #64748b; padding: 4px 8px; font-size: 12px; border: none; border-radius: 4px; color: #fff; cursor: pointer; float: right; }
-        .status-badge { display: inline-block; padding: 6px 12px; border-radius: 4px; font-size: 13px; font-weight: bold; width: 100%; text-align: center; box-sizing: border-box; }
-        .no-data { text-align: center; color: #94a3b8; margin-top: 20px; }
+        :root {
+            --bg-primary: #090d16;
+            --bg-card: rgba(30, 41, 59, 0.75);
+            --border-color: rgba(255, 255, 255, 0.08);
+            --accent-gold: #f59e0b;
+            --accent-blue: #38bdf8;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --success: #10b981;
+            --danger: #ef4444;
+            --shadow-lg: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Hind Siliguri', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-main);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container { max-width: 800px; margin: 0 auto; }
+        .card {
+            background: var(--bg-card);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--border-color);
+            border-radius: 1.25rem;
+            padding: 24px;
+            box-shadow: var(--shadow-lg);
+            margin-bottom: 20px;
+        }
+        h2 { color: var(--accent-gold); font-size: 22px; margin-bottom: 8px; }
+        p { font-size: 13px; color: var(--text-muted); margin-bottom: 20px; }
+        
+        .request-card {
+            background: rgba(15, 23, 42, 0.9);
+            border: 1px solid var(--border-color);
+            border-radius: 0.75rem;
+            padding: 16px;
+            margin-bottom: 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .request-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .user-name { font-weight: bold; color: var(--accent-blue); font-size: 16px; }
+        .req-level { font-size: 13px; color: var(--accent-gold); background: rgba(245, 158, 11, 0.1); padding: 4px 8px; border-radius: 4px; }
+        .req-msg { font-size: 14px; color: var(--text-main); background: rgba(30, 41, 59, 0.5); padding: 10px; border-radius: 0.5rem; }
+        
+        .action-row {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 5px;
+        }
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+        }
+        .btn-approve { background: var(--success); color: #fff; }
+        .btn-reject { background: var(--danger); color: #fff; }
+        
+        .back-link { display: inline-block; color: var(--text-muted); text-decoration: none; font-size: 13px; margin-top: 10px; }
+        .back-link:hover { color: var(--accent-gold); }
+        .no-data { text-align: center; color: var(--text-muted); padding: 20px; }
     </style>
 </head>
 <body>
 
-    <div id="loginBox" class="pin-box">
-        <h3>অ্যাডমিন পিন দিন</h3>
-        <input type="password" id="pinInput" placeholder="****">
-        <button id="loginBtn">প্রবেশ করুন</button>
+<div class="container">
+    <div class="card">
+        <h2>অ্যাডমিন ও বস পারমিশন প্যানেল (লেভেল ২৫, ৫০, ৭৫ ও ১০০ লক ম্যানেজমেন্ট)</h2>
+        <p>ইউজারদের লেভেল ২৫, ৫০, ৭৫ ও ১০০ এ পৌঁছানোর পর সিকিউরিটি লক এবং এজেন্ট চ্যাটের অনুরোধগুলো এখানে যাচাই করে অনুমোদন দিতে পারবেন।</p>
+        
+        <div id="adminRequestsList">
+            <div class="no-data">কোনো পেন্ডিং রিকোয়েস্ট নেই</div>
+        </div>
     </div>
 
-    <div id="adminContent" class="hidden">
-        <h2>আবেদন ম্যানেজমেন্ট প্যানেল</h2>
-        <div id="requestsList"><p class="no-data">ডাটা লোড হচ্ছে...</p></div>
-    </div>
+    <a href="index.html" class="back-link">← ইউজার ড্যাশবোর্ডে ফিরে যান</a>
+</div>
 
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getDatabase, ref, onValue, update, remove } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+<script>
+    function loadAdminData() {
+        const listContainer = document.getElementById('adminRequestsList');
+        
+        // লোকালস্টোরেজ থেকে ইউজারের লেভেল ও লক স্টেটাস রিড করা
+        let userStats = JSON.parse(localStorage.getItem('phi_user_stats')) || { level: 1, isLocked: false };
+        let savedRequests = JSON.parse(localStorage.getItem('phi_agent_requests')) || [];
 
-        const firebaseConfig = {
-            databaseURL: "https://probashi-help-iraq-default-rtdb.firebaseio.com"
-        };
+        let htmlContent = '';
+        let hasItems = false;
 
-        const app = initializeApp(firebaseConfig);
-        const db = getDatabase(app);
+        // লেভেল ২৫, ৫০, ৭৫ বা ১০০ এ লক হলে অ্যাডমিন প্যানেলে দেখাবে
+        const milestoneLevels = [25, 50, 75, 100];
+        if (userStats.isLocked && milestoneLevels.includes(userStats.level)) {
+            hasItems = true;
+            htmlContent += `
+                <div class="request-card" style="border-color: var(--accent-gold);">
+                    <div class="request-header">
+                        <span class="user-name">👤 প্রবাসী ইউজার (মাইলস্টোন সিকিউরিটি লক)</span>
+                        <span class="req-level">বর্তমান লেভেল: ${userStats.level}</span>
+                    </div>
+                    <div class="req-msg"><strong>স্ট্যাটাস:</strong> ইউজার লেভেল ${userStats.level}-এ পৌঁছানোর পর গেটওয়েতে লক আছেন। পরবর্তী ধাপে যাওয়ার জন্য বস/অ্যাডমিন পারমিশন প্রয়োজন।</div>
+                    <div class="action-row">
+                        <button class="btn btn-approve" onclick="unlockUserLevel(${userStats.level})">লক ছাড়িয়ে দিন (অনুমোদন)</button>
+                    </div>
+                </div>
+            `;
+        }
 
-        document.getElementById('loginBtn').addEventListener('click', () => {
-            const pin = document.getElementById('pinInput').value;
-            if (pin === '1234') {
-                document.getElementById('loginBox').classList.add('hidden');
-                document.getElementById('adminContent').classList.remove('hidden');
-                loadRequests();
-            } else {
-                alert('ভুল পিন নম্বর!');
-            }
-        });
-
-        function loadRequests() {
-            const listDiv = document.getElementById('requestsList');
-            onValue(ref(db, 'requests'), (snapshot) => {
-                const data = snapshot.val();
-                if (!data) {
-                    listDiv.innerHTML = '<p class="no-data">কোনো নতুন আবেদন পাওয়া যায়নি</p>';
-                    return;
-                }
-
-                listDiv.innerHTML = '';
-                Object.keys(data).reverse().forEach(key => {
-                    const req = data[key];
-                    const card = document.createElement('div');
-                    card.className = 'req-card';
-
-                    let actionContent = '';
-                    if (req.status === 'Accepted') {
-                        actionContent = `<span class="status-badge" style="background:#22c55e">Accepted</span>`;
-                    } else if (req.status === 'Rejected') {
-                        actionContent = `<span class="status-badge" style="background:#ef4444">Rejected</span>`;
-                    } else {
-                        actionContent = `
-                            <button class="btn btn-accept" onclick="changeStatus('${key}', 'Accepted')">Accept</button>
-                            <button class="btn btn-reject" onclick="changeStatus('${key}', 'Rejected')">Reject</button>
-                        `;
-                    }
-
-                    card.innerHTML = `
-                        <button class="btn-delete" onclick="deleteReq('${key}')">ডিলিট</button>
-                        <span class="track-id">ID: ${req.trackId || 'N/A'}</span>
-                        <div class="user-name">${req.name || 'Unknown'}</div>
-                        <div class="req-type">📌 ${req.issueType || 'N/A'}</div>
-                        <div class="req-info">📞 ${req.phone || 'N/A'} | 📍 ${req.location || 'N/A'}</div>
-                        <div class="req-desc">${req.issueDesc || 'No details'}</div>
-                        <div class="actions">${actionContent}</div>
+        // এজেন্ট চ্যাট ও অন্যান্য রিকোয়েস্টগুলো দেখাবে
+        if (savedRequests.length > 0) {
+            savedRequests.forEach((req, index) => {
+                if(req.status === 'Pending' || !req.status) {
+                    hasItems = true;
+                    htmlContent += `
+                        <div class="request-card">
+                            <div class="request-header">
+                                <span class="user-name">${req.userName || 'প্রবাসী ইউজার'}</span>
+                                <span style="font-size: 12px; color: var(--text-muted);">${req.time || 'এখনই'}</span>
+                            </div>
+                            <div class="req-msg"><strong>এজেন্ট চ্যাট আলোচনা:</strong> ${req.message}</div>
+                            <div class="action-row">
+                                <button class="btn btn-reject" onclick="handleChatAction(${index}, 'Rejected')">বাতিল করুন</button>
+                                <button class="btn btn-approve" onclick="handleChatAction(${index}, 'Approved')">অনুমোদন দিন</button>
+                            </div>
+                        </div>
                     `;
-                    listDiv.appendChild(card);
-                });
+                }
             });
         }
 
-        window.changeStatus = function(key, status) {
-            update(ref(db, 'requests/' + key), { status: status });
-        };
+        if (!hasItems) {
+            listContainer.innerHTML = `<div class="no-data">বর্তমানে কোনো পেন্ডিং লক বা রিকোয়েস্ট নেই।</div>`;
+        } else {
+            listContainer.innerHTML = htmlContent;
+        }
+    }
 
-        window.deleteReq = function(key) {
-            if (confirm('আবেদনটি মুছে ফেলতে চান?')) {
-                remove(ref(db, 'requests/' + key));
+    // লেভেল আনলক করার ফাংশন
+    window.unlockUserLevel = function(currentLevel) {
+        let userStats = JSON.parse(localStorage.getItem('phi_user_stats'));
+        if (userStats) {
+            userStats.isLocked = false;
+            // যদি ১০০ লেভেল হয় তবে আর বাড়াবে না, অন্যথায় পরের ধাপে নিয়ে যাবে
+            if(currentLevel < 100) {
+                userStats.level = currentLevel + 1;
             }
-        };
-    </script>
+            localStorage.setItem('phi_user_stats', JSON.stringify(userStats));
+            alert('সফলভাবে ভেরিফিকেশন সম্পন্ন হয়েছে! ইউজার পরবর্তী লেভেলে উন্নীত হয়েছেন।');
+            loadAdminData();
+        }
+    }
+
+    // এজেন্ট চ্যাট রিকোয়েস্ট অ্যাকশন হ্যান্ডেল করা
+    window.handleChatAction = function(index, status) {
+        let savedRequests = JSON.parse(localStorage.getItem('phi_agent_requests')) || [];
+        if (savedRequests[index]) {
+            savedRequests[index].status = status;
+            localStorage.setItem('phi_agent_requests', JSON.stringify(savedRequests));
+            alert(`রিকোয়েস্টটি সফলভাবে ${status === 'Approved' ? 'অনুমোদন করা হয়েছে' : 'বাতিল করা হয়েছে'}!`);
+            loadAdminData();
+        }
+    }
+
+    loadAdminData();
+</script>
 </body>
 </html>
