@@ -3,33 +3,191 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>চাকরির বিজ্ঞপ্তি - Probashi Help Iraq</title>
+    <title>চাকরির আপডেট ও পোস্ট - প্রবাসী হেল্প ইরাক</title>
     <style>
-        body { font-family: sans-serif; background-color: #0f172a; color: #fff; margin: 0; padding: 16px; }
-        h2 { color: #38bdf8; text-align: center; margin-bottom: 20px; }
-        .job-card { background: #1e293b; padding: 16px; border-radius: 10px; margin-bottom: 12px; border: 1px solid #334155; }
-        .job-title { font-size: 16px; font-weight: bold; color: #f59e0b; margin-bottom: 6px; }
-        .job-info { font-size: 13px; color: #cbd5e1; margin-bottom: 4px; }
-        .apply-btn { display: inline-block; background: #2563eb; color: #fff; text-decoration: none; padding: 8px 12px; border-radius: 6px; font-size: 12px; font-weight: bold; margin-top: 8px; }
+        :root {
+            --bg-primary: #030712;
+            --bg-card: rgba(30, 41, 59, 0.75);
+            --border-color: rgba(255, 255, 255, 0.08);
+            --accent-gold: #f59e0b;
+            --accent-blue: #38bdf8;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --success: #10b981;
+            --shadow-lg: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+            --transition: all 0.3s ease;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Hind Siliguri', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-main);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container { max-width: 800px; margin: 0 auto; }
+
+        /* হেডার কার্ড */
+        .header-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--border-color);
+            border-radius: 1.25rem;
+            padding: 24px;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow-lg);
+            text-align: center;
+        }
+        .header-card h1 { color: var(--accent-gold); font-size: 22px; margin-bottom: 6px; }
+        .header-card p { font-size: 13px; color: var(--text-muted); }
+
+        /* ফেসবুক স্টাইল জব পোস্ট ফিড কার্ড */
+        .post-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--border-color);
+            border-radius: 1.25rem;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow-lg);
+            transition: var(--transition);
+        }
+        .post-card:hover { border-color: var(--accent-blue); }
+
+        .post-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 10px;
+        }
+        .author-info { display: flex; align-items: center; gap: 10px; }
+        .author-avatar {
+            width: 40px; height: 40px; background: linear-gradient(135deg, #f59e0b, #d97706);
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-weight: bold; color: #090d16; font-size: 16px;
+        }
+        .author-details h4 { font-size: 15px; color: var(--accent-blue); }
+        .author-details span { font-size: 11px; color: var(--text-muted); }
+
+        .post-badge {
+            background: rgba(16, 185, 129, 0.15);
+            color: var(--success);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            font-size: 12px;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+
+        .post-body {
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--text-main);
+            margin-bottom: 16px;
+        }
+
+        .post-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid var(--border-color);
+            padding-top: 12px;
+        }
+        .post-time { font-size: 12px; color: var(--text-muted); }
+
+        /* সরাসরি এজেন্টের সাথে যোগাযোগের প্রিমিয়াম বাটন */
+        .btn-agent-chat {
+            background: linear-gradient(135deg, #2563eb, #4f46e5);
+            color: #fff;
+            padding: 8px 16px;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: var(--transition);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+        }
+        .btn-agent-chat:hover {
+            background: linear-gradient(135deg, #1d4ed8, #4338ca);
+            transform: translateY(-2px);
+        }
+
+        .back-link { display: inline-block; color: var(--text-muted); text-decoration: none; font-size: 13px; margin-top: 10px; transition: var(--transition); }
+        .back-link:hover { color: var(--accent-gold); }
     </style>
 </head>
 <body>
-    <h2>জরুরি চাকরির বিজ্ঞপ্তি</h2>
 
-    <div class="job-card">
-        <div class="job-title">কনস্ট্রাকশন সাইট সুপারভাইজার</div>
-        <div class="job-info">📍 স্থান: এরবিল, ইরাক</div>
-        <div class="job-info">💰 বেতন: আলোচনা সাপেক্ষে</div>
-        <div class="job-info">📅 প্রকাশের তারিখ: ০৩ সেপ্টেম্বর, ২০২৬</div>
-        <a href="index.html" class="apply-btn">আবেদন করতে চাপ দিন</a>
+<div class="container">
+    <div class="header-card">
+        <h1>💼 ইরাক প্রবাসী চাকরির আপডেট ও পোস্ট</h1>
+        <p>সরাসরি কাজের অফার দেখুন এবং এক ক্লিকে এজেন্টের সাথে যোগাযোগ করুন। কোনো ফর্ম পূরণের ঝামেলা নেই!</p>
     </div>
 
-    <div class="job-card">
-        <div class="job-title">রেস্তোরাঁ শেফ / কুক</div>
-        <div class="job-info">📍 স্থান: বাগদাদ, ইরাক</div>
-        <div class="job-info">💰 বেতন: ৬০০$ - ৮০০$</div>
-        <div class="job-info">📅 প্রকাশের তারিখ: ০১ সেপ্টেম্বর, ২০২৬</div>
-        <a href="index.html" class="apply-btn">আবেদন করতে চাপ দিন</a>
+    <!-- ফেসবুক স্টাইল জব পোস্ট ফিড কন্টেইনার -->
+    <div id="jobFeedContainer">
+        
+        <!-- পোস্ট ১ -->
+        <div class="post-card">
+            <div class="post-header">
+                <div class="author-info">
+                    <div class="author-avatar">👑</div>
+                    <div class="author-details">
+                        <h4>অফিসিয়াল অ্যাডমিন</h4>
+                        <span>ইরাক রিক্রুটমেন্ট সেল</span>
+                    </div>
+                </div>
+                <span class="post-badge">চলমান নিয়োগ</span>
+            </div>
+            <div class="post-body">
+                <strong>পদ:</strong> কনস্ট্রাকশন সাইট সুপারভাইজার (Construction Supervisor)<br>
+                <strong>লোকেশন:</strong> এরবিল, ইরাক<br>
+                <strong>সুবিধাদি:</strong> থাকা-খাওয়া ফ্রি এবং কোম্পানির পক্ষ থেকে আকর্ষনীয় বেতন ও যাতায়াত ব্যবস্থা।<br>
+                <em>আগ্রহী প্রবাসীরা বিস্তারিত জানতে নিচে সরাসরি এজেন্টের সাথে চ্যাট করুন।</em>
+            </div>
+            <div class="post-footer">
+                <span class="post-time">🕒 ১০ মিনিট আগে প্রকাশিত</span>
+                <a href="chat-support.html" class="btn-agent-chat">💬 এজেন্টের সাথে যোগাযোগ করুন</a>
+            </div>
+        </div>
+
+        <!-- পোস্ট ২ -->
+        <div class="post-card">
+            <div class="post-header">
+                <div class="author-info">
+                    <div class="author-avatar">👔</div>
+                    <div class="author-details">
+                        <h4>অথোরাইজড এজেন্ট</h4>
+                        <span>বাগদাদ ব্রাঞ্চ</span>
+                    </div>
+                </div>
+                <span class="post-badge">জরুরি</span>
+            </div>
+            <div class="post-body">
+                <strong>পদ:</strong> রেস্তোরাঁ শেফ ও কুক (Restaurant Chef)<br>
+                <strong>লোকেশন:</strong> বাগদাদ, ইরাক<br>
+                <strong>সুবিধাদি:</strong> কাজের অভিজ্ঞতা সম্পন্ন প্রবাসীদের অগ্রাধিকার দেওয়া হবে। বেতন আলোচনা সাপেক্ষে।<br>
+                <em>কোনো মাধ্যম ছাড়াই সরাসরি কথা বলতে চ্যাট অপশন ব্যবহার করুন।</em>
+            </div>
+            <div class="post-footer">
+                <span class="post-time">🕒 ২ ঘণ্টা আগে প্রকাশিত</span>
+                <a href="chat-support.html" class="btn-agent-chat">💬 এজেন্টের সাথে যোগাযোগ করুন</a>
+            </div>
+        </div>
+
     </div>
+
+    <a href="home.html" class="back-link">← হোম পেজে ফিরে যান</a>
+</div>
+
 </body>
 </html>
