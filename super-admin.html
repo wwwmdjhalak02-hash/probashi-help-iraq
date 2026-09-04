@@ -3,157 +3,173 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>সুপার এডমিন প্যানেল - প্রবাসী সাহায্য</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>সুপার অ্যাডমিন সিক্রেট প্যানেল - প্রবাসী হেল্প ইরাক</title>
+    <style>
+        :root {
+            --bg-primary: #030712;
+            --bg-card: rgba(30, 41, 59, 0.75);
+            --border-color: rgba(255, 255, 255, 0.08);
+            --accent-gold: #f59e0b;
+            --accent-blue: #38bdf8;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --success: #10b981;
+            --danger: #ef4444;
+            --shadow-lg: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+            --transition: all 0.3s ease;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Hind Siliguri', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 450px;
+            background: var(--bg-card);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--border-color);
+            border-radius: 1.25rem;
+            padding: 30px;
+            box-shadow: var(--shadow-lg);
+            text-align: center;
+        }
+
+        h2 { color: var(--accent-gold); font-size: 22px; margin-bottom: 8px; }
+        p { font-size: 13px; color: var(--text-muted); margin-bottom: 20px; }
+
+        /* সিক্রেট লগইন বক্স */
+        .secret-box input {
+            width: 100%;
+            padding: 12px 16px;
+            background: rgba(15, 23, 42, 0.9);
+            border: 1px solid var(--border-color);
+            border-radius: 0.75rem;
+            color: #fff;
+            font-size: 16px;
+            text-align: center;
+            margin-bottom: 14px;
+            outline: none;
+            transition: var(--transition);
+        }
+        .secret-box input:focus { border-color: var(--accent-gold); }
+
+        .btn-action {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: #030712;
+            border: none;
+            border-radius: 0.75rem;
+            font-weight: 700;
+            font-size: 15px;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
+        }
+        .btn-action:hover { opacity: 0.9; transform: translateY(-2px); }
+
+        /* ড্যাশবোর্ড কন্টেন্ট (লগইনের পর শো হবে) */
+        .hidden { display: none; }
+        
+        .dashboard-panel { text-align: left; }
+        .stat-card {
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid var(--border-color);
+            border-radius: 0.75rem;
+            padding: 14px;
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .stat-card h4 { font-size: 14px; color: var(--text-main); }
+        .stat-card span { font-size: 16px; font-weight: bold; color: var(--accent-blue); }
+
+        .error-msg { color: var(--danger); font-size: 12px; margin-top: 10px; }
+
+        .back-link {
+            display: inline-block;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 13px;
+            margin-top: 20px;
+            transition: var(--transition);
+        }
+        .back-link:hover { color: var(--accent-gold); }
+    </style>
 </head>
-<body class="bg-slate-900 text-white min-h-screen p-4">
-    <div class="max-w-4xl mx-auto space-y-6">
-        <!-- Header -->
-        <div class="flex justify-between items-center bg-slate-800 p-4 rounded-xl border border-slate-700">
-            <h1 class="text-xl font-bold text-amber-500"><i class="fas fa-chart-line mr-2"></i>Admin Panel (সুপার এডমিন)</h1>
-            <a href="home.html" class="text-xs bg-slate-700 px-3 py-2 rounded-lg text-slate-300">হোমে যান</a>
-        </div>
+<body>
 
-        <!-- Top Metrics Cards -->
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <div class="bg-gradient-to-r from-blue-600 to-blue-500 p-4 rounded-xl shadow-lg">
-                <p class="text-xs text-blue-100 font-medium">ইউজার অনলাইন</p>
-                <h2 class="text-2xl font-extrabold mt-1">১২০</h2>
-            </div>
-            <div class="bg-gradient-to-r from-cyan-600 to-cyan-500 p-4 rounded-xl shadow-lg">
-                <p class="text-xs text-cyan-100 font-medium">মোট টিকিট জেনারেট</p>
-                <h2 class="text-2xl font-extrabold mt-1">৩৩,৩৫৯</h2>
-            </div>
-            <div class="bg-gradient-to-r from-amber-600 to-amber-500 p-4 rounded-xl shadow-lg">
-                <p class="text-xs text-amber-100 font-medium">সাম্প্রতিক ইভেন্ট</p>
-                <h2 class="text-2xl font-extrabold mt-1">১৫</h2>
-            </div>
-            <div class="bg-gradient-to-r from-purple-600 to-purple-500 p-4 rounded-xl shadow-lg">
-                <p class="text-xs text-purple-100 font-medium">সক্রিয় এজেন্ট</p>
-                <h2 class="text-2xl font-extrabold mt-1">৮</h2>
-            </div>
-        </div>
-
-        <!-- User Requests Table -->
-        <div class="bg-slate-800 p-5 rounded-2xl border border-slate-700">
-            <h2 class="text-md font-bold text-slate-200 mb-4"><i class="fas fa-user-clock text-amber-500 mr-2"></i>আবেদনকারীদের তালিকা (User Requests)</h2>
-            <div class="space-y-3">
-                <div class="flex items-center justify-between bg-slate-900 p-3 rounded-xl border border-slate-700">
-                    <div>
-                        <p class="font-bold text-sm text-slate-200">আদানান রশন</p>
-                        <p class="text-xs text-slate-400">পাসপোর্ট রিনিউ সহায়তা</p>
-                    </div>
-                    <div class="flex gap-2">
-                        <span class="text-xs bg-amber-500/10 text-amber-500 px-2.5 py-1 rounded-md">পেন্ডিং</span>
-                        <button class="bg-emerald-600 hover:bg-emerald-500 text-white text-xs px-3 py-1 rounded-md">মঞ্জুর</button>
-                    </div>
-                </div>
-                <div class="flex items-center justify-between bg-slate-900 p-3 rounded-xl border border-slate-700">
-                    <div>
-                        <p class="font-bold text-sm text-slate-200">সিটারম ফেরাম</p>
-                        <p class="text-xs text-slate-400">আইনি ও আকামা জরুরি সাহায্য</p>
-                    </div>
-                    <div class="flex gap-2">
-                        <span class="text-xs bg-amber-500/10 text-amber-500 px-2.5 py-1 rounded-md">পেন্ডিং</span>
-                        <button class="bg-emerald-600 hover:bg-emerald-500 text-white text-xs px-3 py-1 rounded-md">মঞ্জুর</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+<div class="container">
+    
+    <!-- সিক্রেট পিন ইনপুট সেকশন -->
+    <div id="loginSection" class="secret-box">
+        <h2>🔒 বস সিক্রেট পোর্টাল</h2>
+        <p>এই পেজটি সম্পূর্ণ গোপনীয়। শুধুমাত্র ৩ জন অনুমোদিত বসের সিক্রেট কোড দিয়ে প্রবেশাধিকার সংরক্ষিত।</p>
+        
+        <input type="password" id="secretPin" placeholder="সিক্রেট পিন কোড দিন..." autocomplete="off">
+        <button class="btn-action" onclick="verifyBoss()">প্রবেশ করুন</button>
+        <div id="errorMsg" class="error-msg"></div>
     </div>
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="bn">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>সুপার এডমিন - প্রবাসী সাহায্য</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
-</head>
-<body class="bg-slate-900 text-white min-h-screen p-4 pb-12">
-    <div class="max-w-md mx-auto space-y-4">
-        <!-- Top Navigation Bar -->
-        <div class="app-card p-3 flex justify-between items-center">
-            <div class="flex items-center gap-2">
-                <a href="home.html" class="text-slate-400 hover:text-white"><i class="fas fa-arrow-left"></i></a>
-                <h1 class="text-base font-bold text-amber-500">Super Admin Panel</h1>
-            </div>
-            <span class="text-[10px] bg-amber-500/20 text-amber-400 px-2 py-1 rounded-full font-bold border border-amber-500/30">অনলাইন</span>
+
+    <!-- মূল কন্ট্রোল ড্যাশবোর্ড (সফল লগইনের পর দেখাবে) -->
+    <div id="dashboardSection" class="dashboard-panel hidden">
+        <h2>👑 বস কন্ট্রোল প্যানেল</h2>
+        <p>স্বাগতম বস! আপনি এখান থেকে পুরো সিস্টেম ও এজেন্টদের নিয়ন্ত্রণ করতে পারছেন।</p>
+
+        <div class="stat-card">
+            <h4>সক্রিয় এজেন্ট</h4>
+            <span>৩ জন</span>
+        </div>
+        <div class="stat-card">
+            <h4>মোট ইউজার পোস্ট</h4>
+            <span>লাইভ ফিডে যুক্ত</span>
+        </div>
+        <div class="stat-card">
+            <h4>সিস্টেম স্ট্যাটাস</h4>
+            <span style="color: var(--success);">নিরাপদ ও রানিং</span>
         </div>
 
-        <!-- System Stats Grid (Matching Screenshot Cards) -->
-        <div class="grid grid-cols-2 gap-3">
-            <div class="app-card p-4 border-l-4 border-blue-500 bg-gradient-to-br from-slate-800 to-slate-900">
-                <div class="flex justify-between items-start">
-                    <span class="text-xs text-slate-400 font-semibold">Users Online</span>
-                    <i class="fas fa-users text-blue-400 text-sm"></i>
-                </div>
-                <h2 class="text-2xl font-extrabold text-white mt-2">120</h2>
-                <div class="w-full bg-slate-700 h-1.5 rounded-full mt-2 overflow-hidden">
-                    <div class="bg-blue-500 h-full w-[70%]"></div>
-                </div>
-            </div>
-
-            <div class="app-card p-4 border-l-4 border-emerald-500 bg-gradient-to-br from-slate-800 to-slate-900">
-                <div class="flex justify-between items-start">
-                    <span class="text-xs text-slate-400 font-semibold">Free Tickets</span>
-                    <i class="fas fa-ticket-alt text-emerald-400 text-sm"></i>
-                </div>
-                <h2 class="text-2xl font-extrabold text-white mt-2">33,359</h2>
-                <div class="w-full bg-slate-700 h-1.5 rounded-full mt-2 overflow-hidden">
-                    <div class="bg-emerald-500 h-full w-[85%]"></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Action Control Buttons -->
-        <div class="grid grid-cols-3 gap-2">
-            <button class="app-card p-2 text-center text-xs font-bold text-slate-200 hover:border-amber-500 transition">
-                <i class="fas fa-plus-circle text-amber-500 block text-base mb-1"></i> এড এজেন্ট
-            </button>
-            <button class="app-card p-2 text-center text-xs font-bold text-slate-200 hover:border-amber-500 transition">
-                <i class="fas fa-user-check text-blue-400 block text-base mb-1"></i> অনুমোদন
-            </button>
-            <button class="app-card p-2 text-center text-xs font-bold text-slate-200 hover:border-amber-500 transition">
-                <i class="fas fa-cog text-emerald-400 block text-base mb-1"></i> সেটআপ
-            </button>
-        </div>
-
-        <!-- Pending Applications List -->
-        <div class="app-card p-4 space-y-3">
-            <div class="flex justify-between items-center pb-2 border-b border-slate-700">
-                <h3 class="text-xs font-bold text-slate-300 uppercase tracking-wider"><i class="fas fa-clock text-amber-500 mr-1.5"></i>আবেদন তালিকা</h3>
-                <span class="text-[10px] text-slate-400">সর্বশেষ আপডেট</span>
-            </div>
-
-            <div class="space-y-2">
-                <div class="bg-slate-900/80 p-3 rounded-xl border border-slate-700/60 flex items-center justify-between text-xs">
-                    <div>
-                        <p class="font-bold text-slate-200">আব্দুল করিম</p>
-                        <p class="text-[10px] text-slate-400">পাসপোর্ট সংশোধন • ২ ঘন্টা আগে</p>
-                    </div>
-                    <div class="flex gap-1.5">
-                        <button class="bg-emerald-600/20 text-emerald-400 border border-emerald-500/30 px-2.5 py-1 rounded-lg font-bold hover:bg-emerald-600 hover:text-white transition">মঞ্জুর</button>
-                        <button class="bg-rose-600/20 text-rose-400 border border-rose-500/30 px-2.5 py-1 rounded-lg font-bold hover:bg-rose-600 hover:text-white transition">বাতিল</button>
-                    </div>
-                </div>
-
-                <div class="bg-slate-900/80 p-3 rounded-xl border border-slate-700/60 flex items-center justify-between text-xs">
-                    <div>
-                        <p class="font-bold text-slate-200">মোহাম্মদ হোসেন</p>
-                        <p class="text-[10px] text-slate-400">আইনি সহায়তা • ৫ ঘন্টা আগে</p>
-                    </div>
-                    <div class="flex gap-1.5">
-                        <button class="bg-emerald-600/20 text-emerald-400 border border-emerald-500/30 px-2.5 py-1 rounded-lg font-bold hover:bg-emerald-600 hover:text-white transition">মঞ্জুর</button>
-                        <button class="bg-rose-600/20 text-rose-400 border border-rose-500/30 px-2.5 py-1 rounded-lg font-bold hover:bg-rose-600 hover:text-white transition">বাতিল</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <button class="btn-action" style="background: linear-gradient(135deg, #ef4444, #b91c1c); color: #fff; margin-top: 10px;" onclick="logoutBoss()">লগআউট করুন</button>
     </div>
+
+    <a href="home.html" class="back-link">← হোম পেজে ফিরে যান</a>
+</div>
+
+<script>
+    // ৩ জন বস-এর গোপন সিক্রেট পিন কোড (প্রয়োজন অনুযায়ী পরিবর্তন করা যাবে)
+    const bossSecretPins = ["BOSS777", "IRAQ888", "ADMIN999"];
+
+    function verifyBoss() {
+        const inputPin = document.getElementById('secretPin').value.trim();
+        const errorDiv = document.getElementById('errorMsg');
+
+        if (bossSecretPins.includes(inputPin)) {
+            // সফলভাবে লগইন হলে পিন সেকশন লুকিয়ে ড্যাশবোর্ড দেখাবে
+            document.getElementById('loginSection').classList.add('hidden');
+            document.getElementById('dashboardSection').classList.remove('hidden');
+            errorDiv.innerText = "";
+        } else {
+            errorDiv.innerText = "⚠️ ভুল সিক্রেট পিন কোড! প্রবেশাধিকার সংরক্ষিত।";
+        }
+    }
+
+    function logoutBoss() {
+        document.getElementById('secretPin').value = "";
+        document.getElementById('dashboardSection').classList.add('hidden');
+        document.getElementById('loginSection').classList.remove('hidden');
+    }
+</script>
+
 </body>
 </html>
