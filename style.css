@@ -1,184 +1,85 @@
 /**
  * =================================================================
- * Probashi Help Iraq - Enterprise Master Global Stylesheet
- * Ultra-Premium Glassmorphism & High-Performance UI Architecture
+ * Probashi Help Iraq - Enterprise Guardian & Local-First State Engine (fix.js)
+ * Zero-API dependency, lightning-fast localStorage persistence & cross-page sync
  * =================================================================
  */
 
- @import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap');
+const PhiSystem = {
+    // Initialize default local state if empty
+    init() {
+        if (!localStorage.getItem('phi_users')) {
+            localStorage.setItem('phi_users', JSON.stringify([]));
+        }
+        if (!localStorage.getItem('phi_posts')) {
+            localStorage.setItem('phi_posts', JSON.stringify([
+                {
+                    id: 1,
+                    author: "অফিসিয়াল অ্যাডমিন",
+                    role: "👑 এডমিন",
+                    content: "ইরাক প্রবাসীদের জন্য জরুরি নোটিশ: যেকোনো সহায়তায় সরাসরি চ্যাট বা জব ফিড ব্যবহার করুন। কোনো জটিল ফর্ম বা এপিআই ছাড়াই সিস্টেমটি সম্পূর্ণ সচল রয়েছে।",
+                    time: "১০ মিনিট আগে"
+                }
+            ]));
+        }
+        if (!localStorage.getItem('phi_current_user')) {
+            localStorage.setItem('phi_current_user', JSON.stringify({ 
+                name: "প্রবাসী ইউজার", 
+                role: "User", 
+                avatar: "👤",
+                location: "বাগদাদ, ইরাক" 
+            }));
+        }
+        this.guardUI();
+    },
 
- :root {
-     --bg-primary: #090d16;
-     --bg-secondary: #111827;
-     --glass-bg: rgba(30, 41, 59, 0.7);
-     --glass-border: rgba(255, 255, 255, 0.08);
-     --text-main: #f8fafc;
-     --text-muted: #94a3b8;
-     --accent-gold: #f59e0b;
-     --accent-gold-hover: #fbbf24;
-     --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 10px 10px -5px rgba(0, 0, 0, 0.4);
-     --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
- }
+    // Save a new post or request locally (String-of-Pearls architecture)
+    savePost(content, authorName, role) {
+        let posts = JSON.parse(localStorage.getItem('phi_posts')) || [];
+        const newPost = {
+            id: Date.now(),
+            author: authorName,
+            role: role,
+            content: content,
+            time: "এইমাত্র"
+        };
+        posts.unshift(newPost);
+        localStorage.setItem('phi_posts', JSON.stringify(posts));
+        return posts;
+    },
 
- * {
-     box-sizing: border-box;
-     margin: 0;
-     padding: 0;
- }
+    // Retrieve all active posts
+    getPosts() {
+        return JSON.parse(localStorage.getItem('phi_posts')) || [];
+    },
 
- body {
-     font-family: 'Hind Siliguri', sans-serif;
-     background-color: var(--bg-primary);
-     color: var(--text-main);
-     min-height: 100vh;
-     overflow-x: hidden;
-     line-height: 1.6;
-     -webkit-tap-highlight-color: transparent;
- }
+    // Get current logged-in user profile
+    getCurrentUser() {
+        return JSON.parse(localStorage.getItem('phi_current_user')) || { 
+            name: "প্রবাসী", 
+            role: "User", 
+            avatar: "👤", 
+            location: "ইরাক" 
+        };
+    },
 
- /* --- Elite Glassmorphism App Cards --- */
- .app-card {
-     background: var(--glass-bg);
-     backdrop-filter: blur(16px);
-     -webkit-backdrop-filter: blur(16px);
-     border: 1px solid var(--glass-border);
-     border-radius: 1.25rem;
-     box-shadow: var(--shadow-lg);
-     transition: var(--transition);
- }
+    // Update current user profile instantly
+    setCurrentUser(userData) {
+        localStorage.setItem('phi_current_user', JSON.stringify(userData));
+    },
 
- .app-card:hover {
-     border-color: rgba(245, 158, 11, 0.3);
-     transform: translateY(-3px);
- }
+    // Guardian method to prevent broken links or missing elements across pages
+    guardUI() {
+        document.addEventListener('DOMContentLoaded', () => {
+            // Ensure all internal links have valid targets
+            document.querySelectorAll('a').forEach(link => {
+                if (!link.getAttribute('href')) {
+                    link.setAttribute('href', '#');
+                }
+            });
+        });
+    }
+};
 
- /* --- Enterprise Form Controls (Inputs, Selects, Textareas) --- */
- input, select, textarea {
-     width: 100%;
-     background: rgba(15, 23, 42, 0.6);
-     border: 1px solid var(--glass-border);
-     border-radius: 0.75rem;
-     padding: 0.75rem 1rem;
-     color: var(--text-main);
-     font-family: 'Hind Siliguri', sans-serif;
-     font-size: 1rem;
-     transition: var(--transition);
-     outline: none;
- }
-
- input:focus, select:focus, textarea:focus {
-     border-color: var(--accent-gold);
-     box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.15);
- }
-
- /* --- Master Glow Button System --- */
- .glow-button {
-     background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-     color: #090d16;
-     font-weight: 700;
-     border: none;
-     border-radius: 0.75rem;
-     padding: 0.75rem 1.5rem;
-     cursor: pointer;
-     transition: var(--transition);
-     box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
-     display: inline-flex;
-     align-items: center;
-     justify-content: center;
-     gap: 0.5rem;
- }
-
- .glow-button:hover {
-     background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
-     transform: translateY(-2px);
-     box-shadow: 0 6px 20px rgba(245, 158, 11, 0.5);
- }
-
- .glow-button:active {
-     transform: translateY(0);
- }
-
- /* --- Loading State for Buttons --- */
- .glow-button.is-loading {
-     opacity: 0.8;
-     pointer-events: none;
-     position: relative;
- }
-
- .glow-button.is-loading::after {
-     content: "";
-     width: 18px;
-     height: 18px;
-     border: 2px solid #090d16;
-     border-top-color: transparent;
-     border-radius: 50%;
-     animation: button-loading-spinner 0.6s linear infinite;
- }
-
- @keyframes button-loading-spinner {
-     from { transform: rotate(0deg); }
-     to { transform: rotate(360deg); }
- }
-
- /* --- Status Badges (Enterprise Grade) --- */
- .status-badge-pending {
-     background-color: rgba(245, 158, 11, 0.15);
-     color: #fbbf24;
-     border: 1px solid rgba(245, 158, 11, 0.3);
-     padding: 0.25rem 0.75rem;
-     border-radius: 2rem;
-     font-size: 0.85rem;
-     font-weight: 600;
-     display: inline-flex;
-     align-items: center;
-     gap: 0.35rem;
- }
-
- .status-badge-success {
-     background-color: rgba(16, 185, 129, 0.15);
-     color: #34d399;
-     border: 1px solid rgba(16, 185, 129, 0.3);
-     padding: 0.25rem 0.75rem;
-     border-radius: 2rem;
-     font-size: 0.85rem;
-     font-weight: 600;
-     display: inline-flex;
-     align-items: center;
-     gap: 0.35rem;
- }
-
- /* --- Mobile Responsiveness & Media Queries --- */
- @media (max-width: 768px) {
-     body {
-         font-size: 0.95rem;
-     }
-
-     .app-card {
-         border-radius: 1rem;
-         padding: 1rem;
-         margin-bottom: 1rem;
-     }
-
-     .glow-button {
-         width: 100%;
-         padding: 0.85rem;
-     }
- }
-
- /* --- Custom Scrollbar for VIP Feel --- */
- ::-webkit-scrollbar {
-     width: 8px;
- }
-
- ::-webkit-scrollbar-track {
-     background: var(--bg-primary);
- }
-
- ::-webkit-scrollbar-thumb {
-     background: #334155;
-     border-radius: 4px;
- }
-
- ::-webkit-scrollbar-thumb:hover {
-     background: #475569;
- }
+// Execute initialization immediately
+PhiSystem.init();
