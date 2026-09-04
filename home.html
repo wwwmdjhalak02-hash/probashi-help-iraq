@@ -7,19 +7,22 @@
     <style>
         :root {
             --bg-primary: #030712;
-            --bg-card: rgba(15, 23, 42, 0.75);
+            --bg-card: rgba(15, 23, 42, 0.85);
             --border-color: rgba(51, 65, 85, 0.6);
             --accent-blue: #38bdf8;
             --accent-indigo: #6366f1;
+            --accent-gold: #f59e0b;
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
+            --shadow-lg: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Hind Siliguri', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         body {
@@ -45,14 +48,14 @@
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
             border: 1px solid var(--border-color);
-            border-radius: 24px;
+            border-radius: 1.25rem;
             padding: 32px 24px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+            box-shadow: var(--shadow-lg);
         }
 
         .header {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 24px;
         }
 
         .header h1 {
@@ -61,21 +64,34 @@
             background: linear-gradient(135deg, #38bdf8, #818cf8);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             letter-spacing: 0.5px;
         }
 
         .header p {
             color: var(--text-muted);
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 500;
         }
+
+        /* ভিআইপি ইউজার স্ট্যাটাস মিনি কার্ড (লোকালস্টোরেজ সিনক্রোনাইজড) */
+        .user-status-card {
+            background: rgba(30, 41, 59, 0.5);
+            border: 1px solid var(--border-color);
+            border-radius: 0.75rem;
+            padding: 12px 16px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+        }
+        .user-status-card span { color: var(--accent-gold); font-weight: 600; }
 
         .grid-menu {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 14px;
-            margin-top: 16px;
         }
 
         .menu-btn {
@@ -83,7 +99,7 @@
             color: var(--text-main);
             text-decoration: none;
             padding: 20px 14px;
-            border-radius: 16px;
+            border-radius: 0.75rem;
             border: 1px solid var(--border-color);
             font-size: 14px;
             font-weight: 600;
@@ -91,11 +107,11 @@
             flex-direction: column;
             align-items: center;
             gap: 10px;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: var(--transition);
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
         }
 
-        .menu-btn span {
+        .menu-btn span.icon {
             font-size: 26px;
             transition: transform 0.3s ease;
         }
@@ -107,7 +123,7 @@
             box-shadow: 0 10px 20px -5px rgba(56, 189, 248, 0.2);
         }
 
-        .menu-btn:hover span {
+        .menu-btn:hover span.icon {
             transform: scale(1.15);
         }
 
@@ -116,9 +132,10 @@
             border-color: transparent;
             grid-column: span 2;
             padding: 18px;
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 700;
             box-shadow: 0 8px 20px rgba(37, 99, 235, 0.4);
+            margin-bottom: 14px;
         }
 
         .primary-btn:hover {
@@ -134,29 +151,57 @@
     <div class="container">
         <div class="header">
             <h1>Probashi Help Iraq</h1>
-            <p>ইরাকে অবস্থানরত প্রবাসী বাংলাদেশীদের বিশ্বস্ত সহায়তা</p>
+            <p>ইরাকে অবস্থানরত প্রবাসী বাংলাদেশীদের বিশ্বস্ত সহায়তা হাব</p>
+        </div>
+
+        <!-- ডাইনামিক লোকালস্টোরেজ স্ট্যাটাস উইজেট (অন্যান্য পেজের সাথে সিঙ্কড) -->
+        <div class="user-status-card" id="homeUserStats">
+            <div>অ্যাকাউন্ট স্ট্যাটাস: <span id="syncLevelText">লেভেল ১ / ১০০</span></div>
+            <div id="syncStarText">⭐ ১ স্টার</div>
         </div>
 
         <a href="index.html" class="menu-btn primary-btn">
-            <span>🆘</span> সেবা বা সাহায্যের আবেদন করুন
+            <span class="icon">🆘</span> সেবা বা সাহায্যের আবেদন করুন
         </a>
 
         <div class="grid-menu">
             <a href="notice.html" class="menu-btn">
-                <span>📢</span> নোটিশ বোর্ড
+                <span class="icon">📢</span> নোটিশ বোর্ড
             </a>
             <a href="jobs.html" class="menu-btn">
-                <span>💼</span> চাকরির বিজ্ঞপ্তি
+                <span class="icon">💼</span> চাকরির বিজ্ঞপ্তি
             </a>
             <a href="gallery.html" class="menu-btn">
-                <span>🖼️</span> ফটো গ্যালারি
+                <span class="icon">🖼️</span> ফটো গ্যালারি
             </a>
             <a href="chat-support.html" class="menu-btn">
-                <span>📞</span> যোগাযোগ ও সাপোর্ট
+                <span class="icon">📞</span> যোগাযোগ ও সাপোর্ট
             </a>
         </div>
     </div>
 </div>
+
+<script>
+    // লোকালস্টোরেজ থেকে ইউজারের বর্তমান লেভেল ও স্টার ফেচ করে নিখুঁতভাবে সিঙ্ক করা (সুতোর মতো গাঁথা)
+    function syncHomeStats() {
+        const userStats = JSON.parse(localStorage.getItem('phi_user_stats')) || { level: 1, stars: 1 };
+        
+        document.getElementById('syncLevelTextinnerText` = `লেভেল ${userStats.level} / ১০০`;
+        
+        let starStr = "⭐ ১ স্টার";
+        if(userStats.level >= 80) starStr = "⭐⭐⭐⭐⭐⭐⭐ ৭ স্টার";
+        else if(userStats.level >= 60) starStr = "⭐⭐⭐⭐⭐⭐ ৬ স্টার";
+        else if(userStats.level >= 40) starStr = "⭐⭐⭐⭐⭐ ৫ স্টার";
+        else if(userStats.level >= 20) starStr = "⭐⭐⭐⭐ ৪ স্টার";
+        else if(userStats.level >= 10) starStr = "⭐⭐⭐ ৩ স্টার";
+        else if(userStats.level >= 5) starStr = "⭐⭐ ২ স্টার";
+
+        document.getElementById('syncStarText').innerText = starStr;
+    }
+
+    // পেজ লোড হওয়ার সাথে সাথে ডেটা সিঙ্ক করবে
+    syncHomeStats();
+</script>
 
 </body>
 </html>
