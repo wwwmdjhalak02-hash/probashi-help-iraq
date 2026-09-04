@@ -3,33 +3,187 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>চাকরির বিজ্ঞপ্তি - Probashi Help Iraq</title>
+    <title>প্রবাস ফিড ও আপডেট - প্রবাসী সাহায্য</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
     <style>
-        body { font-family: sans-serif; background-color: #0f172a; color: #fff; margin: 0; padding: 16px; }
-        h2 { color: #38bdf8; text-align: center; margin-bottom: 20px; }
-        .job-card { background: #1e293b; padding: 16px; border-radius: 10px; margin-bottom: 12px; border: 1px solid #334155; }
-        .job-title { font-size: 16px; font-weight: bold; color: #f59e0b; margin-bottom: 6px; }
-        .job-info { font-size: 13px; color: #cbd5e1; margin-bottom: 4px; }
-        .apply-btn { display: inline-block; background: #2563eb; color: #fff; text-decoration: none; padding: 8px 12px; border-radius: 6px; font-size: 12px; font-weight: bold; margin-top: 8px; }
+        :root {
+            --bg-primary: #07111f;
+            --accent-amber: #f59e0b;
+        }
+        body {
+            background-color: var(--bg-primary);
+            color: #f5f7fa;
+            font-family: 'Hind Siliguri', system-ui, sans-serif;
+        }
     </style>
 </head>
-<body>
-    <h2>জরুরি চাকরির বিজ্ঞপ্তি</h2>
+<body class="min-h-screen flex flex-col justify-between p-4 md:p-8">
+    <div class="max-w-xl mx-auto w-full flex-1">
+        <!-- Header Section -->
+        <div class="flex items-center justify-between bg-slate-800 p-4 md:p-6 rounded-2xl border border-slate-700 shadow-xl mb-6">
+            <div class="flex items-center gap-3">
+                <a href="home.html" class="text-slate-400 hover:text-white transition"><i class="fas fa-arrow-left text-lg"></i></a>
+                <div>
+                    <h1 class="font-bold text-amber-500 text-base md:text-lg">প্রবাস লাইভ ফিড</h1>
+                    <p class="text-xs text-slate-400">ফটো, চাকরির খবর ও জরুরি আপডেটসমূহ</p>
+                </div>
+            </div>
+            <span class="bg-amber-500/10 text-amber-500 text-xs font-semibold px-3 py-1 rounded-full border border-amber-500/25">ফিড</span>
+        </div>
 
-    <div class="job-card">
-        <div class="job-title">কনস্ট্রাকশন সাইট সুপারভাইজার</div>
-        <div class="job-info">📍 স্থান: এরবিল, ইরাক</div>
-        <div class="job-info">💰 বেতন: আলোচনা সাপেক্ষে</div>
-        <div class="job-info">📅 প্রকাশের তারিখ: ০৩ সেপ্টেম্বর, ২০২৬</div>
-        <a href="index.html" class="apply-btn">আবেদন করতে চাপ দিন</a>
+        <!-- Create Post Box (Photo & News Sharing) -->
+        <div class="bg-slate-800/80 border border-slate-700 rounded-2xl p-4 shadow-xl mb-6">
+            <textarea id="postContent" rows="3" placeholder="আপনার মনের কথা, ছবি বা চাকরির খবর এখানে শেয়ার করুন..." class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:border-amber-500 transition resize-none"></textarea>
+            <div class="flex items-center justify-between mt-3 pt-3 border-t border-slate-700/60">
+                <div class="flex items-center gap-3 text-slate-400 text-xs">
+                    <label class="cursor-pointer hover:text-amber-500 transition flex items-center gap-1">
+                        <i class="fas fa-image text-amber-500"></i> ছবি যুক্ত করুন
+                        <input type="file" id="postImageInput" accept="image/*" class="hidden" onchange="previewImageName(event)">
+                    </label>
+                    <span id="fileNameDisplay" class="text-[10px] text-slate-400 italic"></span>
+                </div>
+                <button onclick="addNewFeedPost()" class="bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold px-4 py-2 rounded-xl text-xs transition shadow-md flex items-center gap-1.5">
+                    <i class="fas fa-paper-plane"></i> পোস্ট করুন
+                </button>
+            </div>
+        </div>
+
+        <!-- Scrollable Feed Container (Sequential Posts: Photos, Jobs & News) -->
+        <div class="space-y-4" id="mainFeedContainer">
+            <!-- Feed Item 1 (Photo + Story Post) -->
+            <div class="bg-slate-800/80 border border-slate-700 rounded-2xl p-5 shadow-lg transition hover:border-amber-500/50">
+                <div class="flex items-center justify-between mb-3">
+                    <div class="flex items-center gap-2.5">
+                        <div class="w-9 h-9 rounded-full bg-amber-500/10 text-amber-500 flex items-center justify-center font-bold text-sm border border-amber-500/20">
+                            র
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-xs text-slate-200">রহিম মিয়া</h4>
+                            <p class="text-[10px] text-slate-400"><i class="far fa-clock mr-1"></i> বাগদাদ, ইরাক • ১০ মিনিট আগে</p>
+                        </div>
+                    </div>
+                    <span class="bg-amber-500/10 text-amber-400 text-[10px] font-bold px-2 py-0.5 rounded border border-amber-500/20">প্রবাসী ছবি</span>
+                </div>
+                <p class="text-xs text-slate-300 leading-relaxed mb-3">
+                    আজ কাজের ফাঁকে আর্বিলের সুন্দর একটি মুহূর্ত। সকল প্রবাসীদের জন্য শুভকামনা রইল।
+                </p>
+                <div class="rounded-xl overflow-hidden mb-3 bg-slate-900 border border-slate-700 h-48 flex items-center justify-center">
+                    <img src="https://picsum.photos/id/1015/500/300" alt="Post Image" class="w-full h-full object-cover">
+                </div>
+                <div class="flex items-center justify-between pt-3 border-t border-slate-700/60 text-xs">
+                    <button onclick="toggleLike(this)" class="text-slate-400 hover:text-amber-500 transition flex items-center gap-1">
+                        <i class="far fa-thumbs-up"></i> <span class="like-count">১৪</span> লাইক
+                    </button>
+                    <span class="text-slate-400 text-[11px]"><i class="fas fa-eye mr-1"></i> দেখা হয়েছে</span>
+                </div>
+            </div>
+
+            <!-- Feed Item 2 (Job/Notice Post) -->
+            <div class="bg-slate-800/80 border border-slate-700 rounded-2xl p-5 shadow-lg transition hover:border-amber-500/50">
+                <div class="flex items-center justify-between mb-3">
+                    <div class="flex items-center gap-2.5">
+                        <div class="w-9 h-9 rounded-full bg-blue-500/10 text-blue-400 flex items-center justify-center font-bold text-sm border border-blue-500/20">
+                            অ
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-xs text-slate-200">অফিসিয়াল আপডেট</h4>
+                            <p class="text-[10px] text-slate-400"><i class="far fa-clock mr-1"></i> ১ ঘণ্টা আগে</p>
+                        </div>
+                    </div>
+                    <span class="bg-blue-500/10 text-blue-400 text-[10px] font-bold px-2 py-0.5 rounded border border-blue-500/20">চাকরি ও নোটিশ</span>
+                </div>
+                <p class="text-xs text-slate-300 leading-relaxed mb-3">
+                    <strong>জরুরি কনস্ট্রাকশন জব:</strong> বাগদাদে দক্ষ পাইপ ফিটার আবশ্যক। থাকা-খাওয়া ফ্রি। আগ্রহীরা যোগাযোগ করুন।
+                </p>
+                <div class="flex items-center justify-between pt-3 border-t border-slate-700/60 text-xs">
+                    <button onclick="toggleLike(this)" class="text-slate-400 hover:text-amber-500 transition flex items-center gap-1">
+                        <i class="far fa-thumbs-up"></i> <span class="like-count">২৮</span> লাইক
+                    </button>
+                    <a href="chat-support.html" class="text-amber-500 hover:underline font-semibold flex items-center gap-1">
+                        আবেদন করুন <i class="fas fa-arrow-right text-[10px]"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <div class="job-card">
-        <div class="job-title">রেস্তোরাঁ শেফ / কুক</div>
-        <div class="job-info">📍 স্থান: বাগদাদ, ইরাক</div>
-        <div class="job-info">💰 বেতন: ৬০০$ - ৮০০$</div>
-        <div class="job-info">📅 প্রকাশের তারিখ: ০১ সেপ্টেম্বর, ২০২৬</div>
-        <a href="index.html" class="apply-btn">আবেদন করতে চাপ দিন</a>
+    <!-- Footer Navigation -->
+    <div class="text-center mt-8">
+        <a href="home.html" class="text-amber-500 text-xs hover:underline"><i class="fas fa-home mr-1"></i> হোম পেজে ফিরে যান</a>
     </div>
+
+    <script>
+        let selectedImageName = '';
+        function previewImageName(event) {
+            const file = event.target.files[0];
+            if(file) {
+                selectedImageName = URL.createObjectURL(file);
+                document.getElementById('fileNameDisplay').innerText = file.name;
+            }
+        }
+
+        function addNewFeedPost() {
+            const content = document.getElementById('postContent').value.trim();
+            if(!content && !selectedImageName) return;
+
+            const feedContainer = document.getElementById('mainFeedContainer');
+            const newCard = document.createElement('div');
+            newCard.className = "bg-slate-800/80 border border-slate-700 rounded-2xl p-5 shadow-lg transition hover:border-amber-500/50";
+            
+            let imageHTML = '';
+            if(selectedImageName) {
+                imageHTML = `<div class="rounded-xl overflow-hidden mb-3 bg-slate-900 border border-slate-700 h-48 flex items-center justify-center">
+                    <img src="${selectedImageName}" alt="Uploaded Image" class="w-full h-full object-cover">
+                </div>`;
+            }
+
+            newCard.innerHTML = `
+                <div class="flex items-center justify-between mb-3">
+                    <div class="flex items-center gap-2.5">
+                        <div class="w-9 h-9 rounded-full bg-amber-500/10 text-amber-500 flex items-center justify-center font-bold text-sm border border-amber-500/20">প্র</div>
+                        <div>
+                            <h4 class="font-bold text-xs text-slate-200">আপনি (প্রবাসী)</h4>
+                            <p class="text-[10px] text-slate-400"><i class="far fa-clock mr-1"></i> এইমাত্র</p>
+                        </div>
+                    </div>
+                    <span class="bg-emerald-500/10 text-emerald-400 text-[10px] font-bold px-2 py-0.5 rounded border border-emerald-500/20">নতুন পোস্ট</span>
+                </div>
+                <p class="text-xs text-slate-300 leading-relaxed mb-3">${content}</p>
+                ${imageHTML}
+                <div class="flex items-center justify-between pt-3 border-t border-slate-700/60 text-xs">
+                    <button onclick="toggleLike(this)" class="text-slate-400 hover:text-amber-500 transition flex items-center gap-1">
+                        <i class="far fa-thumbs-up"></i> <span class="like-count">০</span> লাইক
+                    </button>
+                    <span class="text-amber-400 text-[11px]">সক্রিয় ফিড</span>
+                </div>
+            `;
+            
+            feedContainer.prepend(newCard);
+            document.getElementById('postContent').value = '';
+            document.getElementById('postImageInput').value = '';
+            document.getElementById('fileNameDisplay').innerText = '';
+            selectedImageName = '';
+        }
+
+        function toggleLike(btn) {
+            const icon = btn.querySelector('i');
+            const countSpan = btn.querySelector('.like-count');
+            let count = parseInt(countSpan.innerText);
+            
+            if(icon.classList.contains('far')) {
+                icon.classList.remove('far');
+                icon.classList.add('fas');
+                btn.classList.add('text-amber-500');
+                countSpan.innerText = count + 1;
+            } else {
+                icon.classList.remove('fas');
+                icon.classList.add('far');
+                btn.classList.remove('text-amber-500');
+                countSpan.innerText = count - 1;
+            }
+        }
+    </script>
 </body>
 </html>
