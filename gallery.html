@@ -3,36 +3,88 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>গ্যালারি - Probashi Help Iraq</title>
+    <title>প্রবাসী সাহায্য - ইরাক | হোম পেজ</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body { font-family: sans-serif; background-color: #0f172a; color: #fff; margin: 0; padding: 16px; text-align: center; }
-        h2 { color: #38bdf8; margin-bottom: 16px; }
-        .gallery-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
-        .card { background: #1e293b; padding: 8px; border-radius: 8px; border: 1px solid #334155; }
-        .card img { width: 100%; height: 110px; object-fit: cover; border-radius: 6px; }
-        .card p { font-size: 13px; color: #cbd5e1; margin: 8px 0 2px 0; }
+        :root {
+            --bg-primary: #07111f;
+            --bg-card: rgba(13, 27, 42, 0.88);
+            --border-color: rgba(255, 255, 255, 0.09);
+            --accent-amber: #f59e0b;
+        }
+        body {
+            background-color: var(--bg-primary);
+            color: #f5f7fa;
+            font-family: 'Hind Siliguri', system-ui, sans-serif;
+        }
     </style>
 </head>
-<body>
-    <h2>ফটো গ্যালারি</h2>
+<body class="min-h-screen flex flex-col justify-between p-4 md:p-8">
+    <div class="max-w-2xl mx-auto w-full space-y-6">
+        <!-- Hero Header -->
+        <div class="bg-slate-800 border border-slate-700 rounded-3xl p-6 md:p-8 text-center shadow-2xl relative overflow-hidden">
+            <div class="absolute -right-10 -top-10 w-32 h-32 bg-amber-500/10 rounded-full blur-2xl"></div>
+            <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-amber-500/10 text-amber-500 text-2xl font-bold mb-4 border border-amber-500/20">
+                <i class="fas fa-hands-helping"></i>
+            </div>
+            <h1 class="text-xl md:text-2xl font-bold text-amber-500 mb-2">প্রবাসী সাহায্য - ইরাক</h1>
+            <p class="text-xs md:text-sm text-slate-400 max-w-md mx-auto">ইরাক প্রবাসী বাংলাদেশিদের দ্রুত সেবা, জরুরি সহায়তা এবং রিয়েল-টাইম ম্যানেজমেন্ট প্ল্যাটফর্ম।</p>
+        </div>
 
-    <div class="gallery-grid">
-        <div class="card">
-            <img src="https://picsum.photos/id/1015/300/200" alt="দূতাবাস কার্যক্রম">
-            <p>দূতাবাস কার্যক্রম</p>
+        <!-- Quick Access Navigation Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <a href="index.html" class="bg-slate-800/80 border border-slate-700 hover:border-amber-500/50 p-5 rounded-2xl transition flex items-center gap-4 group shadow-lg">
+                <div class="w-12 h-12 rounded-xl bg-amber-500/10 text-amber-500 flex items-center justify-center text-lg group-hover:scale-110 transition">
+                    <i class="fas fa-user-shield"></i>
+                </div>
+                <div>
+                    <h3 class="font-bold text-sm text-slate-200">ইউজার ড্যাশবোর্ড</h3>
+                    <p class="text-xs text-slate-400">আপনার ব্যক্তিগত প্রোফাইল ও সেবা</p>
+                </div>
+            </a>
+
+            <a href="agent-dashboard.html" class="bg-slate-800/80 border border-slate-700 hover:border-amber-500/50 p-5 rounded-2xl transition flex items-center gap-4 group shadow-lg">
+                <div class="w-12 h-12 rounded-xl bg-blue-500/10 text-blue-400 flex items-center justify-center text-lg group-hover:scale-110 transition">
+                    <i class="fas fa-headset"></i>
+                </div>
+                <div>
+                    <h3 class="font-bold text-sm text-slate-200">এজেন্ট ড্যাশবোর্ড</h3>
+                    <p class="text-xs text-slate-400">রিকোয়েস্ট ও সাপোর্ট ম্যানেজমেন্ট</p>
+                </div>
+            </a>
+
+            <a href="chat-support.html" class="bg-slate-800/80 border border-slate-700 hover:border-amber-500/50 p-5 rounded-2xl transition flex items-center gap-4 group shadow-lg">
+                <div class="w-12 h-12 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center text-lg group-hover:scale-110 transition">
+                    <i class="fas fa-comments"></i>
+                </div>
+                <div>
+                    <h3 class="font-bold text-sm text-slate-200">লাইভ চ্যাট</h3>
+                    <p class="text-xs text-slate-400">সরাসরি এজেন্টের সাথে কথা বলুন</p>
+                </div>
+            </a>
+
+            <a href="gallery.html" class="bg-slate-800/80 border border-slate-700 hover:border-amber-500/50 p-5 rounded-2xl transition flex items-center gap-4 group shadow-lg">
+                <div class="w-12 h-12 rounded-xl bg-purple-500/10 text-purple-400 flex items-center justify-center text-lg group-hover:scale-110 transition">
+                    <i class="fas fa-images"></i>
+                </div>
+                <div>
+                    <h3 class="font-bold text-sm text-slate-200">ফটো গ্যালারি</h3>
+                    <p class="text-xs text-slate-400">কার্যক্রম ও বিভিন্ন মুহূর্ত</p>
+                </div>
+            </a>
         </div>
-        <div class="card">
-            <img src="https://picsum.photos/id/1018/300/200" alt="ত্রাণ ও সাহায্য প্রদান">
-            <p>ত্রাণ ও সাহায্য প্রদান</p>
-        </div>
-        <div class="card">
-            <img src="https://picsum.photos/id/1025/300/200" alt="মেডিকেল ক্যাম্প">
-            <p>মেডিকেল ক্যাম্প</p>
-        </div>
-        <div class="card">
-            <img src="https://picsum.photos/id/1035/300/200" alt="আইনি পরামর্শ সভা">
-            <p>আইনি পরামর্শ সভা</p>
+
+        <!-- Admin Access Link -->
+        <div class="text-center pt-2">
+            <a href="admin.html" class="inline-flex items-center gap-2 text-xs text-slate-400 hover:text-amber-500 transition">
+                <i class="fas fa-lock"></i> অ্যাডমিন কন্ট্রোল প্যানেল প্রবেশ
+            </a>
         </div>
     </div>
+
+    <footer class="text-center text-[11px] text-slate-500 mt-8">
+        &copy; 2026 Probashi Help Iraq • All Rights Reserved.
+    </footer>
 </body>
 </html>
