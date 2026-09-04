@@ -1,0 +1,31 @@
+name: Automated Code Fixer & Linter
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Run Prettier to fix formatting automatically
+      uses: creyD/prettier_action@v4.3.0
+      with:
+        prettier_options: '--write "**/*.{html,css,js,json}"'
+        commit_message: '🤖 Auto-fixed code formatting and syntax errors'
+        committer_name: 'GitHub Action Bot'
+        committer_email: 'action@github.com'
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
