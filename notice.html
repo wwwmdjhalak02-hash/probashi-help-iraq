@@ -3,32 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>নোটিশ বোর্ড - Probashi Help Iraq</title>
+    <title>নোটিশ বোর্ড - প্রবাসী সাহায্য</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
     <style>
-        body { font-family: sans-serif; background-color: #0f172a; color: #fff; margin: 0; padding: 16px; }
-        .header { text-align: center; margin-bottom: 20px; }
-        .notice-card { background: #1e293b; padding: 16px; border-radius: 8px; margin-bottom: 12px; border-left: 4px solid #3b82f6; }
-        .notice-date { font-size: 12px; color: #94a3b8; margin-bottom: 4px; }
-        .notice-title { font-size: 16px; font-weight: bold; margin-bottom: 8px; color: #38bdf8; }
-        .notice-desc { font-size: 14px; color: #cbd5e1; line-height: 1.5; }
+        :root {
+            --bg-primary: #07111f;
+            --accent-amber: #f59e0b;
+        }
+        body {
+            background-color: var(--bg-primary);
+            color: #f5f7fa;
+            font-family: 'Hind Siliguri', system-ui, sans-serif;
+        }
     </style>
 </head>
-<body>
-    <div class="header">
-        <h2>জরুরি নোটিশ বোর্ড</h2>
+<body class="min-h-screen flex flex-col justify-between p-4 md:p-8">
+    <div class="max-w-2xl mx-auto w-full flex-1">
+        <!-- Header Section -->
+        <div class="flex items-center justify-between bg-slate-800 p-4 md:p-6 rounded-2xl border border-slate-700 shadow-xl mb-6">
+            <div class="flex items-center gap-3">
+                <a href="home.html" class="text-slate-400 hover:text-white transition"><i class="fas fa-arrow-left text-lg"></i></a>
+                <div>
+                    <h1 class="font-bold text-amber-500 text-base md:text-lg">জরুরি নোটিশ বোর্ড</h1>
+                    <p class="text-xs text-slate-400">ইরাক প্রবাসী বাংলাদেশিদের জন্য অফিশিয়াল ঘোষণা ও আপডেট</p>
+                </div>
+            </div>
+            <span class="bg-amber-500/10 text-amber-500 text-xs font-semibold px-3 py-1 rounded-full border border-amber-500/25">নোটিশ</span>
+        </div>
+
+        <!-- Notice List Container -->
+        <div class="space-y-4" id="noticeContainer">
+            <!-- Notice Card 1 -->
+            <div class="bg-slate-800/80 border border-slate-700 border-l-4 border-l-amber-500 rounded-2xl p-5 shadow-lg transition hover:border-amber-500/50">
+                <div class="flex items-center justify-between mb-2">
+                    <span class="text-xs text-slate-400"><i class="far fa-clock mr-1"></i> ০৩ সেপ্টেম্বর, ২০২৬</span>
+                    <span class="bg-amber-500/10 text-amber-400 text-[10px] font-bold px-2 py-0.5 rounded border border-amber-500/20">জরুরি</span>
+                </div>
+                <h3 class="font-bold text-sm text-slate-200 mb-2">ইরাকে অবস্থানরত প্রবাসীদের জন্য জরুরি নির্দেশনা</h3>
+                <p class="text-xs text-slate-300 leading-relaxed">আকামা ও ভিসা সংক্রান্ত যেকোনো জটিলতায় সরাসরি আমাদের হেল্প ফর্মে আবেদন করুন। দ্রুত যোগাযোগের চেষ্টা করা হবে।</p>
+            </div>
+
+            <!-- Notice Card 2 -->
+            <div class="bg-slate-800/80 border border-slate-700 border-l-4 border-l-amber-500 rounded-2xl p-5 shadow-lg transition hover:border-amber-500/50">
+                <div class="flex items-center justify-between mb-2">
+                    <span class="text-xs text-slate-400"><i class="far fa-clock mr-1"></i> ০১ সেপ্টেম্বর, ২০২৬</span>
+                    <span class="bg-blue-500/10 text-blue-400 text-[10px] font-bold px-2 py-0.5 rounded border border-blue-500/20">আপডেট</span>
+                </div>
+                <h3 class="font-bold text-sm text-slate-200 mb-2">মেডিকেল সেবা আপডেট</h3>
+                <p class="text-xs text-slate-300 leading-relaxed">জরুরি স্বাস্থ্যগত সহায়তার জন্য আমাদের মেডিকেল সাহায্য ক্যাটাগরি বেছে নিয়ে ফর্ম পূরণ করুন।</p>
+            </div>
+        </div>
     </div>
 
-    <div class="notice-card">
-        <div class="notice-date">০৩ সেপ্টেম্বর, ২০২৬</div>
-        <div class="notice-title">ইরাকে অবস্থানরত প্রবাসীদের জন্য জরুরি নির্দেশনা</div>
-        <div class="notice-desc">আকামা ও ভিসা সংক্রান্ত যেকোনো জটিলতায় সরাসরি আমাদের হেল্প ফর্মে আবেদন করুন। দ্রুত যোগাযোগের চেষ্টা করা হবে।</div>
-    </div>
-
-    <div class="notice-card">
-        <div class="notice-date">০১ সেপ্টেম্বর, ২০২৬</div>
-        <div class="notice-title">মেডিকেল সেবা আপডেট</div>
-        <div class="notice-desc">জরুরি স্বাস্থ্যগত সহায়তার জন্য আমাদের মেডিকেল সাহায্য ক্যাটাগরি বেছে নিয়ে ফর্ম পূরণ করুন।</div>
+    <!-- Footer Navigation -->
+    <div class="text-center mt-8">
+        <a href="home.html" class="text-amber-500 text-xs hover:underline"><i class="fas fa-home mr-1"></i> হোম পেজে ফিরে যান</a>
     </div>
 </body>
 </html>
