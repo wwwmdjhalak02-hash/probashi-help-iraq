@@ -1,1331 +1,224 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Agent Dashboard | Probashi Help</title>
-
-<style>
-:root{
-  --bg:#07111f;
-  --surface:#0d1b2a;
-  --surface2:#11243a;
-  --border:rgba(255,255,255,.09);
-  --text:#f5f7fa;
-  --muted:#94a3b8;
-  --primary:#19c3a3;
-  --blue:#4f8cff;
-  --orange:#f59e0b;
-  --red:#ef4444;
-  --green:#22c55e;
-  --shadow:0 20px 50px rgba(0,0,0,.25);
-}
-
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-}
-
-body{
-  font-family:
-    system-ui,
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    "Noto Sans Bengali",
-    sans-serif;
-  background:
-    radial-gradient(
-      circle at top right,
-      rgba(25,195,163,.08),
-      transparent 30%
-    ),
-    linear-gradient(
-      135deg,
-      #06101d,
-      #091827 55%,
-      #07111f
-    );
-  color:var(--text);
-  min-height:100vh;
-}
-
-button{
-  font:inherit;
-}
-
-.app{
-  display:flex;
-  min-height:100vh;
-}
-
-/* =========================
-   SIDEBAR
-========================= */
-
-.sidebar{
-  width:260px;
-  background:rgba(7,17,31,.97);
-  border-right:1px solid var(--border);
-  padding:24px 16px;
-  position:fixed;
-  inset:0 auto 0 0;
-  z-index:100;
-  transition:.3s ease;
-}
-
-.brand{
-  display:flex;
-  align-items:center;
-  gap:12px;
-  padding:8px 10px 26px;
-  border-bottom:1px solid var(--border);
-  margin-bottom:20px;
-}
-
-.brand-logo{
-  width:44px;
-  height:44px;
-  border-radius:13px;
-  display:grid;
-  place-items:center;
-  background:
-    linear-gradient(
-      135deg,
-      var(--primary),
-      var(--blue)
-    );
-  font-size:21px;
-  font-weight:800;
-  box-shadow:
-    0 10px 25px rgba(25,195,163,.2);
-}
-
-.brand h2{
-  font-size:16px;
-}
-
-.brand span{
-  display:block;
-  color:var(--muted);
-  font-size:11px;
-  margin-top:3px;
-}
-
-.nav-title{
-  color:#64748b;
-  font-size:10px;
-  letter-spacing:1.4px;
-  text-transform:uppercase;
-  margin:18px 10px 9px;
-}
-
-.nav-item{
-  width:100%;
-  border:0;
-  background:transparent;
-  color:#b8c4d4;
-  display:flex;
-  align-items:center;
-  gap:12px;
-  padding:12px 13px;
-  margin-bottom:5px;
-  border-radius:11px;
-  cursor:pointer;
-  text-align:left;
-  transition:.2s;
-}
-
-.nav-item:hover{
-  background:rgba(255,255,255,.05);
-  color:white;
-}
-
-.nav-item.active{
-  background:
-    linear-gradient(
-      90deg,
-      rgba(25,195,163,.16),
-      rgba(25,195,163,.04)
-    );
-  color:#5eead4;
-  border-left:3px solid var(--primary);
-}
-
-.nav-icon{
-  width:22px;
-  text-align:center;
-  font-size:17px;
-}
-
-.badge{
-  margin-left:auto;
-  background:var(--red);
-  color:white;
-  font-size:10px;
-  min-width:20px;
-  height:20px;
-  padding:0 6px;
-  border-radius:10px;
-  display:grid;
-  place-items:center;
-}
-
-/* =========================
-   MAIN
-========================= */
-
-.main{
-  margin-left:260px;
-  width:calc(100% - 260px);
-  padding:24px;
-}
-
-.topbar{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:28px;
-  gap:20px;
-}
-
-.mobile-menu{
-  display:none;
-}
-
-.welcome h1{
-  font-size:clamp(22px,3vw,31px);
-  margin-bottom:6px;
-}
-
-.welcome p{
-  color:var(--muted);
-  font-size:14px;
-}
-
-.top-actions{
-  display:flex;
-  align-items:center;
-  gap:10px;
-}
-
-.icon-btn{
-  width:42px;
-  height:42px;
-  border:1px solid var(--border);
-  background:var(--surface);
-  color:white;
-  border-radius:12px;
-  cursor:pointer;
-  position:relative;
-}
-
-.notification-dot{
-  position:absolute;
-  width:8px;
-  height:8px;
-  background:var(--red);
-  border-radius:50%;
-  right:9px;
-  top:8px;
-  border:2px solid var(--surface);
-}
-
-.profile{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  padding:5px 9px 5px 5px;
-  border:1px solid var(--border);
-  background:var(--surface);
-  border-radius:13px;
-}
-
-.avatar{
-  width:34px;
-  height:34px;
-  display:grid;
-  place-items:center;
-  border-radius:10px;
-  background:
-    linear-gradient(
-      135deg,
-      var(--blue),
-      var(--primary)
-    );
-  font-weight:700;
-}
-
-.profile small{
-  color:var(--muted);
-  display:block;
-  font-size:10px;
-}
-
-/* =========================
-   STATISTICS
-========================= */
-
-.stats{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:15px;
-  margin-bottom:20px;
-}
-
-.stat-card{
-  background:rgba(13,27,42,.88);
-  border:1px solid var(--border);
-  border-radius:18px;
-  padding:20px;
-  box-shadow:var(--shadow);
-}
-
-.stat-top{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:17px;
-}
-
-.stat-icon{
-  width:43px;
-  height:43px;
-  display:grid;
-  place-items:center;
-  border-radius:12px;
-  background:rgba(79,140,255,.12);
-  font-size:19px;
-}
-
-.stat-card:nth-child(2) .stat-icon{
-  background:rgba(25,195,163,.12);
-}
-
-.stat-card:nth-child(3) .stat-icon{
-  background:rgba(245,158,11,.12);
-}
-
-.stat-card:nth-child(4) .stat-icon{
-  background:rgba(239,68,68,.12);
-}
-
-.stat-label{
-  color:var(--muted);
-  font-size:12px;
-}
-
-.stat-value{
-  font-size:27px;
-  font-weight:750;
-  margin-bottom:5px;
-}
-
-.stat-change{
-  color:var(--green);
-  font-size:11px;
-}
-
-/* =========================
-   DASHBOARD GRID
-========================= */
-
-.dashboard-grid{
-  display:grid;
-  grid-template-columns:1.5fr 1fr;
-  gap:20px;
-}
-
-.card{
-  background:rgba(13,27,42,.88);
-  border:1px solid var(--border);
-  border-radius:18px;
-  padding:20px;
-  box-shadow:var(--shadow);
-}
-
-.card-header{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:10px;
-  margin-bottom:18px;
-}
-
-.card-title{
-  font-size:16px;
-  font-weight:700;
-}
-
-.card-subtitle{
-  color:var(--muted);
-  font-size:11px;
-  margin-top:3px;
-}
-
-.view-all{
-  color:#5eead4;
-  border:0;
-  background:transparent;
-  cursor:pointer;
-  font-size:12px;
-}
-
-/* =========================
-   REQUESTS
-========================= */
-
-.request{
-  display:flex;
-  align-items:center;
-  gap:12px;
-  padding:13px 0;
-  border-bottom:1px solid var(--border);
-}
-
-.request:last-child{
-  border-bottom:0;
-}
-
-.request-avatar{
-  width:39px;
-  height:39px;
-  border-radius:11px;
-  background:#172b40;
-  display:grid;
-  place-items:center;
-  flex-shrink:0;
-}
-
-.request-info{
-  flex:1;
-  min-width:0;
-}
-
-.request-info strong{
-  display:block;
-  font-size:13px;
-}
-
-.request-info span{
-  color:var(--muted);
-  font-size:11px;
-}
-
-.status{
-  padding:5px 9px;
-  border-radius:20px;
-  font-size:10px;
-  white-space:nowrap;
-}
-
-.status.pending{
-  background:rgba(245,158,11,.12);
-  color:#fbbf24;
-}
-
-.status.active{
-  background:rgba(34,197,94,.12);
-  color:#4ade80;
-}
-
-.status.closed{
-  background:rgba(148,163,184,.12);
-  color:#94a3b8;
-}
-
-/* =========================
-   QUICK ACTIONS
-========================= */
-
-.quick-actions{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:10px;
-}
-
-.quick-btn{
-  background:#0a1828;
-  border:1px solid var(--border);
-  color:#dbe5ef;
-  padding:17px 12px;
-  border-radius:13px;
-  cursor:pointer;
-  text-align:left;
-  transition:.2s;
-}
-
-.quick-btn:hover{
-  border-color:rgba(25,195,163,.4);
-  transform:translateY(-2px);
-}
-
-.quick-btn b{
-  display:block;
-  margin-top:8px;
-  font-size:12px;
-}
-
-.quick-btn span{
-  color:var(--muted);
-  font-size:10px;
-}
-
-/* =========================
-   ACTIVITY
-========================= */
-
-.activity{
-  margin-top:20px;
-}
-
-.activity-item{
-  display:flex;
-  gap:12px;
-  padding:13px 0;
-  border-bottom:1px solid var(--border);
-}
-
-.activity-dot{
-  width:9px;
-  height:9px;
-  margin-top:5px;
-  border-radius:50%;
-  background:var(--primary);
-  flex-shrink:0;
-}
-
-.activity-item p{
-  font-size:12px;
-  line-height:1.5;
-}
-
-.activity-item small{
-  color:var(--muted);
-  font-size:10px;
-}
-
-/* =========================
-   RESPONSIVE
-========================= */
-
-@media(max-width:1050px){
-
-  .stats{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-  .dashboard-grid{
-    grid-template-columns:1fr;
-  }
-}
-
-@media(max-width:760px){
-
-  .sidebar{
-    transform:translateX(-100%);
-  }
-
-  .sidebar.open{
-    transform:translateX(0);
-  }
-
-  .main{
-    margin-left:0;
-    width:100%;
-    padding:16px;
-  }
-
-  .mobile-menu{
-    display:grid;
-    place-items:center;
-    width:40px;
-    height:40px;
-    border:1px solid var(--border);
-    background:var(--surface);
-    color:white;
-    border-radius:11px;
-    cursor:pointer;
-  }
-
-  .topbar{
-    align-items:flex-start;
-  }
-
-  .welcome{
-    flex:1;
-  }
-
-  .welcome h1{
-    font-size:20px;
-  }
-
-  .profile{
-    display:none;
-  }
-
-  .stats{
-    grid-template-columns:1fr 1fr;
-    gap:10px;
-  }
-
-  .stat-card{
-    padding:15px;
-  }
-
-  .stat-value{
-    font-size:22px;
-  }
-
-  .stat-icon{
-    width:37px;
-    height:37px;
-  }
-}
-
-@media(max-width:430px){
-
-  .card{
-    padding:15px;
-  }
-
-  .request{
-    align-items:flex-start;
-  }
-
-  .status{
-    font-size:9px;
-  }
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agent Dashboard - Probashi Help Iraq</title>
+    <style>
+        :root {
+            --bg-primary: #07111f;
+            --bg-card: rgba(13, 27, 42, 0.88);
+            --border-color: rgba(255, 255, 255, 0.09);
+            --accent-primary: #19c3a3;
+            --accent-blue: #4f8cff;
+            --accent-gold: #f59e0b;
+            --text-main: #f5f7fa;
+            --text-muted: #94a3b8;
+            --success: #22c55e;
+            --danger: #ef4444;
+            --shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Hind Siliguri', system-ui, sans-serif; }
+        body { background-color: var(--bg-primary); color: var(--text-main); min-height: 100vh; padding: 20px; }
+        .container { max-width: 900px; margin: 0 auto; }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 20px;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            margin-bottom: 20px;
+        }
+        .header h1 { font-size: 20px; color: var(--accent-primary); }
+        .header p { font-size: 12px; color: var(--text-muted); margin-top: 4px; }
+        
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: var(--shadow);
+            margin-bottom: 20px;
+        }
+        .card-title { font-size: 16px; font-weight: 700; margin-bottom: 15px; color: var(--text-main); display: flex; justify-content: space-between; align-items: center; }
+        
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; font-size: 13px; color: var(--text-muted); margin-bottom: 5px; }
+        input, textarea {
+            width: 100%;
+            padding: 12px;
+            background: rgba(7, 17, 31, 0.9);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            color: var(--text-main);
+            font-size: 14px;
+        }
+        input:focus, textarea:focus { outline: none; border-color: var(--accent-primary); }
+        
+        .btn {
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-blue));
+            color: #07111f;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .btn:hover { opacity: 0.9; transform: translateY(-1px); }
+
+        .request-card {
+            background: rgba(7, 17, 31, 0.6);
+            border: 1px solid var(--border-color);
+            padding: 14px;
+            border-radius: 12px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .req-info strong { font-size: 14px; color: #fff; display: block; }
+        .req-info span { font-size: 12px; color: var(--text-muted); }
+        .badge {
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+        .badge-pending { background: rgba(245, 158, 11, 0.15); color: var(--accent-gold); }
+        .badge-approved { background: rgba(34, 197, 94, 0.15); color: var(--success); }
+        
+        .nav-links { display: flex; gap: 15px; margin-top: 15px; }
+        .nav-links a { color: var(--accent-primary); text-decoration: none; font-size: 13px; }
+        .nav-links a:hover { text-decoration: underline; }
+    </style>
 </head>
-
 <body>
 
-<div class="app">
-
-<!-- SIDEBAR -->
-
-<aside class="sidebar" id="sidebar">
-
-  <div class="brand">
-
-    <div class="brand-logo">
-      PH
-    </div>
-
-    <div>
-      <h2>Probashi Help</h2>
-      <span>Iraq • Agent Portal</span>
-    </div>
-
-  </div>
-
-  <div class="nav-title">
-    Dashboard
-  </div>
-
-  <button class="nav-item active">
-    <span class="nav-icon">⌂</span>
-    Overview
-  </button>
-
-  <button class="nav-item">
-    <span class="nav-icon">👥</span>
-    My Users
-    <span class="badge">12</span>
-  </button>
-
-  <button class="nav-item">
-    <span class="nav-icon">💬</span>
-    Messages
-    <span class="badge">4</span>
-  </button>
-
-  <button class="nav-item">
-    <span class="nav-icon">📋</span>
-    Service Requests
-  </button>
-
-  <div class="nav-title">
-    Management
-  </div>
-
-  <button class="nav-item">
-    <span class="nav-icon">📢</span>
-    Notices
-  </button>
-
-  <button class="nav-item">
-    <span class="nav-icon">💼</span>
-    Jobs
-  </button>
-
-  <button class="nav-item">
-    <span class="nav-icon">🖼️</span>
-    Gallery
-  </button>
-
-  <div class="nav-title">
-    Account
-  </div>
-
-  <button class="nav-item">
-    <span class="nav-icon">⚙️</span>
-    Settings
-  </button>
-
-  <button class="nav-item" onclick="logout()">
-    <span class="nav-icon">↪</span>
-    Logout
-  </button>
-
-</aside>
-
-
-<!-- MAIN CONTENT -->
-
-<main class="main">
-
-<header class="topbar">
-
-  <button
-    class="mobile-menu"
-    onclick="toggleSidebar()">
-    ☰
-  </button>
-
-  <div class="welcome">
-
-    <h1>
-      স্বাগতম, Agent 👋
-    </h1>
-
-    <p>
-      আপনার Probashi Help Agent Dashboard থেকে সবকিছু পরিচালনা করুন।
-    </p>
-
-  </div>
-
-  <div class="top-actions">
-
-    <button class="icon-btn">
-      🔔
-      <span class="notification-dot"></span>
-    </button>
-
-    <div class="profile">
-
-      <div class="avatar">
-        A
-      </div>
-
-      <div>
-
-        <strong>
-          Agent
-        </strong>
-
-        <small>
-          Verified Agent
-        </small>
-
-      </div>
-
-    </div>
-
-  </div>
-
-</header>
-
-
-<!-- STATISTICS -->
-
-<section class="stats">
-
-  <div class="stat-card">
-
-    <div class="stat-top">
-
-      <div>
-        <div class="stat-label">
-          Total Users
+<div class="container">
+    <!-- Top Header -->
+    <div class="header">
+        <div>
+            <h1>এজেন্ট ড্যাশবোর্ড (Agent Portal)</h1>
+            <p>প্রবাসীর সমস্যা ও রিকোয়েস্ট সরাসরি পরিচালনা করুন</p>
         </div>
-      </div>
-
-      <div class="stat-icon">
-        👥
-      </div>
-
-    </div>
-
-    <div class="stat-value">
-      248
-    </div>
-
-    <div class="stat-change">
-      ↑ 12% this month
-    </div>
-
-  </div>
-
-
-  <div class="stat-card">
-
-    <div class="stat-top">
-
-      <div>
-        <div class="stat-label">
-          Active Requests
+        <div style="text-align: right;">
+            <span class="badge badge-approved">Active Agent</span>
         </div>
-      </div>
-
-      <div class="stat-icon">
-        ✓
-      </div>
-
     </div>
 
-    <div class="stat-value">
-      36
-    </div>
-
-    <div class="stat-change">
-      ↑ 8 new today
-    </div>
-
-  </div>
-
-
-  <div class="stat-card">
-
-    <div class="stat-top">
-
-      <div>
-        <div class="stat-label">
-          Pending
+    <!-- Send Request Box -->
+    <div class="card">
+        <div class="card-title">নতুন রিকোয়েস্ট বা বার্তা পাঠান</div>
+        <div class="form-group">
+            <label>প্রবাসীর নাম / আইডি</label>
+            <input type="text" id="agentUserName" placeholder="যেমন: আব্দুর রহিম">
         </div>
-      </div>
-
-      <div class="stat-icon">
-        ⏳
-      </div>
-
-    </div>
-
-    <div class="stat-value">
-      14
-    </div>
-
-    <div class="stat-change">
-      Need attention
-    </div>
-
-  </div>
-
-
-  <div class="stat-card">
-
-    <div class="stat-top">
-
-      <div>
-        <div class="stat-label">
-          Messages
+        <div class="form-group">
+            <label>সমস্যা বা সেবার বিবরণ</label>
+            <textarea id="agentUserMsg" rows="3" placeholder="পাসপোর্ট বা অন্যান্য সমস্যা এখানে লিখুন..."></textarea>
         </div>
-      </div>
-
-      <div class="stat-icon">
-        💬
-      </div>
-
+        <button class="btn" onclick="sendAgentRequest()">অ্যাডমিনের কাছে পাঠান</button>
     </div>
 
-    <div class="stat-value">
-      27
+    <!-- Live Requests List -->
+    <div class="card">
+        <div class="card-title">
+            <span>সাম্প্রতিক রিকোয়েস্টসমূহ</span>
+            <span style="font-size: 12px; color: var(--text-muted);" id="reqCount">মোট: ০</span>
+        </div>
+        <div id="agentRequestsList">
+            <div style="text-align: center; color: var(--text-muted); padding: 20px;">কোনো রিকোয়েস্ট পাওয়া যায়নি</div>
+        </div>
     </div>
 
-    <div class="stat-change">
-      4 unread
+    <div class="nav-links">
+        <a href="admin.html">← অ্যাডমিন প্যানেলে যান</a>
+        <a href="index.html">ইউজার ড্যাশবোর্ড</a>
     </div>
-
-  </div>
-
-</section>
-
-
-<!-- DASHBOARD CONTENT -->
-
-<section class="dashboard-grid">
-
-
-<!-- SERVICE REQUESTS -->
-
-<div class="card">
-
-  <div class="card-header">
-
-    <div>
-
-      <div class="card-title">
-        সাম্প্রতিক Service Requests
-      </div>
-
-      <div class="card-subtitle">
-        আপনার assigned requests
-      </div>
-
-    </div>
-
-    <button class="view-all">
-      সব দেখুন →
-    </button>
-
-  </div>
-
-
-  <div class="request">
-
-    <div class="request-avatar">
-      👤
-    </div>
-
-    <div class="request-info">
-
-      <strong>
-        রাকিব হাসান
-      </strong>
-
-      <span>
-        Passport Assistance • 8 min ago
-      </span>
-
-    </div>
-
-    <span class="status pending">
-      Pending
-    </span>
-
-  </div>
-
-
-  <div class="request">
-
-    <div class="request-avatar">
-      👤
-    </div>
-
-    <div class="request-info">
-
-      <strong>
-        মোঃ সোহেল
-      </strong>
-
-      <span>
-        Job Assistance • 21 min ago
-      </span>
-
-    </div>
-
-    <span class="status active">
-      Active
-    </span>
-
-  </div>
-
-
-  <div class="request">
-
-    <div class="request-avatar">
-      👤
-    </div>
-
-    <div class="request-info">
-
-      <strong>
-        আব্দুল্লাহ
-      </strong>
-
-      <span>
-        Document Help • 1 hour ago
-      </span>
-
-    </div>
-
-    <span class="status pending">
-      Pending
-    </span>
-
-  </div>
-
-
-  <div class="request">
-
-    <div class="request-avatar">
-      👤
-    </div>
-
-    <div class="request-info">
-
-      <strong>
-        শামীম আহমেদ
-      </strong>
-
-      <span>
-        General Support • 2 hours ago
-      </span>
-
-    </div>
-
-    <span class="status closed">
-      Closed
-    </span>
-
-  </div>
-
 </div>
 
-
-<!-- QUICK ACTIONS -->
-
-<div class="card">
-
-  <div class="card-header">
-
-    <div>
-
-      <div class="card-title">
-        Quick Actions
-      </div>
-
-      <div class="card-subtitle">
-        দ্রুত কাজ শুরু করুন
-      </div>
-
-    </div>
-
-  </div>
-
-
-  <div class="quick-actions">
-
-    <button class="quick-btn">
-
-      👥
-
-      <b>
-        Users
-      </b>
-
-      <span>
-        ব্যবহারকারী দেখুন
-      </span>
-
-    </button>
-
-
-    <button class="quick-btn">
-
-      💬
-
-      <b>
-        Messages
-      </b>
-
-      <span>
-        মেসেজের উত্তর দিন
-      </span>
-
-    </button>
-
-
-    <button class="quick-btn">
-
-      📋
-
-      <b>
-        Requests
-      </b>
-
-      <span>
-        নতুন request দেখুন
-      </span>
-
-    </button>
-
-
-    <button class="quick-btn">
-
-      📢
-
-      <b>
-        Notice
-      </b>
-
-      <span>
-        নোটিশ প্রকাশ করুন
-      </span>
-
-    </button>
-
-  </div>
-
-</div>
-
-</section>
-
-
-<!-- RECENT ACTIVITY -->
-
-<section class="card activity">
-
-  <div class="card-header">
-
-    <div>
-
-      <div class="card-title">
-        Recent Activity
-      </div>
-
-      <div class="card-subtitle">
-        সর্বশেষ কার্যক্রম
-      </div>
-
-    </div>
-
-    <button class="view-all">
-      View all →
-    </button>
-
-  </div>
-
-
-  <div class="activity-item">
-
-    <span class="activity-dot"></span>
-
-    <div>
-
-      <p>
-        <strong>
-          রাকিব হাসান
-        </strong>
-
-        একটি নতুন service request পাঠিয়েছেন।
-      </p>
-
-      <small>
-        8 minutes ago
-      </small>
-
-    </div>
-
-  </div>
-
-
-  <div class="activity-item">
-
-    <span class="activity-dot"></span>
-
-    <div>
-
-      <p>
-        <strong>
-          সোহেল
-        </strong>
-
-        আপনার message-এর উত্তর পেয়েছেন।
-      </p>
-
-      <small>
-        21 minutes ago
-      </small>
-
-    </div>
-
-  </div>
-
-
-  <div class="activity-item">
-
-    <span class="activity-dot"></span>
-
-    <div>
-
-      <p>
-        একটি নতুন user account তৈরি হয়েছে।
-      </p>
-
-      <small>
-        1 hour ago
-      </small>
-
-    </div>
-
-  </div>
-
-</section>
-
-</main>
-
-</div>
-
-
-<script>
-
-function toggleSidebar(){
-
-  document
-    .getElementById("sidebar")
-    .classList
-    .toggle("open");
-
-}
-
-
-function logout(){
-
-  const confirmed =
-    confirm("আপনি কি Logout করতে চান?");
-
-  if(confirmed){
-
-    alert(
-      "Existing authentication system-এর logout function এখানে যুক্ত হবে।"
-    );
-
-  }
-
-}
-
-</script>
-
-</body><!-- Firebase SDKs -->
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
-
-<script>
-  const firebaseConfig = {
-    databaseURL: "https://probashi-help-iraq-default-rtdb.firebaseio.com/"
-  };
-  firebase.initializeApp(firebaseConfig);
-  const database = firebase.database();
-
-  // Fetch real-time data from Firebase
-  database.ref('requests').on('value', (snapshot) => {
-    const data = snapshot.val();
-    if (!data) return;
-
-    // Target the request container
-    const requestsContainer = document.querySelector('.recent-requests') || document.querySelectorAll('.card')[1];
-    
-    if (requestsContainer) {
-      let htmlContent = '<h3 style="margin-bottom:12px;">সাম্প্রতিক Service Requests</h3>';
-      
-      Object.keys(data).reverse().forEach((key) => {
-        const item = data[key];
-        htmlContent += `
-          <div style="background: rgba(255,255,255,0.05); padding: 12px; margin-bottom: 8px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center;">
-            <div>
-              <strong style="color: #fff; font-size: 15px;">${item.name || 'অজ্ঞাত'}</strong>
-              <div style="color: #888; font-size: 12px; margin-top: 2px;">
-                ${item.serviceType || 'সাধারণ'} • ${item.phone || ''}
-              </div>
-            </div>
-            <span style="background: #e67e22; color: #fff; padding: 3px 8px; border-radius: 4px; font-size: 11px;">Pending</span>
-          </div>
-        `;
-      });
-      
-      requestsContainer.innerHTML = htmlContent;
-    }
-  });
-</script>
-
-</html>
 <!-- Firebase SDKs -->
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
 <script>
-  const firebaseConfig = {
-    databaseURL: "https://probashi-help-iraq-default-rtdb.firebaseio.com/"
-  };
-  firebase.initializeApp(firebaseConfig);
-  const database = firebase.database();
-
-  // Realtime Data Listener
-  database.ref('requests').on('value', (snapshot) => {
-    const data = snapshot.val();
-    console.log("রিয়েল-টাইম ডাটা প্রাপ্ত হয়েছে:", data);
-    
-    // UI Table Updates Automatically
-    const tableBody = document.querySelector('tbody') || document.getElementById('data-list');
-    if (tableBody && data) {
-      tableBody.innerHTML = '';
-      Object.keys(data).forEach((key) => {
-        const item = data[key];
-        const row = `
-          <tr>
-            <td>${item.name}</td>
-            <td>${item.phone}</td>
-            <td>${item.serviceType}</td>
-            <td>${item.location}</td>
-            <td>${new Date(item.timestamp).toLocaleDateString()}</td>
-          </tr>
-        `;
-        tableBody.innerHTML += row;
-      });
+    // Firebase Configuration & Initialization
+    const firebaseConfig = {
+        databaseURL: "https://probashi-help-iraq-default-rtdb.firebaseio.com/"
+    };
+    if (!firebase.apps.length) {
+        firebase.initializeApp(firebaseConfig);
     }
-  });
-</script>
-<!-- Firebase SDKs -->
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+    const database = firebase.database();
 
-<script>
-  const firebaseConfig = {
-    databaseURL: "https://probashi-help-iraq-default-rtdb.firebaseio.com/"
-  };
-  firebase.initializeApp(firebaseConfig);
-  const database = firebase.database();
+    // Send Request to Firebase & LocalStorage
+    function sendAgentRequest() {
+        const name = document.getElementById('agentUserName').value.trim();
+        const msg = document.getElementById('agentUserMsg').value.trim();
 
-  // Fetch real-time data from Firebase
-  database.ref('requests').on('value', (snapshot) => {
-    const data = snapshot.val();
-    if (!data) return;
+        if (!name || !msg) {
+            alert('দয়া করে নাম এবং বিবরণ উভয়ই পূরণ করুন!');
+            return;
+        }
 
-    // Find the container holding the dummy list
-    const cards = document.querySelectorAll('.card');
-    let targetCard = null;
+        const requestData = {
+            name: name,
+            serviceType: msg,
+            phone: 'Agent Portal',
+            timestamp: Date.now(),
+            status: 'Pending'
+        };
 
-    cards.forEach(card => {
-      if (card.textContent.includes('Service Requests')) {
-        targetCard = card;
-      }
+        // Push to Firebase Realtime Database
+        database.ref('requests').push(requestData, (error) => {
+            if (error) {
+                alert('ডেটা পাঠাতে সমস্যা হয়েছে!');
+            } else {
+                alert('রিকোয়েস্ট সফলভাবে অ্যাডমিন প্যানেলে পাঠানো হয়েছে!');
+                document.getElementById('agentUserName').value = '';
+                document.getElementById('agentUserMsg').value = '';
+            }
+        });
+    }
+
+    // Real-time listener for requests
+    database.ref('requests').on('value', (snapshot) => {
+        const data = snapshot.val();
+        const listContainer = document.getElementById('agentRequestsList');
+        const countSpan = document.getElementById('reqCount');
+
+        if (!data) {
+            listContainer.innerHTML = `<div style="text-align: center; color: var(--text-muted); padding: 20px;">কোনো রিকোয়েস্ট পাওয়া যায়নি</div>`;
+            countSpan.textContent = 'মোট: ০';
+            return;
+        }
+
+        let htmlContent = '';
+        const keys = Object.keys(data).reverse();
+        countSpan.textContent = `মোট: ${keys.length}`;
+
+        keys.forEach((key) => {
+            const item = data[key];
+            htmlContent += `
+                <div class="request-card">
+                    <div class="req-info">
+                        <strong>${item.name || 'অজ্ঞাত ইউজার'}</strong>
+                        <span>${item.serviceType || 'সাধারণ সেবা'} • ${new Date(item.timestamp || Date.now()).toLocaleDateString('bn-BD')}</span>
+                    </div>
+                    <span class="badge badge-pending">${item.status || 'Pending'}</span>
+                </div>
+            `;
+        });
+
+        listContainer.innerHTML = htmlContent;
     });
-
-    if (targetCard) {
-      let htmlContent = '<h3 style="margin-bottom:12px; color:#fff;">সাম্প্রতিক Service Requests</h3>';
-      
-      Object.keys(data).reverse().forEach((key) => {
-        const item = data[key];
-        htmlContent += `
-          <div style="background: rgba(255,255,255,0.08); padding: 12px; margin-bottom: 8px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center;">
-            <div>
-              <strong style="color: #fff; font-size: 15px;">${item.name || 'অজ্ঞাত'}</strong>
-              <div style="color: #bbb; font-size: 12px; margin-top: 3px;">
-                ${item.serviceType || 'সাধারণ'} • ${item.phone || ''}
-              </div>
-            </div>
-            <span style="background: #e67e22; color: #fff; padding: 4px 8px; border-radius: 4px; font-size: 11px; font-weight: bold;">Pending</span>
-          </div>
-        `;
-      });
-      
-      targetCard.innerHTML = htmlContent;
-    }
-  });
 </script>
 
+</body>
+</html>
