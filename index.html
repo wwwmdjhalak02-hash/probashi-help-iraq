@@ -1,13 +1,13 @@
-<!DOCTYPE html>
+            <!DOCTYPE html>
 <html lang="bn">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>প্রবাসী হেল্প ইরাক - কমিউনিটি হাব</title>
+    <title>ইরাক প্রবাসী হেল্প - Iraq Probashi Help</title>
     <style>
         :root {
             --bg-primary: #090d16;
-            --bg-card: rgba(30, 41, 59, 0.75);
+            --bg-card: rgba(30, 41, 59, 0.85);
             --border-color: rgba(255, 255, 255, 0.08);
             --accent-gold: #f59e0b;
             --accent-blue: #38bdf8;
@@ -22,53 +22,109 @@
             background-color: var(--bg-primary);
             color: var(--text-main);
             min-height: 100vh;
-            padding: 20px;
+            padding: 15px 15px 80px 15px; /* নিচে ন্যাভিগেশন বারের জন্য জায়গা রাখা হয়েছে */
         }
-        .container { max-width: 800px; margin: 0 auto; }
+        .container { max-width: 600px; margin: 0 auto; }
+
+        /* হেডার ডিজাইন (স্ক্রিন ২ ও ৩ এর আদলে) */
+        .app-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--bg-card);
+            padding: 12px 16px;
+            border-radius: 1rem;
+            border: 1px solid var(--border-color);
+            margin-bottom: 15px;
+        }
+        .app-title { font-size: 16px; font-weight: 700; color: var(--accent-gold); display: flex; align-items: center; gap: 8px; }
+        .header-icons { display: flex; gap: 12px; font-size: 18px; color: var(--text-muted); cursor: pointer; }
+
         .profile-card, .card, .post-card {
             background: var(--bg-card);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
             border: 1px solid var(--border-color);
             border-radius: 1.25rem;
-            padding: 20px;
-            margin-bottom: 20px;
+            padding: 16px;
+            margin-bottom: 15px;
             box-shadow: var(--shadow-lg);
         }
         .profile-card { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
-        .user-info h3 { color: var(--accent-gold); font-size: 18px; }
-        .user-info p { font-size: 13px; color: var(--text-muted); }
-        .badges { display: flex; gap: 10px; }
-        .badge { background: #0f172a; border: 1px solid var(--border-color); padding: 8px 12px; border-radius: 0.5rem; text-align: center; }
-        .badge span { display: block; font-size: 10px; color: var(--text-muted); }
-        .badge strong { font-size: 14px; color: var(--accent-blue); }
+        .user-info h3 { color: var(--accent-gold); font-size: 16px; }
+        .user-info p { font-size: 12px; color: var(--text-muted); }
+        .badges { display: flex; gap: 8px; }
+        .badge { background: #0f172a; border: 1px solid var(--border-color); padding: 6px 10px; border-radius: 0.5rem; text-align: center; }
+        .badge span { display: block; font-size: 9px; color: var(--text-muted); }
+        .badge strong { font-size: 13px; color: var(--accent-blue); }
+
         textarea {
             width: 100%; padding: 12px; background: #0f172a; border: 1px solid var(--border-color);
-            border-radius: 0.75rem; color: var(--text-main); font-size: 14px; resize: vertical; min-height: 90px; outline: none; margin-bottom: 10px;
+            border-radius: 0.75rem; color: var(--text-main); font-size: 14px; resize: vertical; min-height: 80px; outline: none; margin-bottom: 10px;
             transition: var(--transition);
         }
         textarea:focus { border-color: var(--accent-gold); box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.15); }
         .btn-primary {
+            width: 100%;
             padding: 10px 20px; background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
             color: #090d16; border: none; border-radius: 0.75rem; font-weight: 700; cursor: pointer;
             transition: var(--transition);
+            text-align: center;
         }
         .btn-primary:hover { transform: translateY(-2px); }
         .security-alert { background: rgba(239, 68, 68, 0.15); border: 1px solid rgba(239, 68, 68, 0.4); color: #fca5a5; padding: 10px; border-radius: 0.5rem; font-size: 12px; margin-bottom: 10px; display: none; }
-        .post-header { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 14px; color: var(--accent-gold); }
+        
+        .post-header { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 13px; color: var(--accent-gold); }
         .post-content { font-size: 14px; margin-bottom: 12px; line-height: 1.4; }
         .post-actions { display: flex; justify-content: space-between; border-top: 1px solid var(--border-color); padding-top: 10px; }
         .btn-action { background: #0f172a; border: 1px solid var(--border-color); color: var(--text-muted); padding: 6px 12px; border-radius: 0.4rem; cursor: pointer; font-size: 12px; transition: var(--transition); }
         .btn-action:hover { color: var(--text-main); border-color: var(--accent-gold); }
         .btn-share { color: var(--accent-blue); background: rgba(56, 189, 248, 0.1); }
-        .admin-link { text-align: center; margin-top: 20px; }
-        .admin-link a { color: var(--text-muted); font-size: 12px; text-decoration: none; transition: var(--transition); }
+        
+        .admin-link { text-align: center; margin-top: 15px; margin-bottom: 20px; }
+        .admin-link a { color: var(--text-muted); font-size: 11px; text-decoration: none; transition: var(--transition); }
         .admin-link a:hover { color: var(--accent-gold); }
+
+        /* ফিক্সড বটম ন্যাভিগেশন বার (আপনার ডিজাইন অনুযায়ী একেবারে নিচের মেনু) */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: #0b132b;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-around;
+            padding: 8px 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+        .nav-item {
+            text-align: center;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: var(--transition);
+        }
+        .nav-item span.icon { font-size: 18px; margin-bottom: 2px; }
+        .nav-item.active, .nav-item:hover { color: var(--accent-gold); }
     </style>
 </head>
 <body>
 
 <div class="container">
+    <!-- টপ হেডার (ডিজাইনের আদলে) -->
+    <div class="app-header">
+        <div class="app-title">🇮🇶 ইরাক প্রবাসী হেল্প</div>
+        <div class="header-icons">
+            <span onclick="location.href='chat-support.html'">💬</span>
+            <span onclick="location.href='notice.html'">🔔</span>
+        </div>
+    </div>
+
     <!-- প্রফাইল ড্যাশবোর্ড -->
     <div class="profile-card">
         <div class="user-info">
@@ -95,8 +151,44 @@
     <div id="communityFeed"></div>
 
     <div class="admin-link">
-        <a href="admin.html" target="_blank">⚙️ অ্যাডমিন ভেরিফিকেশন প্যানেল (১৯/৯৯ লক ম্যানেজমেন্ট)</a>
+        <a href="admin.html">⚙️ অ্যাডমিন ভেরিফিকেশন প্যানেল (১৯/৯৯ লক ম্যানেজমেন্ট)</a>
     </div>
+</div>
+
+<!-- আপনার ডিজাইন করা ১২ স্ক্রিনের সাথে মিল রেখে ফিক্সড নিচের ন্যাভিগেশন বার -->
+<div class="bottom-nav">
+    <a href="index.html" class="nav-item active">
+        <span class="icon">🏠</span>
+        <span>হোম</span>
+    </a>
+    <a href="index.html" class="nav-item">
+        <span class="icon">👥</span>
+        <span>সোশ্যাল</span>
+    </a>
+    <a href="jobs.html" class="nav-item">
+        <span class="icon">💼</span>
+        <span>চাকরি</span>
+    </a>
+    <a href="notice.html" class="nav-item">
+        <span class="icon">📜</span>
+        <span>নোটিশ</span>
+    </a>
+    <a href="passport-status.html" class="nav-item">
+        <span class="icon">🛂</span>
+        <span>পাসপোর্ট</span>
+    </a>
+    <a href="track.html" class="nav-item">
+        <span class="icon">📍</span>
+        <span>ট্র্যাক</span>
+    </a>
+    <a href="chat-support.html" class="nav-item">
+        <span class="icon">💬</span>
+        <span>সাপোর্ট</span>
+    </a>
+    <a href="profile.html" class="nav-item">
+        <span class="icon">👤</span>
+        <span>প্রোফাইল</span>
+    </a>
 </div>
 
 <script>
