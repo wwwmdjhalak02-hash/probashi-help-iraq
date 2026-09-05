@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>সোশ্যাল - ইরাক প্রবাসী হেল্প</title>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Hind Siliguri', sans-serif; }
+        body { background-color: #0b132b; color: #ffffff; padding-bottom: 70px; }
+        .header { background: #1c2541; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #3a506b; }
+        .post-box { background: #1c2541; margin: 15px; padding: 15px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
+        .post-header { display: flex; align-items: center; margin-bottom: 10px; }
+        .post-avatar { width: 40px; height: 40px; border-radius: 50%; margin-right: 10px; object-fit: cover; }
+        .post-content { font-size: 14px; color: #e0e0e0; margin-bottom: 10px; line-height: 1.5; }
+        .post-actions { display: flex; justify-content: space-around; border-top: 1px solid #28385e; padding-top: 10px; font-size: 13px; color: #8d99ae; }
+        .nav-bar { position: fixed; bottom: 0; left: 0; width: 100%; background: #0b132b; border-top: 1px solid #1c2541; display: flex; justify-content: space-around; padding: 10px 0; z-index: 1000; }
+        .nav-item { text-align: center; color: #8d99ae; text-decoration: none; font-size: 11px; }
+        .nav-item.active { color: #4cc9f0; }
+        .nav-item img { width: 22px; height: 22px; display: block; margin: 0 auto 3px; filter: grayscale(100%); }
+        .nav-item.active img { filter: brightness(0) saturate(100%) invert(71%) sepia(37%) saturate(1475%) hue-rotate(160deg) brightness(98%) contrast(96%); }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h3>সোশ্যাল কমিউনিটি</h3>
+        <span>🔍</span>
+    </div>
+
+    <div class="post-box">
+        <div class="post-header">
+            <img src="https://i.ibb.co/5GzXkwq/user-default.png" alt="" class="post-avatar">
+            <div>
+                <h4 style="font-size: 15px;">Rashid Alom</h4>
+                <small style="color: #8d99ae;">22m ago</small>
+            </div>
+        </div>
+        <p class="post-content">আজকে ইরাকে আবহাওয়া কেমন আছে? কেউ কি বাগদাদ এলাকায় আছেন?</p>
+        <div class="post-actions">
+            <span>👍 লাইক</span>
+            <span>💬 কমেন্ট</span>
+            <span>↗️ শেয়ার</span>
+        </div>
+    </div>
+
+    <div class="post-box">
+        <div class="post-header">
+            <img src="https://i.ibb.co/5GzXkwq/user-default.png" alt="" class="post-avatar">
+            <div>
+                <h4 style="font-size: 15px;">Sujon Ahmed</h4>
+                <small style="color: #8d99ae;">2h ago</small>
+            </div>
+        </div>
+        <p class="post-content">পাসপোর্ট নবায়ন করার জন্য কী কী কাগজ লাগবে বিস্তারিত জানতে আমাদের নোটিশ বোর্ড চেক করুন।</p>
+        <div class="post-actions">
+            <span>👍 লাইক</span>
+            <span>💬 কমেন্ট</span>
+            <span>↗️ শেয়ার</span>
+        </div>
+    </div>
+
+    <!-- Bottom Navigation Bar -->
+    <div class="nav-bar">
+        <a href="home.html" class="nav-item">
+            <img src="https://img.icons8.com/ios-filled/50/home.png" alt="Home">হোম
+        </a>
+        <a href="social.html" class="nav-item active">
+            <img src="https://img.icons8.com/ios-filled/50/conference.png" alt="Social">সোশ্যাল
+        </a>
+        <a href="partner.html" class="nav-item">
+            <img src="https://img.icons8.com/ios-filled/50/briefcase.png" alt="Jobs">চাকরি
+        </a>
+        <a href="notice.html" class="nav-item">
+            <img src="https://img.icons8.com/ios-filled/50/appointment-reminders.png" alt="Notice">নোটিশ
+        </a>
+        <a href="passport-status.html" class="nav-item">
+            <img src="https://img.icons8.com/ios-filled/50/passport.png" alt="Passport">পাসপোর্ট
+        </a>
+        <a href="track.html" class="nav-item">
+            <img src="https://img.icons8.com/ios-filled/50/marker.png" alt="Track">ট্রেড
+        </a>
+        <a href="dashboard" class="nav-item">
+            <img src="https://img.icons8.com/ios-filled/50/chat.png" alt="Support">সাপোর্ট
+        </a>
+        <a href="profile.html" class="nav-item">
+            <img src="https://img.icons8.com/ios-filled/50/user.png" alt="Profile">প্রোফাইল
+        </a>
+    </div>
+
+</body>
+</html>
