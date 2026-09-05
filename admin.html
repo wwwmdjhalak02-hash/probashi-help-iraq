@@ -7,7 +7,7 @@
     <style>
         :root {
             --bg-primary: #090d16;
-            --bg-card: rgba(30, 41, 59, 0.75);
+            --bg-card: rgba(30, 41, 59, 0.85);
             --border-color: rgba(255, 255, 255, 0.08);
             --accent-gold: #f59e0b;
             --accent-blue: #38bdf8;
@@ -16,6 +16,7 @@
             --success: #10b981;
             --danger: #ef4444;
             --shadow-lg: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+            --transition: all 0.3s ease;
         }
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
@@ -23,68 +24,118 @@
             background-color: var(--bg-primary);
             color: var(--text-main);
             min-height: 100vh;
-            padding: 20px;
+            padding: 15px 15px 80px 15px; /* নিচের ন্যাভিগেশন বারের জন্য জায়গা রাখা হয়েছে */
         }
-        .container { max-width: 800px; margin: 0 auto; }
+        .container { max-width: 600px; margin: 0 auto; }
+
+        /* টপ হেডার */
+        .app-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--bg-card);
+            padding: 12px 16px;
+            border-radius: 1rem;
+            border: 1px solid var(--border-color);
+            margin-bottom: 15px;
+        }
+        .app-title { font-size: 16px; font-weight: 700; color: var(--accent-gold); display: flex; align-items: center; gap: 8px; }
+
         .card {
             background: var(--bg-card);
             backdrop-filter: blur(16px);
             border: 1px solid var(--border-color);
             border-radius: 1.25rem;
-            padding: 24px;
+            padding: 20px;
             box-shadow: var(--shadow-lg);
             margin-bottom: 20px;
         }
-        h2 { color: var(--accent-gold); font-size: 22px; margin-bottom: 8px; }
-        p { font-size: 13px; color: var(--text-muted); margin-bottom: 20px; }
+        h2 { color: var(--accent-gold); font-size: 18px; margin-bottom: 8px; }
+        p { font-size: 12px; color: var(--text-muted); margin-bottom: 15px; line-height: 1.4; }
         
         .request-card {
             background: rgba(15, 23, 42, 0.9);
             border: 1px solid var(--border-color);
             border-radius: 0.75rem;
-            padding: 16px;
-            margin-bottom: 14px;
+            padding: 14px;
+            margin-bottom: 12px;
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 8px;
         }
         .request-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
-        .user-name { font-weight: bold; color: var(--accent-blue); font-size: 16px; }
-        .req-level { font-size: 13px; color: var(--accent-gold); background: rgba(245, 158, 11, 0.1); padding: 4px 8px; border-radius: 4px; }
-        .req-msg { font-size: 14px; color: var(--text-main); background: rgba(30, 41, 59, 0.5); padding: 10px; border-radius: 0.5rem; }
+        .user-name { font-weight: bold; color: var(--accent-blue); font-size: 15px; }
+        .req-level { font-size: 12px; color: var(--accent-gold); background: rgba(245, 158, 11, 0.1); padding: 3px 6px; border-radius: 4px; }
+        .req-msg { font-size: 13px; color: var(--text-main); background: rgba(30, 41, 59, 0.5); padding: 8px; border-radius: 0.5rem; line-height: 1.4; }
         
         .action-row {
             display: flex;
             justify-content: flex-end;
-            gap: 10px;
+            gap: 8px;
             margin-top: 5px;
         }
         .btn {
-            padding: 8px 16px;
+            padding: 6px 14px;
             border: none;
             border-radius: 0.5rem;
             font-weight: 600;
-            font-size: 13px;
+            font-size: 12px;
             cursor: pointer;
+            transition: var(--transition);
         }
         .btn-approve { background: var(--success); color: #fff; }
+        .btn-approve:hover { opacity: 0.9; }
         .btn-reject { background: var(--danger); color: #fff; }
+        .btn-reject:hover { opacity: 0.9; }
         
-        .back-link { display: inline-block; color: var(--text-muted); text-decoration: none; font-size: 13px; margin-top: 10px; }
+        .back-link { display: inline-block; color: var(--text-muted); text-decoration: none; font-size: 12px; margin-top: 5px; transition: var(--transition); }
         .back-link:hover { color: var(--accent-gold); }
-        .no-data { text-align: center; color: var(--text-muted); padding: 20px; }
+        .no-data { text-align: center; color: var(--text-muted); padding: 20px; font-size: 13px; }
+
+        /* ফিক্সড বটম ন্যাভিগেশন বার */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: #0b132b;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-around;
+            padding: 8px 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+        .nav-item {
+            text-align: center;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: var(--transition);
+        }
+        .nav-item span.icon { font-size: 18px; margin-bottom: 2px; }
+        .nav-item.active, .nav-item:hover { color: var(--accent-gold); }
     </style>
 </head>
 <body>
 
 <div class="container">
+    <!-- টপ হেডার -->
+    <div class="app-header">
+        <div class="app-title">⚙️ অ্যাডমিন কন্ট্রোল প্যানেল</div>
+        <div style="font-size: 12px; color: var(--accent-blue);">বস পারমিশন গেটওয়ে</div>
+    </div>
+
     <div class="card">
         <h2>অ্যাডমিন ও বস পারমিশন প্যানেল (লেভেল ২৫, ৫০, ৭৫ ও ১০০ লক ম্যানেজমেন্ট)</h2>
-        <p>ইউজারদের লেভেল ২৫, ৫০, ৭৫ ও ১০০ এ পৌঁছানোর পর সিকিউরিটি লক এবং এজেন্ট চ্যাটের অনুরোধগুলো এখানে যাচাই করে অনুমোদন দিতে পারবেন।</p>
+        <p>ইউজারদের নির্দিষ্ট লেভেলে পৌঁছানোর পর সিকিউরিটি লক এবং এজেন্ট চ্যাটের অনুরোধগুলো এখানে যাচাই করে অনুমোদন দিতে পারবেন।</p>
         
         <div id="adminRequestsList">
             <div class="no-data">কোনো পেন্ডিং রিকোয়েস্ট নেই</div>
@@ -94,18 +145,52 @@
     <a href="index.html" class="back-link">← ইউজার ড্যাশবোর্ডে ফিরে যান</a>
 </div>
 
+<!-- নিচের ন্যাভিগেশন বার -->
+<div class="bottom-nav">
+    <a href="index.html" class="nav-item">
+        <span class="icon">🏠</span>
+        <span>হোম</span>
+    </a>
+    <a href="index.html" class="nav-item">
+        <span class="icon">👥</span>
+        <span>সোশ্যাল</span>
+    </a>
+    <a href="jobs.html" class="nav-item">
+        <span class="icon">💼</span>
+        <span>চাকরি</span>
+    </a>
+    <a href="notice.html" class="nav-item">
+        <span class="icon">📜</span>
+        <span>নোটিশ</span>
+    </a>
+    <a href="passport-status.html" class="nav-item">
+        <span class="icon">🛂</span>
+        <span>পাসপোর্ট</span>
+    </a>
+    <a href="track.html" class="nav-item">
+        <span class="icon">📍</span>
+        <span>ট্র্যাক</span>
+    </a>
+    <a href="chat-support.html" class="nav-item">
+        <span class="icon">💬</span>
+        <span>সাপোর্ট</span>
+    </a>
+    <a href="profile.html" class="nav-item">
+        <span class="icon">👤</span>
+        <span>প্রোফাইল</span>
+    </a>
+</div>
+
 <script>
     function loadAdminData() {
         const listContainer = document.getElementById('adminRequestsList');
         
-        // লোকালস্টোরেজ থেকে ইউজারের লেভেল ও লক স্টেটাস রিড করা
         let userStats = JSON.parse(localStorage.getItem('phi_user_stats')) || { level: 1, isLocked: false };
         let savedRequests = JSON.parse(localStorage.getItem('phi_agent_requests')) || [];
 
         let htmlContent = '';
         let hasItems = false;
 
-        // লেভেল ২৫, ৫০, ৭৫ বা ১০০ এ লক হলে অ্যাডমিন প্যানেলে দেখাবে
         const milestoneLevels = [25, 50, 75, 100];
         if (userStats.isLocked && milestoneLevels.includes(userStats.level)) {
             hasItems = true;
@@ -123,7 +208,6 @@
             `;
         }
 
-        // এজেন্ট চ্যাট ও অন্যান্য রিকোয়েস্টগুলো দেখাবে
         if (savedRequests.length > 0) {
             savedRequests.forEach((req, index) => {
                 if(req.status === 'Pending' || !req.status) {
@@ -132,7 +216,7 @@
                         <div class="request-card">
                             <div class="request-header">
                                 <span class="user-name">${req.userName || 'প্রবাসী ইউজার'}</span>
-                                <span style="font-size: 12px; color: var(--text-muted);">${req.time || 'এখনই'}</span>
+                                <span style="font-size: 11px; color: var(--text-muted);">${req.time || 'এখনই'}</span>
                             </div>
                             <div class="req-msg"><strong>এজেন্ট চ্যাট আলোচনা:</strong> ${req.message}</div>
                             <div class="action-row">
@@ -152,12 +236,10 @@
         }
     }
 
-    // লেভেল আনলক করার ফাংশন
     window.unlockUserLevel = function(currentLevel) {
         let userStats = JSON.parse(localStorage.getItem('phi_user_stats'));
         if (userStats) {
             userStats.isLocked = false;
-            // যদি ১০০ লেভেল হয় তবে আর বাড়াবে না, অন্যথায় পরের ধাপে নিয়ে যাবে
             if(currentLevel < 100) {
                 userStats.level = currentLevel + 1;
             }
@@ -167,7 +249,6 @@
         }
     }
 
-    // এজেন্ট চ্যাট রিকোয়েস্ট অ্যাকশন হ্যান্ডেল করা
     window.handleChatAction = function(index, status) {
         let savedRequests = JSON.parse(localStorage.getItem('phi_agent_requests')) || [];
         if (savedRequests[index]) {
