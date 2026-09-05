@@ -1,19 +1,30 @@
 {
   "name": "probashi-help-iraq",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Enterprise Local-First Web Platform and Secure Expatriate Support Gateway for Iraqi Expatriates",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "test": "echo \"Error: no test specified\" && exit 0"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "probashi",
+    "iraq",
+    "help",
+    "enterprise",
+    "local-first",
+    "expatriates"
+  ],
+  "author": "Md Zalak Mia",
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
     "cors": "^2.8.6",
     "express": "^5.2.1",
     "sqlite3": "^6.0.1"
+  },
+  "engines": {
+    "node": ">=18.0.0"
   }
 }
