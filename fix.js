@@ -11,10 +11,16 @@ function ensureProjectHarmony(dir) {
         const items = fs.readdirSync(dir);
         items.forEach(item => {
             const fullPath = path.join(dir, item);
-            const stat = fs.statSync(fullPath);
+            let stat;
+            
+            try {
+                stat = fs.statSync(fullPath);
+            } catch (err) {
+                return; // কোনো কারণে ফাইল এক্সেস করতে না পারলে স্কিপ করবে
+            }
 
             if (stat.isDirectory()) {
-                if (!['node_modules', '.git', '.vscode', 'dist'].includes(item)) {
+                if (!['node_modules', '.git', '.vscode', 'dist', 'build'].includes(item)) {
                     ensureProjectHarmony(fullPath);
                 }
             } else if (['.html', '.js', '.css'].some(ext => item.endsWith(ext))) {
