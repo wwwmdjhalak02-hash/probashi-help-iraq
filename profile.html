@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>প্রোফাইল - ইরাক প্রবাসী হেল্প</title>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Hind Siliguri', sans-serif; }
+        body { background-color: #0b132b; color: #ffffff; padding-bottom: 70px; }
+        .header { background: #1c2541; padding: 20px; text-align: center; border-bottom: 2px solid #3a506b; }
+        .profile-card { background: #1c2541; margin: 20px; padding: 20px; border-radius: 12px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
+        .profile-img { width: 90px; height: 90px; border-radius: 50%; border: 3px solid #4cc9f0; margin-bottom: 10px; object-fit: cover; }
+        .menu-list { margin: 20px; background: #1c2541; border-radius: 12px; overflow: hidden; }
+        .menu-item { padding: 15px 20px; border-bottom: 1px solid #28385e; display: flex; justify-content: space-between; align-items: center; color: #fff; text-decoration: none; transition: 0.3s; }
+        .menu-item:hover { background: #28385e; }
+        .nav-bar { position: fixed; bottom: 0; left: 0; width: 100%; background: #0b132b; border-top: 1px solid #1c2541; display: flex; justify-content: space-around; padding: 10px 0; z-index: 1000; }
+        .nav-item { text-align: center; color: #8d99ae; text-decoration: none; font-size: 11px; }
+        .nav-item.active { color: #4cc9f0; }
+        .nav-item img { width: 22px; height: 22px; display: block; margin: 0 auto 3px; filter: grayscale(100%); }
+        .nav-item.active img { filter: brightness(0) saturate(100%) invert(71%) sepia(37%) saturate(1475%) hue-rotate(160deg) brightness(98%) contrast(96%); }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h2>আমার প্রোফাইল</h2>
+    </div>
+
+    <div class="profile-card">
+        <img src="https://i.ibb.co/5GzXkwq/user-default.png" alt="Profile" class="profile-img">
+        <h3>মুসফাক রাশেদ</h3>
+        <p style="color: #8d99ae; font-size: 14px;">baghdad, Iraq</p>
+        <p style="color: #4cc9f0; font-size: 13px; margin-top: 5px;">📞 +964 770 123 4567</p>
+    </div>
+
+    <div class="menu-list">
+        <a href="#" class="menu-item"><span>👤 ব্যক্তিগত তথ্য</span> <span>›</span></a>
+        <a href="track.html" class="menu-item"><span>📋 আমার আবেদন সমূহ</span> <span>›</span></a>
+        <a href="#" class="menu-item"><span>⚙️ নোটিফিকেশন সেটিংস</span> <span>›</span></a>
+        <a href="#" class="menu-item"><span>🌐 ভাষা / Language</span> <span>বাংলা ›</span></a>
+        <a href="#" class="menu-item"><span>ℹ️ সেটিংতা</span> <span>›</span></a>
+        <a href="home.html" class="menu-item" style="color: #ff4d4d;"><span>🚪 লগ আউট</span> <span>›</span></a>
+    </div>
+
+    <!-- Bottom Navigation Bar -->
+    <div class="nav-bar">
+        <a href="home.html" class="nav-item">
+            <img src="https://img.icons8.com/ios-filled/50/home.png" alt="Home">হোম
+        </a>
+        <a href="social.html" class="nav-item">
+            <img src="https://img.icons8.com/ios-filled/50/conference.png" alt="Social">সোশ্যাল
+        </a>
+        <a href="partner.html" class="nav-item">
+            <img src="https://img.icons8.com/ios-filled/50/briefcase.png" alt="Jobs">চাকরি
+        </a>
+        <a href="notice.html" class="nav-item">
+            <img src="https://img.icons8.com/ios-filled/50/appointment-reminders.png" alt="Notice">নোটিশ
+        </a>
+        <a href="passport-status.html" class="nav-item">
+            <img src="https://img.icons8.com/ios-filled/50/passport.png" alt="Passport">পাসপোর্ট
+        </a>
+        <a href="track.html" class="nav-item">
+            <img src="https://img.icons8.com/ios-filled/50/marker.png" alt="Track">ট্রেড
+        </a>
+        <a href="dashboard" class="nav-item">
+            <img src="https://img.icons8.com/ios-filled/50/chat.png" alt="Support">সাপোর্ট
+        </a>
+        <a href="profile.html" class="nav-item active">
+            <img src="https://img.icons8.com/ios-filled/50/user.png" alt="Profile">প্রোফাইল
+        </a>
+    </div>
+
+</body>
+</html>
