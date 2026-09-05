@@ -6,6 +6,35 @@
     <title>এজেন্ট চ্যাট ও লাইভ সাপোর্ট - প্রবাসী হেল্প ইরাক (Enterprise Master)</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ফিক্সড বটম ন্যাভিগেশন বার স্টাইল */
+        body { padding-bottom: 75px !important; }
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: #0b132b;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            display: flex;
+            justify-content: space-around;
+            padding: 8px 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+        .nav-item {
+            text-align: center;
+            color: #94a3b8;
+            text-decoration: none;
+            font-size: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+        .nav-item span.icon { font-size: 18px; margin-bottom: 2px; }
+        .nav-item.active, .nav-item:hover { color: #f59e0b; }
+    </style>
 </head>
 <body class="bg-slate-900 text-white min-h-screen flex flex-col justify-between p-4">
 
@@ -31,7 +60,7 @@
     </div>
 
     <!-- Chat Message Area -->
-    <div class="max-w-md w-full mx-auto app-card flex-1 p-4 mb-3 overflow-y-auto space-y-3 flex flex-col justify-end" style="max-height: 60vh; min-height: 350px;" id="chatContainer">
+    <div class="max-w-md w-full mx-auto app-card flex-1 p-4 mb-3 overflow-y-auto space-y-3 flex flex-col justify-end" style="max-height: 55vh; min-height: 320px;" id="chatContainer">
         <!-- System Welcome Message -->
         <div class="bg-slate-800/90 border border-slate-700/80 p-3 rounded-2xl rounded-tl-none max-w-[85%] text-xs space-y-1 shadow-md">
             <div class="flex justify-between items-center">
@@ -43,10 +72,10 @@
     </div>
 
     <!-- Message Input Form -->
-    <div class="max-w-md w-full mx-auto">
+    <div class="max-w-md w-full mx-auto mb-2">
         <form id="chatForm" class="app-card p-2 flex items-center gap-2">
-            <input type="text" id="chatInput" placeholder="আপনার বার্তা এখানে লিখুন..." autocomplete="off" class="!mb-0 !py-2.5 text-xs bg-slate-900/80 border-slate-700 focus:border-amber-500">
-            <button type="submit" id="sendBtn" class="glow-button !py-2.5 !px-4 text-xs shrink-0 flex items-center justify-center">
+            <input type="text" id="chatInput" placeholder="আপনার বার্তা এখানে লিখুন..." autocomplete="off" class="!mb-0 !py-2.5 text-xs bg-slate-900/80 border-slate-700 focus:border-amber-500 w-full px-3 rounded-lg text-white">
+            <button type="submit" id="sendBtn" class="glow-button !py-2.5 !px-4 text-xs shrink-0 flex items-center justify-center bg-blue-600 hover:bg-blue-700 rounded-lg font-bold">
                 <i class="fas fa-paper-plane"></i>
             </button>
         </form>
@@ -57,27 +86,57 @@
         </div>
     </div>
 
+    <!-- নিচের ন্যাভিগেশন বার -->
+    <div class="bottom-nav">
+        <a href="home.html" class="nav-item">
+            <span class="icon">🏠</span>
+            <span>হোম</span>
+        </a>
+        <a href="index.html" class="nav-item">
+            <span class="icon">👥</span>
+            <span>সোশ্যাল</span>
+        </a>
+        <a href="jobs.html" class="nav-item">
+            <span class="icon">💼</span>
+            <span>চাকরি</span>
+        </a>
+        <a href="notice.html" class="nav-item">
+            <span class="icon">📜</span>
+            <span>নোটিশ</span>
+        </a>
+        <a href="passport-status.html" class="nav-item">
+            <span class="icon">🛂</span>
+            <span>পাসপোর্ট</span>
+        </a>
+        <a href="track.html" class="nav-item">
+            <span class="icon">📍</span>
+            <span>ট্র্যাক</span>
+        </a>
+        <a href="chat-support.html" class="nav-item active">
+            <span class="icon">💬</span>
+            <span>সাপোর্ট</span>
+        </a>
+        <a href="profile.html" class="nav-item">
+            <span class="icon">👤</span>
+            <span>প্রোফাইল</span>
+        </a>
+    </div>
+
     <!-- Core State Engine Integration -->
     <script src="fix.js"></script>
     <script>
-        /**
-         * Top-Level Enterprise Chat Engine
-         * Implements Sandboxed Encoding, Memory Pruning & Zero-Latency UI
-         */
         document.addEventListener('DOMContentLoaded', () => {
             const chatContainer = document.getElementById('chatContainer');
             const chatForm = document.getElementById('chatForm');
             const chatInput = document.getElementById('chatInput');
 
             const STORAGE_KEY = 'phi_enterprise_chat_v1';
-            const MAX_HISTORY_LIMIT = 100; // Garbage collection / memory pruning threshold
+            const MAX_HISTORY_LIMIT = 100;
 
-            // Advanced Sandboxed Data Retrieval with Base64 Obfuscation layer
             function fetchSecureHistory() {
                 try {
                     const rawData = localStorage.getItem(STORAGE_KEY);
                     if (!rawData) return [];
-                    // Decoding sandboxed layer to prevent plain-text tampering
                     const decoded = atob(rawData);
                     return JSON.parse(decoded);
                 } catch (e) {
@@ -86,10 +145,8 @@
                 }
             }
 
-            // Advanced Sandboxed Data Persistence
             function commitSecureHistory(messages) {
                 try {
-                    // Enforce memory pruning (Garbage collection for local storage)
                     let pruned = messages;
                     if (messages.length > MAX_HISTORY_LIMIT) {
                         pruned = messages.slice(messages.length - MAX_HISTORY_LIMIT);
@@ -143,7 +200,6 @@
                 chatContainer.scrollTop = chatContainer.scrollHeight;
             }
 
-            // Strict XSS & Script Injection Prevention
             function sanitizeInput(str) {
                 return str.replace(/[&<>'"]/g, 
                     tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)
@@ -152,7 +208,6 @@
 
             renderEngine();
 
-            // Form Submit Listener with Optimistic UI Update & Auto-Agent Response
             chatForm.addEventListener('submit', (e) => {
                 e.preventDefault();
                 const text = chatInput.value.trim();
@@ -160,14 +215,12 @@
 
                 const timeNow = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
                 
-                // Push user message to state
                 messageState.push({ sender: 'user', text: text, time: timeNow });
                 commitSecureHistory(messageState);
                 
                 chatInput.value = '';
                 renderEngine();
 
-                // Non-blocking simulated agent response (Zero-latency enterprise feel)
                 setTimeout(() => {
                     messageState.push({
                         sender: 'agent',
