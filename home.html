@@ -35,7 +35,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 20px;
+            padding: 20px 20px 85px 20px; /* নিচের ন্যাভিগেশন বারের জন্য জায়গা রাখা হয়েছে */
         }
 
         .wrapper {
@@ -49,70 +49,70 @@
             -webkit-backdrop-filter: blur(16px);
             border: 1px solid var(--border-color);
             border-radius: 1.25rem;
-            padding: 32px 24px;
+            padding: 28px 20px;
             box-shadow: var(--shadow-lg);
         }
 
         .header {
             text-align: center;
-            margin-bottom: 24px;
+            margin-bottom: 20px;
         }
 
         .header h1 {
-            font-size: 26px;
+            font-size: 24px;
             font-weight: 800;
             background: linear-gradient(135deg, #38bdf8, #818cf8);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 6px;
+            margin-bottom: 4px;
             letter-spacing: 0.5px;
         }
 
         .header p {
             color: var(--text-muted);
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 500;
         }
 
-        /* ভিআইপি ইউজার স্ট্যাটাস মিনি কার্ড (লোকালস্টোরেজ সিনক্রোনাইজড) */
+        /* ভিআইপি ইউজার স্ট্যাটাস মিনি কার্ড */
         .user-status-card {
             background: rgba(30, 41, 59, 0.5);
             border: 1px solid var(--border-color);
             border-radius: 0.75rem;
-            padding: 12px 16px;
-            margin-bottom: 20px;
+            padding: 10px 14px;
+            margin-bottom: 16px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-size: 13px;
+            font-size: 12px;
         }
         .user-status-card span { color: var(--accent-gold); font-weight: 600; }
 
         .grid-menu {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 14px;
+            gap: 12px;
         }
 
         .menu-btn {
             background: rgba(30, 41, 59, 0.7);
             color: var(--text-main);
             text-decoration: none;
-            padding: 20px 14px;
+            padding: 16px 12px;
             border-radius: 0.75rem;
             border: 1px solid var(--border-color);
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 600;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
             transition: var(--transition);
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
         }
 
         .menu-btn span.icon {
-            font-size: 26px;
+            font-size: 24px;
             transition: transform 0.3s ease;
         }
 
@@ -131,11 +131,11 @@
             background: linear-gradient(135deg, #2563eb, #4f46e5);
             border-color: transparent;
             grid-column: span 2;
-            padding: 18px;
-            font-size: 15px;
+            padding: 15px;
+            font-size: 14px;
             font-weight: 700;
             box-shadow: 0 8px 20px rgba(37, 99, 235, 0.4);
-            margin-bottom: 14px;
+            margin-bottom: 12px;
         }
 
         .primary-btn:hover {
@@ -143,6 +143,33 @@
             border-color: transparent;
             box-shadow: 0 12px 25px rgba(37, 99, 235, 0.6);
         }
+
+        /* ফিক্সড বটম ন্যাভিগেশন বার */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: #0b132b;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-around;
+            padding: 8px 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+        .nav-item {
+            text-align: center;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: var(--transition);
+        }
+        .nav-item span.icon { font-size: 18px; margin-bottom: 2px; }
+        .nav-item.active, .nav-item:hover { color: var(--accent-gold); }
     </style>
 </head>
 <body>
@@ -154,7 +181,7 @@
             <p>ইরাকে অবস্থানরত প্রবাসী বাংলাদেশীদের বিশ্বস্ত সহায়তা হাব</p>
         </div>
 
-        <!-- ডাইনামিক লোকালস্টোরেজ স্ট্যাটাস উইজেট (অন্যান্য পেজের সাথে সিঙ্কড) -->
+        <!-- ডাইনামিক লোকালস্টোরেজ স্ট্যাটাস উইজেট -->
         <div class="user-status-card" id="homeUserStats">
             <div>অ্যাকাউন্ট স্ট্যাটাস: <span id="syncLevelText">লেভেল ১ / ১০০</span></div>
             <div id="syncStarText">⭐ ১ স্টার</div>
@@ -181,12 +208,47 @@
     </div>
 </div>
 
+<!-- নিচের ন্যাভিগেশন বার -->
+<div class="bottom-nav">
+    <a href="home.html" class="nav-item active">
+        <span class="icon">🏠</span>
+        <span>হোম</span>
+    </a>
+    <a href="index.html" class="nav-item">
+        <span class="icon">👥</span>
+        <span>সোশ্যাল</span>
+    </a>
+    <a href="jobs.html" class="nav-item">
+        <span class="icon">💼</span>
+        <span>চাকরি</span>
+    </a>
+    <a href="notice.html" class="nav-item">
+        <span class="icon">📜</span>
+        <span>নোটিশ</span>
+    </a>
+    <a href="passport-status.html" class="nav-item">
+        <span class="icon">🛂</span>
+        <span>পাসপোর্ট</span>
+    </a>
+    <a href="track.html" class="nav-item">
+        <span class="icon">📍</span>
+        <span>ট্র্যাক</span>
+    </a>
+    <a href="chat-support.html" class="nav-item">
+        <span class="icon">💬</span>
+        <span>সাপোর্ট</span>
+    </a>
+    <a href="profile.html" class="nav-item">
+        <span class="icon">👤</span>
+        <span>প্রোফাইল</span>
+    </a>
+</div>
+
 <script>
-    // লোকালস্টোরেজ থেকে ইউজারের বর্তমান লেভেল ও স্টার ফেচ করে নিখুঁতভাবে সিঙ্ক করা (সুতোর মতো গাঁথা)
     function syncHomeStats() {
         const userStats = JSON.parse(localStorage.getItem('phi_user_stats')) || { level: 1, stars: 1 };
         
-        document.getElementById('syncLevelTextinnerText` = `লেভেল ${userStats.level} / ১০০`;
+        document.getElementById('syncLevelText').innerText = `লেভেল ${userStats.level} / ১০০`;
         
         let starStr = "⭐ ১ স্টার";
         if(userStats.level >= 80) starStr = "⭐⭐⭐⭐⭐⭐⭐ ৭ স্টার";
@@ -199,7 +261,6 @@
         document.getElementById('syncStarText').innerText = starStr;
     }
 
-    // পেজ লোড হওয়ার সাথে সাথে ডেটা সিঙ্ক করবে
     syncHomeStats();
 </script>
 
