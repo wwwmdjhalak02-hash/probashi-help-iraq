@@ -1,6 +1,6 @@
 /**
  * =================================================================
- * Probashi Help Iraq - Enterprise Guardian & Local-First State Engine (fix.js)
+ * Probashi Help Iraq - Enterprise Guardian & Local-First State Engine
  * Zero-API dependency, lightning-fast localStorage persistence & cross-page sync
  * =================================================================
  */
@@ -70,14 +70,16 @@ const PhiSystem = {
 
     // Guardian method to prevent broken links or missing elements across pages
     guardUI() {
-        document.addEventListener('DOMContentLoaded', () => {
-            // Ensure all internal links have valid targets
-            document.querySelectorAll('a').forEach(link => {
-                if (!link.getAttribute('href')) {
-                    link.setAttribute('href', '#');
-                }
+        if (typeof document !== 'undefined') {
+            document.addEventListener('DOMContentLoaded', () => {
+                // Ensure all internal links have valid targets
+                document.querySelectorAll('a').forEach(link => {
+                    if (!link.getAttribute('href')) {
+                        link.setAttribute('href', '#');
+                    }
+                });
             });
-        });
+        }
     }
 };
 
