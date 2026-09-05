@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>প্রবাসী সাহায্য - ইরাক | হোম পেজ</title>
+    <title>হোম ও হাব - প্রবাসী সাহায্য ইরাক</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -17,11 +17,42 @@
             background-color: var(--bg-primary);
             color: #f5f7fa;
             font-family: 'Hind Siliguri', system-ui, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 16px 16px 85px 16px; /* নিচের ন্যাভিগেশন বারের জন্য খালি জায়গা */
         }
+        /* ফিক্সড বটম ন্যাভিগেশন বার স্টাইল */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: #0b132b;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-around;
+            padding: 8px 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+        .nav-item {
+            text-align: center;
+            color: #94a3b8;
+            text-decoration: none;
+            font-size: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+        .nav-item span.icon { font-size: 18px; margin-bottom: 2px; }
+        .nav-item.active, .nav-item:hover { color: var(--accent-amber); }
     </style>
 </head>
-<body class="min-h-screen flex flex-col justify-between p-4 md:p-8">
-    <div class="max-w-2xl mx-auto w-full space-y-6">
+<body>
+    <div class="max-w-2xl mx-auto w-full space-y-5">
         <!-- Hero Header -->
         <div class="bg-slate-800 border border-slate-700 rounded-3xl p-6 md:p-8 text-center shadow-2xl relative overflow-hidden">
             <div class="absolute -right-10 -top-10 w-32 h-32 bg-amber-500/10 rounded-full blur-2xl"></div>
@@ -33,8 +64,8 @@
         </div>
 
         <!-- Quick Access Navigation Grid -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <a href="index.html" class="bg-slate-800/80 border border-slate-700 hover:border-amber-500/50 p-5 rounded-2xl transition flex items-center gap-4 group shadow-lg">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <a href="index.html" class="bg-slate-800/80 border border-slate-700 hover:border-amber-500/50 p-4 rounded-2xl transition flex items-center gap-4 group shadow-lg">
                 <div class="w-12 h-12 rounded-xl bg-amber-500/10 text-amber-500 flex items-center justify-center text-lg group-hover:scale-110 transition">
                     <i class="fas fa-user-shield"></i>
                 </div>
@@ -44,7 +75,7 @@
                 </div>
             </a>
 
-            <a href="agent-dashboard.html" class="bg-slate-800/80 border border-slate-700 hover:border-amber-500/50 p-5 rounded-2xl transition flex items-center gap-4 group shadow-lg">
+            <a href="agent-dashboard.html" class="bg-slate-800/80 border border-slate-700 hover:border-amber-500/50 p-4 rounded-2xl transition flex items-center gap-4 group shadow-lg">
                 <div class="w-12 h-12 rounded-xl bg-blue-500/10 text-blue-400 flex items-center justify-center text-lg group-hover:scale-110 transition">
                     <i class="fas fa-headset"></i>
                 </div>
@@ -54,7 +85,7 @@
                 </div>
             </a>
 
-            <a href="chat-support.html" class="bg-slate-800/80 border border-slate-700 hover:border-amber-500/50 p-5 rounded-2xl transition flex items-center gap-4 group shadow-lg">
+            <a href="chat-support.html" class="bg-slate-800/80 border border-slate-700 hover:border-amber-500/50 p-4 rounded-2xl transition flex items-center gap-4 group shadow-lg">
                 <div class="w-12 h-12 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center text-lg group-hover:scale-110 transition">
                     <i class="fas fa-comments"></i>
                 </div>
@@ -64,7 +95,7 @@
                 </div>
             </a>
 
-            <a href="gallery.html" class="bg-slate-800/80 border border-slate-700 hover:border-amber-500/50 p-5 rounded-2xl transition flex items-center gap-4 group shadow-lg">
+            <a href="gallery.html" class="bg-slate-800/80 border border-slate-700 hover:border-amber-500/50 p-4 rounded-2xl transition flex items-center gap-4 group shadow-lg">
                 <div class="w-12 h-12 rounded-xl bg-purple-500/10 text-purple-400 flex items-center justify-center text-lg group-hover:scale-110 transition">
                     <i class="fas fa-images"></i>
                 </div>
@@ -76,15 +107,51 @@
         </div>
 
         <!-- Admin Access Link -->
-        <div class="text-center pt-2">
+        <div class="text-center pt-1">
             <a href="admin.html" class="inline-flex items-center gap-2 text-xs text-slate-400 hover:text-amber-500 transition">
                 <i class="fas fa-lock"></i> অ্যাডমিন কন্ট্রোল প্যানেল প্রবেশ
             </a>
         </div>
     </div>
 
-    <footer class="text-center text-[11px] text-slate-500 mt-8">
+    <footer class="text-center text-[11px] text-slate-500 mt-6">
         &copy; 2026 Probashi Help Iraq • All Rights Reserved.
     </footer>
+
+    <!-- নিচের ন্যাভিগেশন বার -->
+    <div class="bottom-nav">
+        <a href="home.html" class="nav-item">
+            <span class="icon">🏠</span>
+            <span>হোম</span>
+        </a>
+        <a href="index.html" class="nav-item">
+            <span class="icon">👥</span>
+            <span>সোশ্যাল</span>
+        </a>
+        <a href="jobs.html" class="nav-item">
+            <span class="icon">💼</span>
+            <span>চাকরি</span>
+        </a>
+        <a href="notice.html" class="nav-item">
+            <span class="icon">📜</span>
+            <span>নোটিশ</span>
+        </a>
+        <a href="passport-status.html" class="nav-item">
+            <span class="icon">🛂</span>
+            <span>পাসপোর্ট</span>
+        </a>
+        <a href="track.html" class="nav-item">
+            <span class="icon">📍</span>
+            <span>ট্র্যাক</span>
+        </a>
+        <a href="chat-support.html" class="nav-item">
+            <span class="icon">💬</span>
+            <span>সাপোর্ট</span>
+        </a>
+        <a href="profile.html" class="nav-item">
+            <span class="icon">👤</span>
+            <span>প্রোফাইল</span>
+        </a>
+    </div>
 </body>
 </html>
