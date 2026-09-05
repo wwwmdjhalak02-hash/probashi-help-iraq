@@ -11,12 +11,42 @@
         :root {
             --bg-primary: #07111f;
             --accent-amber: #f59e0b;
+            --border-color: rgba(255, 255, 255, 0.09);
+            --text-muted: #94a3b8;
         }
         body {
             background-color: var(--bg-primary);
             color: #f5f7fa;
             font-family: 'Hind Siliguri', system-ui, sans-serif;
+            padding-bottom: 85px; /* নিচের ন্যাভিগেশন বারের জন্য জায়গা রাখা হয়েছে */
         }
+
+        /* ফিক্সড বটম ন্যাভিগেশন বার স্টাইল */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: #0b132b;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-around;
+            padding: 8px 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+        .nav-item {
+            text-align: center;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+        .nav-item span.icon { font-size: 18px; margin-bottom: 2px; }
+        .nav-item.active, .nav-item:hover { color: var(--accent-amber); }
     </style>
 </head>
 <body class="min-h-screen flex flex-col justify-between p-4 md:p-8">
@@ -112,6 +142,42 @@
     <!-- Footer Navigation -->
     <div class="text-center mt-8">
         <a href="home.html" class="text-amber-500 text-xs hover:underline"><i class="fas fa-home mr-1"></i> হোম পেজে ফিরে যান</a>
+    </div>
+
+    <!-- নিচের ন্যাভিগেশন বার -->
+    <div class="bottom-nav">
+        <a href="home.html" class="nav-item">
+            <span class="icon">🏠</span>
+            <span>হোম</span>
+        </a>
+        <a href="index.html" class="nav-item active">
+            <span class="icon">👥</span>
+            <span>সোশ্যাল</span>
+        </a>
+        <a href="jobs.html" class="nav-item">
+            <span class="icon">💼</span>
+            <span>চাকরি</span>
+        </a>
+        <a href="notice.html" class="nav-item">
+            <span class="icon">📜</span>
+            <span>নোটিশ</span>
+        </a>
+        <a href="passport-status.html" class="nav-item">
+            <span class="icon">🛂</span>
+            <span>পাসপোর্ট</span>
+        </a>
+        <a href="track.html" class="nav-item">
+            <span class="icon">📍</span>
+            <span>ট্র্যাক</span>
+        </a>
+        <a href="chat-support.html" class="nav-item">
+            <span class="icon">💬</span>
+            <span>সাপোর্ট</span>
+        </a>
+        <a href="profile.html" class="nav-item">
+            <span class="icon">👤</span>
+            <span>প্রোফাইল</span>
+        </a>
     </div>
 
     <script>
