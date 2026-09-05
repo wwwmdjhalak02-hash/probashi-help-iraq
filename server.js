@@ -148,6 +148,10 @@ app.get('/api/health', (req, res) => {
 // --- Frontend HTML Routing ---
 app.get('/admin', (req, res) => res.sendFile(path.join(__dirname, 'admin.html')));
 app.get('/dashboard', (req, res) => res.sendFile(path.join(__dirname, 'home.html')));
+app.get('/home', (req, res) => res.sendFile(path.join(__dirname, 'home.html')));
+app.get('/home.html', (req, res) => res.sendFile(path.join(__dirname, 'home.html')));
+app.get('/social', (req, res) => res.sendFile(path.join(__dirname, 'social.html')));
+app.get('/social.html', (req, res) => res.sendFile(path.join(__dirname, 'social.html')));
 app.get('/gallery', (req, res) => res.sendFile(path.join(__dirname, 'gallery.html')));
 app.get('/notice', (req, res) => res.sendFile(path.join(__dirname, 'notice.html')));
 app.get('/passport', (req, res) => res.sendFile(path.join(__dirname, 'passport-status.html')));
