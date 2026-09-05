@@ -1,38 +1,47 @@
-# Dependencies
+# ==========================================
+# PROBASHI HELP IRAQ - ENTERPRISE .GITIGNORE
+# ==========================================
+
+# Dependencies & Node Modules
 node_modules/
-/.pnp
+.pnp
 .pnp.js
 
-# Testing
+# Testing & Coverage Logs
 /coverage
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
-# Production
+# Production & Build Outputs
 /build
 /dist
+/.next/
+/out/
 
-# Misc
-.DS_Store
+# Environment & Secret Security Configuration (Crucial for .env protection)
 .env
 .env.local
 .env.development.local
 .env.test.local
 .env.production.local
 
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-
-# IDEs
+# IDE & Editor Specific Configurations (VS Code, JetBrains, etc.)
 .vscode/
 .idea/
 *.swp
 *.swo
 *~
 
-# OS
+# Operating System Junk Files (Windows & macOS)
 Thumbs.db
+ehthumbs.db
+Desktop.ini
 .DS_Store
+.AppleDouble
+.LSOverride
 
-# Logs
-logs/
-*.log
+# Local-First Storage & Cache Backup Backups
+*.local-cache
+*.tmp
