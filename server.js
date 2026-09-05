@@ -152,6 +152,8 @@ app.get('/gallery', (req, res) => res.sendFile(path.join(__dirname, 'gallery.htm
 app.get('/notice', (req, res) => res.sendFile(path.join(__dirname, 'notice.html')));
 app.get('/passport', (req, res) => res.sendFile(path.join(__dirname, 'passport-status.html')));
 app.get('/partner', (req, res) => res.sendFile(path.join(__dirname, 'partner.html')));
+app.get('/profile', (req, res) => res.sendFile(path.join(__dirname, 'profile.html')));
+app.get('/profile.html', (req, res) => res.sendFile(path.join(__dirname, 'profile.html')));
 app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'home.html')));
 
 // --- Global 404 Fallback Handler ---
