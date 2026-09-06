@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ইরাক প্রবাসী হেল্প - বিশ্বস্ত সহায়তা হাব</title>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Hind Siliguri', sans-serif; }
+        body { background-color: #0b132b; color: #ffffff; padding-bottom: 70px; }
+        .header { background: #1c2541; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #3a506b; }
+        .header h2 { font-size: 18px; color: #4cc9f0; }
+        .header-icons span { font-size: 20px; margin-left: 15px; cursor: pointer; }
+        
+        .user-card { background: #1c2541; margin: 15px; padding: 20px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
+        .user-title { font-size: 16px; font-weight: 600; color: #f77f00; margin-bottom: 5px; }
+        .user-status { font-size: 13px; color: #8d99ae; margin-bottom: 12px; }
+        .stats-row { display: flex; gap: 10px; }
+        .stat-box { background: #0b132b; padding: 10px; border-radius: 8px; text-align: center; flex: 1; border: 1px solid #28385e; }
+        .stat-box span { display: block; font-size: 12px; color: #8d99ae; }
+        .stat-box b { font-size: 15px; color: #4cc9f0; }
+
+        .post-box { background: #1c2541; margin: 15px; padding: 15px; border-radius: 12px; }
+        .post-box h3 { font-size: 15px; margin-bottom: 10px; color: #fff; }
+        .post-box textarea { width: 100%; background: #0b132b; border: 1px solid #3a506b; border-radius: 8px; padding: 10px; color: #fff; resize: none; height: 80px; font-size: 13px; }
+        .post-btn { background: #f77f00; color: #fff; border: none; width: 100%; padding: 10px; border-radius: 8px; font-weight: 600; margin-top: 10px; cursor: pointer; }
+
+        .feed-card { background: #1c2541; margin: 15px; padding: 15px; border-radius: 12px; }
+        .feed-header { display: flex; justify-content: space-between; font-size: 13px; color: #f77f00; margin-bottom: 8px; }
+        .feed-time { color: #8d99ae; font-size: 11px; }
+        .feed-text { font-size: 14px; color: #fff; line-height: 1.5; }
+
+        /* Bottom Navigation Bar */
+        .nav-bar { position: fixed; bottom: 0; left: 0; width: 100%; background: #0b132b; border-top: 1px solid #1c2541; display: flex; justify-content: space-around; padding: 10px 0; z-index: 1000; }
+        .nav-item { text-align: center; color: #8d99ae; text-decoration: none; font-size: 11px; }
+        .nav-item.active { color: #4cc9f0; }
+        .nav-item img { width: 22px; height: 22px; display: block; margin: 0 auto 3px; filter: grayscale(100%); }
+        .nav-item.active img { filter: brightness(0) saturate(100%) invert(71%) sepia(37%) saturate(1475%) hue-rotate(160deg) brightness(98%) contrast(96%); }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h2>🇮🇶 ইরাক প্রবাসী হেল্প</h2>
+        <div class="header-icons">
+            <span onclick="location.href='chat-support.html'">💬</span>
+            <span onclick="location.href='notice.html'">🔔</span>
+        </div>
+    </div>
+
+    <div class="user-card">
+        <div class="user-title">Md Zalak Mia (Active User)</div>
+        <div class="user-status">স্ট্যাটাস: ⭐ ১ স্টার</div>
+        <div class="stats-row">
+            <div class="stat-box">
+                <span>লেভেল</span>
+                <b>১ / ১০০</b>
+            </div>
+            <div class="stat-box">
+                <span>শেয়ার</span>
+                <b>০</b>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-box">
+        <h3>অভিজ্ঞতা বা তথ্য শেয়ার করুন</h3>
+        <textarea placeholder="আপনার মনের কথা লিখুন... (নম্বর, লিংক বা টাকার অংক সম্পূর্ণ নিষিদ্ধ)"></textarea>
+        <button class="post-btn">পোস্ট প্রকাশ করুন</button>
+    </div>
+
+    <div class="feed-card">
+        <div class="feed-header">
+            <span>প্রবাসী রফিক ভাই ⭐⭐⭐</span>
+            <span class="feed-time">১০ মিনিট আগে</span>
+        </div>
+        <div class="feed-text">
+            ইরাকের কর্মক্ষেত্রে কাজের ফাঁকে সবাই সাবধানে থাকবেন। যেকোনো সমস্যায় অ্যাপের মাধ্যমে যোগাযোগ করুন।
+        </div>
+    </div>
+
+    <!-- Bottom Navigation Bar -->
+    <div class="nav-bar">
+        <a href="index.html" class="nav-item active">
+            <img src="https://img.icons8.com/ios-filled/50/home.png" alt="Home">হোম
+        </a>
+        <a href="social.html" class="nav-item">
+            <img src="https://img.icons8.com/ios-filled/50/conference.png" alt="Social">সোশ্যাল
+        </a>
+        <a href="jobs.html" class="nav-item">
+            <img src="https://img.icons8.com/ios-filled/50/briefcase.png" alt="Jobs">চাকরি
+        </a>
+        <a href="notice.html" class="nav-item">
+            <img src="https://img.icons8.com/ios-filled/50/appointment-reminders.png" alt="Notice">নোটিশ
+        </a>
+        <a href="passport-status.html" class="nav-item">
+            <img src="https://img.icons8.com/ios-filled/50/passport.png" alt="Passport">পাসপোর্ট
+        </a>
+        <a href="track.html" class="nav-item">
+            <img src="https://img.icons8.com/ios-filled/50/map-pin.png" alt="Track">ট্রেক
+        </a>
+        <a href="chat-support.html" class="nav-item">
+            <img src="https://img.icons8.com/ios-filled/50/chat.png" alt="Support">সাপোর্ট
+        </a>
+        <a href="profile.html" class="nav-item">
+            <img src="https://img.icons8.com/ios-filled/50/user.png" alt="Profile">প্রোফাইল
+        </a>
+    </div>
+
+</body>
+</html>
